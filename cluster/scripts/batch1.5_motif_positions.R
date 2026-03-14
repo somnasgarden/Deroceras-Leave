@@ -35,12 +35,20 @@ library(TFBSTools)
 library(JASPAR2024)
 library(motifmatchr)
 
-# -- Paths (relative to project root) --
-# When running on cluster, set PROJECT_ROOT to where the project lives
+# -- Paths --
+# Project root (set via env var or default to cluster location)
 project_root <- Sys.getenv("PROJECT_ROOT",
                            "/mnt/c/Users/rafae/Projects/STANDBY")
 cache_dir    <- file.path(project_root, "genome/cache")
 out_dir      <- file.path(project_root, "cluster/results")
+
+# Cluster raw data paths (used if cache doesn't exist)
+cluster_data <- "/mnt/data/alfredvar"
+cluster_gff  <- file.path(cluster_data,
+  "30-Genoma/31-Alternative_Annotation_EviAnn",
+  "derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff")
+cluster_tf   <- file.path(cluster_data,
+  "rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 keep_chr <- paste0("chr", 1:31)

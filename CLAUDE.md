@@ -290,6 +290,23 @@ cluster/
   results/   — output from cluster jobs (copy back to results/batchNN/)
 ```
 
+### Cluster data paths
+
+`/mnt/data/alfredvar/` is the shared data root on the HPC.
+
+| File | Cluster path |
+|------|-------------|
+| CpG reports (`.gz`) | `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/09_methylation_calls/{C1,C2,A1,A2}.CpG_report.txt.gz` |
+| GFF annotation | `/mnt/data/alfredvar/30-Genoma/31-Alternative_Annotation_EviAnn/derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff` |
+| TE age data | `/mnt/data/alfredvar/30-Genoma/32-Repeats/age_of_transposons/collapsed_te_age_data.tsv` |
+| HTSeq counts | `/mnt/data/alfredvar/jmiranda/20-Transcriptomic_Bulk/25-metaAnalysisTranscriptome/counts_HTseq_EviAnn/` |
+| GENIE3 (full) | `/mnt/data/alfredvar/wgutierrez/genie3_2/genie3_all_links.tsv` |
+| DeepTFactor | `/mnt/data/alfredvar/rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt` |
+| STRING enrichment | `/mnt/data/alfredvar/rlopezt/Preliminary/protein.enrichment.terms.v12.0.txt` |
+| STRING orthology | Local only (`DATA/STRG0A31YWK.protein.orthology.v12.0.txt`) — no confirmed cluster path |
+
+**Note:** CpG reports are `.txt.gz` on cluster (compressed) vs `.txt` locally. GENIE3 is the full file on cluster (`genie3_all_links.tsv`) vs top 500K locally (`genie3_top500k.tsv`).
+
 ### How to run a cluster job
 
 1. **Write the script** in `cluster/scripts/`. Make it self-contained (loads its own data from RDS cache, no dependencies on local R session). Use `PROJECT_ROOT` env var for paths.

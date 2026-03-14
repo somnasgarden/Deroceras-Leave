@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html><head><meta charset='utf-8'>
+<title>Batch 1.5: TF & Motif Annotation</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+h1, h2, h3 { color: #2C3E50; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0; }
+th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+th { background-color: #34495E; color: white; }
+tr:nth-child(even) { background-color: #f2f2f2; }
+.metric { font-size: 1.3em; font-weight: bold; color: #2471A3; }
+img { max-width: 100%; border: 1px solid #ddd; margin: 10px 0; }
+.confirmed { color: #27AE60; font-weight: bold; }
+.orphan { color: #E74C3C; font-weight: bold; }
+</style></head><body>
+<h1>Batch 1.5: TF & Motif Annotation</h1>
+<p><em>D. laeve</em> genome-level TF and motif inventory | Generated: 2026-03-13</p>
+
+<h2>Summary</h2>
+<table>
+<tr><td>Total DeepTFactor TF mRNAs</td><td class='metric'>4824</td></tr>
+<tr><td>Unique TF genes (deduplicated)</td><td class='metric'>2217</td></tr>
+<tr><td>Classified TFs (with family)</td><td class='metric'>688</td></tr>
+<tr><td>Unclassified TFs</td><td class='metric'>1529</td></tr>
+<tr><td>TF families identified</td><td class='metric'>19</td></tr>
+<tr><td>JASPAR motifs scanned</td><td class='metric'>1362</td></tr>
+<tr><td>Promoters scanned (2 kb upstream)</td><td class='metric'>25,413</td></tr>
+<tr><td>Promoters with &ge;1 motif hit</td><td class='metric'>25,413 (100%)</td></tr>
+<tr><td>Confirmed TF families (TF + motif in genome)</td><td class='confirmed'>19</td></tr>
+<tr><td>Orphan TF families (motif not in promoters)</td><td class='orphan'>0</td></tr>
+<tr><td>Dark matter (TF family, no JASPAR motif)</td><td class='orphan'>0</td></tr>
+<tr><td>Orphan motif classes (in genome, no predicted TF)</td><td>19</td></tr>
+</table>
+
+<h2>Plot 1: TF Family Census</h2>
+<img src='png/tf_family_census.png'>
+
+<h2>Plot 2: Motif Prevalence (Top 30)</h2>
+<img src='png/motif_prevalence_top30.png'>
+
+<h2>Plot 3: Approach Comparison</h2>
+<img src='png/approach_comparison_tile.png'>
+
+<h2>Plot 4: DeepTFactor Score by Family</h2>
+<img src='png/deeptfactor_score_by_family.png'>
+
+<h2>TF Family × Motif Cross-Reference</h2>
+<table>
+<tr><th>TF Family</th><th>TFs</th><th>JASPAR Motif?</th><th>Motif in Genome?</th><th>Max Promoters</th></tr>
+<tr><td>bHLH</td><td>20</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>20,215</td></tr>
+<tr><td>bZIP</td><td>11</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>16,853</td></tr>
+<tr><td>C/EBP</td><td>3</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>16,758</td></tr>
+<tr><td>C2H2-ZF</td><td>430</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>24,896</td></tr>
+<tr><td>E2F</td><td>1</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>4,939</td></tr>
+<tr><td>ETS</td><td>9</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>10,744</td></tr>
+<tr><td>Forkhead</td><td>27</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>24,098</td></tr>
+<tr><td>GATA</td><td>5</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>19,393</td></tr>
+<tr><td>Homeodomain</td><td>105</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>25,253</td></tr>
+<tr><td>IRF</td><td>3</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>9,748</td></tr>
+<tr><td>KLF/Sp</td><td>6</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>12,636</td></tr>
+<tr><td>MYB</td><td>2</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>16,530</td></tr>
+<tr><td>NF-kB/Rel</td><td>2</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>20,666</td></tr>
+<tr><td>Nuclear receptor</td><td>38</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>14,467</td></tr>
+<tr><td>p53</td><td>2</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>3,509</td></tr>
+<tr><td>POU</td><td>5</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>22,647</td></tr>
+<tr><td>RUNX</td><td>2</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>7,531</td></tr>
+<tr><td>Sox/HMG</td><td>10</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>21,849</td></tr>
+<tr><td>T-box</td><td>7</td><td><span class='confirmed'>YES</span></td><td><span class='confirmed'>YES</span></td><td>5,557</td></tr>
+</table>
+
+<h2>Top 30 Most Prevalent Motifs</h2>
+<table>
+<tr><th>Motif</th><th>ID</th><th>Family</th><th>Promoters</th><th>%</th></tr>
+<tr><td>mirr</td><td>MA0233.1</td><td>TALE-type HD</td><td>25,253</td><td>99.4</td></tr>
+<tr><td>vis</td><td>MA0252.2</td><td>TALE-type homeo domain factors</td><td>24,914</td><td>98</td></tr>
+<tr><td>MEIS1</td><td>MA0498.3</td><td>TALE-type homeo domain factors</td><td>24,914</td><td>98</td></tr>
+<tr><td>pag-3</td><td>MA2150.1</td><td>More than 3 adjacent zinc fingers</td><td>24,896</td><td>98</td></tr>
+<tr><td>ceh-48</td><td>MA0921.2</td><td>HD-CUT</td><td>24,895</td><td>98</td></tr>
+<tr><td>ara</td><td>MA0210.1</td><td>TALE-type homeo domain factors</td><td>24,820</td><td>97.7</td></tr>
+<tr><td>caup</td><td>MA0217.1</td><td>TALE-type homeo domain factors</td><td>24,820</td><td>97.7</td></tr>
+<tr><td>Optix</td><td>MA0199.1</td><td>HD-SINE</td><td>24,646</td><td>97</td></tr>
+<tr><td>FoxE</td><td>MA1863.2</td><td>FOX</td><td>24,098</td><td>94.8</td></tr>
+<tr><td>FoxI-a</td><td>MA1866.2</td><td>FOX</td><td>24,098</td><td>94.8</td></tr>
+<tr><td>FoxM</td><td>MA1871.2</td><td>FOX</td><td>24,098</td><td>94.8</td></tr>
+<tr><td>sqz</td><td>MA2108.1</td><td>More than 3 adjacent zinc fingers</td><td>23,942</td><td>94.2</td></tr>
+<tr><td>Deaf1</td><td>MA0185.2</td><td>DEAF</td><td>22,756</td><td>89.5</td></tr>
+<tr><td>FoxI-c</td><td>MA1868.2</td><td>FOX</td><td>22,655</td><td>89.1</td></tr>
+<tr><td>Pou4</td><td>MA2116.1</td><td>POU domain factors</td><td>22,647</td><td>89.1</td></tr>
+<tr><td>FoxF</td><td>MA1864.2</td><td>FOX</td><td>22,432</td><td>88.3</td></tr>
+<tr><td>FoxG</td><td>MA1865.2</td><td>FOX</td><td>22,193</td><td>87.3</td></tr>
+<tr><td>Arid3a</td><td>MA0151.1</td><td>ARID-related</td><td>21,965</td><td>86.4</td></tr>
+<tr><td>SoxB2</td><td>MA1916.2</td><td>SOX-related factors</td><td>21,849</td><td>86</td></tr>
+<tr><td>SoxC</td><td>MA1917.2</td><td>SOX-related factors</td><td>21,849</td><td>86</td></tr>
+<tr><td>SoxF</td><td>MA1918.2</td><td>SOX-related factors</td><td>21,849</td><td>86</td></tr>
+<tr><td>FoxD-b</td><td>MA1862.2</td><td>FOX</td><td>21,801</td><td>85.8</td></tr>
+<tr><td>FoxK</td><td>MA1869.2</td><td>FOX</td><td>21,801</td><td>85.8</td></tr>
+<tr><td>Arid3</td><td>MA2109.1</td><td>ARID-related</td><td>20,772</td><td>81.7</td></tr>
+<tr><td>Pax6</td><td>MA2115.1</td><td>Paired plus homeo domain</td><td>20,772</td><td>81.7</td></tr>
+<tr><td>PHDP</td><td>MA0457.2</td><td>Paired-related HD factors</td><td>20,772</td><td>81.7</td></tr>
+<tr><td>lim-7</td><td>MA1441.2</td><td>HD-LIM</td><td>20,772</td><td>81.7</td></tr>
+<tr><td>Atbf</td><td>MA1844.2</td><td>HOX</td><td>20,772</td><td>81.7</td></tr>
+<tr><td>Hex</td><td>MA1879.2</td><td>?</td><td>20,772</td><td>81.7</td></tr>
+<tr><td>Hmbox1</td><td>MA1881.2</td><td>POU domain factors</td><td>20,772</td><td>81.7</td></tr>
+</table>
+
+<h2>Orphan Motif Classes (in genome, no predicted TF)</h2>
+<ul>
+<li>DEAF</li>
+<li>ARID-related</li>
+<li>CSL-related factors</li>
+<li>Nuclear factor 1</li>
+<li>DMRT factors</li>
+<li>tesmin/TSO1-family</li>
+<li>TBP-related factors</li>
+<li>Regulators of differentiation</li>
+<li>THAP-related factors</li>
+<li>Heteromeric CCAAT-binding</li>
+<li>CP2-related factors</li>
+<li>Early B-Cell Factor-related factors</li>
+<li>EBF-related</li>
+<li>Grainyhead-related factors</li>
+<li>GMEB</li>
+<li>HSF factors</li>
+<li>RFX-related factors</li>
+<li>GCM</li>
+<li>Responders to external signals (SRF/RLM1)</li>
+</ul>
+
+<h2>Limitations</h2>
+<ul>
+<li>No mollusk-specific motifs in JASPAR &mdash; using insect/nematode/urochordate as proxy</li>
+<li>1529 TFs (69%) remain unclassified (no informative annotation)</li>
+<li>STRING orthology enriches classification but does not resolve all unknowns</li>
+<li>Motif scanning uses PWM p-value threshold 5e-5 &mdash; tradeoff between sensitivity and specificity</li>
+</ul>
+
+</body></html>

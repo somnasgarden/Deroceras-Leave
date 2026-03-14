@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Batch 02: Methylation Machinery</title>
+<style>
+  body { font-family: "Segoe UI", Arial, sans-serif; max-width: 1100px; margin: 40px auto; padding: 0 20px; color: #333; }
+  h1 { color: #2c3e50; border-bottom: 2px solid #2471A3; padding-bottom: 10px; }
+  h2 { color: #2471A3; margin-top: 30px; }
+  table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 13px; }
+  th { background: #2471A3; color: white; padding: 8px 10px; text-align: left; }
+  td { padding: 5px 10px; border-bottom: 1px solid #ddd; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  img { max-width: 100%; border: 1px solid #ddd; margin: 10px 0; }
+  .key-finding { background: #eaf2f8; padding: 12px; border-left: 4px solid #2471A3; margin: 15px 0; }
+</style>
+</head><body>
+<h1>Batch 02: Methylation Machinery in <em>D. laeve</em></h1>
+<p><strong>Question:</strong> Does <em>D. laeve</em> possess a functional DNA methylation toolkit, and how is it expressed across tissues?</p>
+
+<h2>1. Genome Presence/Absence</h2>
+<p>Presence (green) or absence (black) of methylation machinery genes in the <em>D. laeve</em> genome (chr1&ndash;31). Notable absences: DNMT3A/B/L (no de novo methyltransferase), TET1, MeCP2, MBD1, MBD3.</p>
+<img src="png/methylation_toolkit_presence.png" alt="Presence/absence">
+
+<h2>2. Expression Across Tissues</h2>
+<p>VST-normalized expression of 18 methylation machinery genes across 6 tissues (control samples only, IQR outliers removed).</p>
+<img src="png/methylation_machinery_expression.png" alt="Expression by tissue">
+
+<h2>3. Expression Heatmap</h2>
+<p>Z-scored VST expression of all 18 methylation machinery genes. Rows clustered by expression similarity, columns ordered anatomically.</p>
+<img src="png/methylation_toolkit_heatmap.png" alt="Heatmap">
+
+<h2>4. Expression Summary</h2>
+<table>
+<tr><th>Gene</th><th>ID</th><th>Category</th><th>Head</th><th>Eye</th><th>Body Wall</th><th>Tail</th><th>Juvenile</th><th>Ovotestis</th></tr>
+<tr><td><em>DNMT1</em></td><td>LOC_00009210</td><td>Writer</td><td>7.43</td><td>7.7</td><td>7.9</td><td>8.88</td><td>6.35</td><td>12.73</td></tr>
+<tr><td><em>TET2</em></td><td>LOC_00008803</td><td>Eraser</td><td>8.57</td><td>9.25</td><td>8.62</td><td>9.26</td><td>8.79</td><td>10.67</td></tr>
+<tr><td><em>TET3</em></td><td>LOC_00017436</td><td>Eraser</td><td>8.31</td><td>8.65</td><td>8.97</td><td>8.7</td><td>9.15</td><td>7.36</td></tr>
+<tr><td><em>CFP1</em></td><td>LOC_00024130</td><td>Reader</td><td>8.61</td><td>8.25</td><td>8.18</td><td>7.91</td><td>8.74</td><td>10.12</td></tr>
+<tr><td><em>MBD2</em></td><td>LOC_00005931</td><td>Reader</td><td>9.49</td><td>9.2</td><td>9.02</td><td>8.66</td><td>10.36</td><td>9.16</td></tr>
+<tr><td><em>MBD4</em></td><td>LOC_00023929</td><td>Reader</td><td>10.26</td><td>9.4</td><td>10.07</td><td>9.63</td><td>9.7</td><td>13.78</td></tr>
+<tr><td><em>UHRF1_1</em></td><td>LOC_00011698</td><td>Recruiter</td><td>9.14</td><td>9.35</td><td>9.56</td><td>9.79</td><td>8.86</td><td>12.67</td></tr>
+<tr><td><em>UHRF1_2</em></td><td>LOC_00017302</td><td>Recruiter</td><td>6.54</td><td>6.43</td><td>7.13</td><td>7.5</td><td>6.5</td><td>9.58</td></tr>
+<tr><td><em>APEX1</em></td><td>LOC_00000327</td><td>BER</td><td>9.58</td><td>9.28</td><td>9.35</td><td>10</td><td>8.15</td><td>12.09</td></tr>
+<tr><td><em>TDG_1</em></td><td>LOC_00018573</td><td>BER</td><td>9.66</td><td>9.15</td><td>9.11</td><td>9.2</td><td>9.3</td><td>8.46</td></tr>
+<tr><td><em>TDG_2</em></td><td>LOC_00024530</td><td>BER</td><td>8.47</td><td>8.39</td><td>7.95</td><td>8.38</td><td>8.53</td><td>8.53</td></tr>
+<tr><td><em>GADD45B</em></td><td>LOC_00012796</td><td>Demethylation</td><td>8.06</td><td>8.12</td><td>8.88</td><td>8.27</td><td>8.03</td><td>7.48</td></tr>
+<tr><td><em>GADD45G_1</em></td><td>LOC_00002628</td><td>Demethylation</td><td>7.39</td><td>7.48</td><td>8.73</td><td>7.78</td><td>7.67</td><td>6.5</td></tr>
+<tr><td><em>GADD45G_2</em></td><td>LOC_00012923</td><td>Demethylation</td><td>8.79</td><td>8.23</td><td>9.4</td><td>8.7</td><td>7.54</td><td>9.78</td></tr>
+<tr><td><em>GADD45GIP1</em></td><td>LOC_00002413</td><td>Demethylation</td><td>9.71</td><td>8.85</td><td>8.83</td><td>8.42</td><td>10</td><td>11.19</td></tr>
+<tr><td><em>HELLS_1</em></td><td>LOC_00010497</td><td>Remodeler</td><td>7.13</td><td>7.14</td><td>7.43</td><td>7.7</td><td>6.25</td><td>11.31</td></tr>
+<tr><td><em>HELLS_2</em></td><td>LOC_00013941</td><td>Remodeler</td><td>4.91</td><td>4.56</td><td>4.48</td><td>4.49</td><td>4.62</td><td>6.53</td></tr>
+<tr><td><em>HDAC2</em></td><td>LOC_00003192</td><td>Deacetylase</td><td>10.57</td><td>10.48</td><td>10.86</td><td>11.25</td><td>10.08</td><td>12.82</td></tr>
+</table>
+
+<h2>5. Key Findings</h2>
+<div class="key-finding">
+<ul>
+<li><strong>DNMT1</strong> present, <strong>no DNMT3</strong> &mdash; maintenance-only methylation, no de novo writer.</li>
+<li><strong>TET2 + TET3</strong> &mdash; active demethylation pathway complete.</li>
+<li><strong>TDG + APEX1 + GADD45 family</strong> &mdash; base excision repair (BER) demethylation pathway present.</li>
+<li><strong>HELLS (×2)</strong> &mdash; chromatin remodeler that facilitates DNA methylation present.</li>
+<li><strong>UHRF1 (×2) + CFP1</strong> &mdash; methylation readers/recruiters present.</li>
+<li><strong>Absent: DNMT3A/B/L, TET1, MeCP2, MBD1, MBD3</strong> &mdash; streamlined toolkit compared to vertebrates.</li>
+</ul>
+</div>
+</body></html>

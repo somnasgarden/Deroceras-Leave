@@ -1,0 +1,13 @@
+Package: BSgenome.Dlaeve.NCBI.ASM5140357v1
+Title: Full genomic sequences for Deroceras laeve (NCBI assembly ASM5140357v1)
+Description: Full genomic sequences for Deroceras laeve as provided by NCBI (assembly ASM5140357v1, assembly accession GCA_051403575.1). The sequences are stored in DNAString objects.
+Version: 1.0.0
+Author: rlopezt <rafae@users.noreply.github.com>
+Maintainer: rlopezt <rafae@users.noreply.github.com>
+Depends: R (>= 4.2.0), GenomeInfoDb (>= 1.34.9), BSgenome (>= 1.66.1)
+Suggests: BSgenomeForge
+License: Artistic-2.0
+organism: Deroceras laeve
+provider: NCBI
+genome: ASM5140357v1
+biocViews: AnnotationData, Genetics, BSgenome, Deroceras_laeve

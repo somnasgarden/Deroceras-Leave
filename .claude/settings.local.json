@@ -1,0 +1,45 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /mnt/c/Users/rafae/Projects/STANDBY -type f -name \"*.R\" -o -name \"*.Rmd\" -o -name \"*.md\" -o -name \".gitignore\" -o -name \".github\" 2>/dev/null | head -50)",
+      "Bash(tar -xvj -C /tmp/claude-1000/ bin/micromamba)",
+      "Bash(export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba && /tmp/claude-1000/bin/micromamba create -n renv -y -c conda-forge -c bioconda r-base=4.4 bioconductor-bsgenome bioconductor-biostrings 2>&1 | tail -5)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && Rscript /mnt/c/Users/rafae/Projects/STANDBY/r_genome_pipeline.R 2>&1)",
+      "WebSearch",
+      "WebFetch(domain:pmc.ncbi.nlm.nih.gov)",
+      "WebFetch(domain:www.ncbi.nlm.nih.gov)",
+      "Bash(curl -s \"https://api.ncbi.nlm.nih.gov/datasets/v2/genome/taxon/deroceras%20laeve\" 2>/dev/null | head -200)",
+      "Bash(curl -s \"https://api.ncbi.nlm.nih.gov/datasets/v2alpha/genome/taxon/deroceras%20laeve/dataset_report\" -H \"Accept: application/json\" 2>/dev/null | head -500)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && mkdir -p /tmp/claude-1000/rlibs && Rscript -e 'install.packages\\(\"BiocManager\", repos=\"https://cloud.r-project.org\", lib=\"/tmp/claude-1000/rlibs\"\\)' 2>&1 | tail -5)",
+      "Bash(export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba && /tmp/claude-1000/bin/micromamba install -n renv -y -c conda-forge -c bioconda bioconductor-bsgenomeforge 2>&1 | tail -10)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && Rscript -e '\nlibrary\\(BSgenomeForge\\)\nforgeBSgenomeDataPkgFromNCBI\\(\n  assembly_accession = \"GCA_051403575.1\",\n  pkg_maintainer = \"rlopezt <rafae@users.noreply.github.com>\",\n  organism = \"Deroceras laeve\",\n  destdir = \"/mnt/c/Users/rafae/Projects/STANDBY\"\n\\)\n' 2>&1)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && Rscript -e '\nlibrary\\(BSgenomeForge\\)\nforgeBSgenomeDataPkgFromNCBI\\(\n  assembly_accession = \"GCA_051403575.1\",\n  pkg_maintainer = \"rlopezt <rafae@users.noreply.github.com>\",\n  organism = \"Deroceras laeve\",\n  circ_seqs = character\\(0\\),\n  destdir = \"/mnt/c/Users/rafae/Projects/STANDBY\"\n\\)\n' 2>&1)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && Rscript -e '\noptions\\(timeout = 600\\)\nlibrary\\(BSgenomeForge\\)\nforgeBSgenomeDataPkgFromNCBI\\(\n  assembly_accession = \"GCA_051403575.1\",\n  pkg_maintainer = \"rlopezt <rafae@users.noreply.github.com>\",\n  organism = \"Deroceras laeve\",\n  circ_seqs = character\\(0\\),\n  destdir = \"/mnt/c/Users/rafae/Projects/STANDBY\"\n\\)\n' 2>&1)",
+      "Bash(rm -f /mnt/c/Users/rafae/Projects/STANDBY/GCA_051403575.1_ASM5140357v1_genomic.fna.gz && ls /mnt/c/Users/rafae/Projects/STANDBY/GCA_* 2>/dev/null || echo \"Cleaned up\")",
+      "WebFetch(domain:ftp.ncbi.nlm.nih.gov)",
+      "Bash(ln -sf /tmp/claude-1000 /tmp/claude 2>/dev/null; export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba TMPDIR=/tmp/claude-1000 && /tmp/claude-1000/bin/micromamba create -p /tmp/claude-1000/mamba/envs/renv -y -c conda-forge -c bioconda r-base=4.4 bioconductor-genomicranges bioconductor-rtracklayer bioconductor-biostrings bioconductor-bsgenomeforge 2>&1 | tail -15)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && mkdir -p /tmp/claude-1000/rlibs && Rscript -e 'install.packages\\(\"/mnt/c/Users/rafae/Projects/STANDBY/genome/BSgenome.Dlaeve.NCBI.ASM5140357v1\", repos=NULL, type=\"source\", lib=\"/tmp/claude-1000/rlibs\"\\)' 2>&1 | tail -5)",
+      "WebFetch(domain:conda.anaconda.org)",
+      "WebFetch(domain:micro.mamba.pm)",
+      "WebFetch(domain:api.anaconda.org)",
+      "WebFetch(domain:binstar-cio-packages-prod.s3.amazonaws.com)",
+      "Bash(export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba && /tmp/claude-1000/bin/micromamba create -n renv -y -c conda-forge -c bioconda r-base=4.4 r-ggplot2 r-data.table r-cairo bioconductor-genomicranges bioconductor-rtracklayer bioconductor-biostrings bioconductor-genomeinfodb 2>&1 | tail -10)",
+      "WebFetch(domain:bioconductor.org)",
+      "WebFetch(domain:mghp.osn.xsede.org)",
+      "Bash(export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba && /tmp/claude-1000/bin/micromamba create -n renv -y -c conda-forge -c bioconda r-base=4.4 r-ggplot2 r-dplyr r-tidyr r-data.table r-rcolorbrewer r-scales r-ggrepel r-patchwork r-pheatmap r-reshape2 r-stringr r-gridextra r-cairo bioconductor-genomicranges bioconductor-rtracklayer bioconductor-biostrings bioconductor-genomicfeatures bioconductor-bsseq bioconductor-deseq2 bioconductor-complexheatmap r-wgcna 2>&1 | tail -5)",
+      "WebFetch(domain:jaspar.elixir.no)",
+      "WebFetch(domain:greenleaflab.github.io)",
+      "Bash(mkdir -p /tmp/claude-1000/bin && curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj -C /tmp/claude-1000/ bin/micromamba 2>&1 | tail -1)",
+      "Bash(export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba && /tmp/claude-1000/bin/micromamba create -n renv -y -c conda-forge -c bioconda \\\\\n  r-base=4.4 r-ggplot2 r-dplyr r-tidyr r-data.table r-rcolorbrewer r-scales \\\\\n  r-ggrepel r-patchwork r-pheatmap r-reshape2 r-stringr r-gridextra r-cairo \\\\\n  r-infotheo r-entropy r-corrplot r-circlize \\\\\n  bioconductor-genomicranges bioconductor-rtracklayer bioconductor-biostrings \\\\\n  bioconductor-genomicfeatures bioconductor-bsseq bioconductor-deseq2 \\\\\n  bioconductor-complexheatmap bioconductor-chipseeker bioconductor-clusterprofiler \\\\\n  bioconductor-genomation bioconductor-gviz bioconductor-tfbstools \\\\\n  r-wgcna \\\\\n  bioconductor-jaspar2024 bioconductor-motifmatchr bioconductor-universalmotif \\\\\n  r-rsqlite 2>&1 | tail -5)",
+      "WebFetch(domain:testjaspar.uio.no)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && mkdir -p /tmp/claude-1000/bioc_cache && Rscript -e '\nSys.setenv\\(XDG_CACHE_HOME = \"/tmp/claude-1000/bioc_cache\"\\)\nlibrary\\(JASPAR2024\\)\nlibrary\\(TFBSTools\\)\ndb <- JASPAR2024\\(\\)\ncat\\(\"DB class:\", class\\(db\\), \"\\\\n\"\\)\nopts <- list\\(collection = \"CORE\", tax_group = \"metazoa\", all_versions = FALSE\\)\npfms <- getMatrixSet\\(db, opts\\)\ncat\\(\"Motifs loaded:\", length\\(pfms\\), \"\\\\n\"\\)\n' 2>&1)",
+      "Bash(export PATH=\"/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH\" TMPDIR=/tmp/claude-1000 R_LIBS_SITE=\"/tmp/claude-1000/mamba/envs/renv/lib/R/library\" R_LIBS_USER=\"/tmp/claude-1000/rlibs\" && Rscript -e '\nSys.setenv\\(XDG_CACHE_HOME = \"/tmp/claude-1000/bioc_cache\"\\)\nlibrary\\(JASPAR2024\\)\nlibrary\\(TFBSTools\\)\ndb <- JASPAR2024\\(\\)\n# Try to find the sqlite path\ncat\\(\"Slots:\", slotNames\\(db\\), \"\\\\n\"\\)\n# Try direct sqlite path\nsqlite_path <- find.files <- list.files\\(\"/tmp/claude-1000/bioc_cache\", pattern=\"JASPAR.*sqlite\", recursive=TRUE, full.names=TRUE\\)\ncat\\(\"SQLite files:\", sqlite_path, \"\\\\n\"\\)\n' 2>&1)",
+      "WebFetch(domain:rdrr.io)",
+      "Bash(export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba && /tmp/claude-1000/bin/micromamba create -n renv -y -c conda-forge -c bioconda \\\\\n  r-base=4.4 r-ggplot2 r-dplyr r-tidyr r-data.table r-rcolorbrewer r-scales \\\\\n  r-ggrepel r-patchwork r-pheatmap r-reshape2 r-stringr r-gridextra r-cairo \\\\\n  r-infotheo r-entropy r-corrplot r-circlize \\\\\n  bioconductor-genomicranges bioconductor-rtracklayer bioconductor-biostrings \\\\\n  bioconductor-genomicfeatures bioconductor-bsseq bioconductor-deseq2 \\\\\n  bioconductor-complexheatmap bioconductor-chipseeker bioconductor-clusterprofiler \\\\\n  bioconductor-genomation bioconductor-gviz bioconductor-tfbstools \\\\\n  bioconductor-jaspar2024 bioconductor-motifmatchr bioconductor-universalmotif \\\\\n  r-rsqlite r-wgcna 2>&1 | tail -5)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
+}

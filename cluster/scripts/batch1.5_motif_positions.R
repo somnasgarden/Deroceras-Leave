@@ -36,25 +36,18 @@ library(JASPAR2024)
 library(motifmatchr)
 
 # -- Paths --
-# Project root (set via env var or default to cluster location)
-project_root <- Sys.getenv("PROJECT_ROOT",
-                           "/mnt/c/Users/rafae/Projects/STANDBY")
-cache_dir    <- file.path(project_root, "genome/cache")
-out_dir      <- file.path(project_root, "cluster/results")
-
-# Cluster raw data paths (used if cache doesn't exist)
-cluster_data <- "/mnt/data/alfredvar"
-cluster_gff  <- file.path(cluster_data,
-  "30-Genoma/31-Alternative_Annotation_EviAnn",
-  "derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff")
-cluster_tf   <- file.path(cluster_data,
-  "rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt")
+# cluster/ is the self-contained root when running on the HPC.
+# Set CLUSTER_ROOT to override (defaults to parent of this script's dir).
+cluster_root <- Sys.getenv("CLUSTER_ROOT", getwd())
+cache_dir    <- file.path(cluster_root, "genome/cache")
+out_dir      <- file.path(cluster_root, "results")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 keep_chr <- paste0("chr", 1:31)
 
 cat("=== Motif Coordinate Export (Cluster) ===\n")
-cat("Project root:", project_root, "\n")
+cat("Cluster root:", cluster_root, "\n")
+cat("Cache dir:", cache_dir, "\n")
 cat("Output dir:", out_dir, "\n")
 cat("Available RAM:", system("free -h | grep Mem | awk '{print $2}'", intern = TRUE), "\n\n")
 

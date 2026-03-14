@@ -304,16 +304,28 @@ cluster/
 | DeepTFactor | `/mnt/data/alfredvar/rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt` |
 | STRING enrichment | `/mnt/data/alfredvar/rlopezt/Preliminary/protein.enrichment.terms.v12.0.txt` |
 | STRING orthology | Local only (`DATA/STRG0A31YWK.protein.orthology.v12.0.txt`) — no confirmed cluster path |
+| Genome FASTA | Copied to cluster (path TBD — user copied manually) |
 
 **Note:** CpG reports are `.txt.gz` on cluster (compressed) vs `.txt` locally. GENIE3 is the full file on cluster (`genie3_all_links.tsv`) vs top 500K locally (`genie3_top500k.tsv`).
 
+### Structure
+
+`cluster/` is self-contained — only this folder goes to the HPC.
+
+```
+cluster/
+  genome/cache/  — RDS cache files (genome, GFF, promoters)
+  scripts/       — R scripts + SLURM submission files
+  results/       — output (copy back to local results/batchNN/)
+```
+
 ### How to run a cluster job
 
-1. **Write the script** in `cluster/scripts/`. Make it self-contained (loads its own data from RDS cache, no dependencies on local R session). Use `PROJECT_ROOT` env var for paths.
+1. **Write the script** in `cluster/scripts/`. Make it self-contained. Use `CLUSTER_ROOT` env var for paths (defaults to `cluster/`).
 2. **Write a SLURM file** in `cluster/scripts/`. Request adequate RAM (32 GB typical). Set `--partition` to your cluster's queue.
-3. **Copy to cluster**: the whole STANDBY project (or at minimum `genome/cache/*.rds` + `cluster/`).
-4. **Submit**: `sbatch cluster/scripts/job_name.slurm`
-5. **Copy results back**: `cluster/results/*` → `results/batchNN/`
+3. **Copy `cluster/` to the HPC.** Ensure `genome/cache/*.rds` are in place.
+4. **`cd` into `cluster/`**, then `sbatch scripts/job_name.slurm`
+5. **Copy results back**: `cluster/results/*` → local `results/batchNN/`
 
 ### Rules
 

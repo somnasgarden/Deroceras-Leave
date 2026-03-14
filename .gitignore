@@ -5,6 +5,7 @@ genome/*.fna.gz
 genome/*.2bit
 genome/cache/*.rds
 genome/BSgenome.*
+cluster/genome/
 
 # General
 *.RData

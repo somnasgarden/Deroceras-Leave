@@ -337,5 +337,6 @@ cluster/
 
 ## Git
 
+- Remote: `https://github.com/somnasgarden/Deroceras-Leave.git`
 - Author: `GIT_AUTHOR_NAME="rlopezt" GIT_AUTHOR_EMAIL="rafae@users.noreply.github.com"`
 - Push fails in sandbox — user pushes manually

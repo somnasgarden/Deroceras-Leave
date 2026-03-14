@@ -1,0 +1,13 @@
+﻿# Large genome/data files
+genome/*.fasta
+genome/*.fa
+genome/*.fna.gz
+genome/*.2bit
+genome/cache/*.rds
+genome/BSgenome.*
+
+# General
+*.RData
+*.rds
+*.bam
+*.bai

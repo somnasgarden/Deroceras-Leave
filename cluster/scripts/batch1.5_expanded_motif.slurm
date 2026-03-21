@@ -13,7 +13,17 @@ set -euo pipefail
 #   cd cluster && sbatch scripts/batch1.5_expanded_motif.slurm
 # ============================================================
 
-CLUSTER_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+# SLURM copies the script, so dirname($0) won't work.
+# Use SLURM_SUBMIT_DIR (where you ran sbatch) to find cluster root.
+# Run as: cd cluster && sbatch scripts/batch1.5_expanded_motif.slurm
+#    or:  cd cluster/scripts && sbatch batch1.5_expanded_motif.slurm
+if [ -f "${SLURM_SUBMIT_DIR}/scripts/batch1.5_expanded_motif.R" ]; then
+  CLUSTER_ROOT="$SLURM_SUBMIT_DIR"
+elif [ -f "${SLURM_SUBMIT_DIR}/batch1.5_expanded_motif.R" ]; then
+  CLUSTER_ROOT="$(dirname "$SLURM_SUBMIT_DIR")"
+else
+  CLUSTER_ROOT="$(dirname "$SLURM_SUBMIT_DIR")"
+fi
 cd "$CLUSTER_ROOT"
 export CLUSTER_ROOT
 export XDG_CACHE_HOME="${CLUSTER_ROOT}/.cache"

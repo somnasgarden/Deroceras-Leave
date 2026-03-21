@@ -39,10 +39,19 @@ genome_rds <- file.path(cache_dir, "genome_chr1_31.rds")
 if (file.exists(genome_rds)) {
   cat("Loading genome from cache...\n")
   genome <- readRDS(genome_rds)
-} else {
+} else if (file.exists(genome_fasta)) {
   cat("Parsing genome FASTA (first run, will cache)...\n")
   genome <- readDNAStringSet(genome_fasta)
   saveRDS(genome, genome_rds)
+} else {
+  cat("No FASTA found. Loading from BSgenome...\n")
+  library(BSgenome.Dlaeve.NCBI.dlgm)
+  bsg <- BSgenome.Dlaeve.NCBI.dlgm
+  genome <- getSeq(bsg, intersect(keep_chr, seqnames(bsg)))
+  names(genome) <- intersect(keep_chr, seqnames(bsg))
+  cat("Caching genome RDS...\n")
+  saveRDS(genome, genome_rds)
+  rm(bsg); gc(verbose = FALSE)
 }
 cat("Genome loaded:", length(genome), "sequences\n")
 
@@ -489,6 +498,21 @@ chr_region_stats$region <- factor(chr_region_stats$region,
                                   levels = c("Promoter", "Gene body", "Exon",
                                              "Intron", "TE", "Intergenic"))
 
+# Remove outlier chromosomes: those with < 10 kb total region size per type
+# Small regions give noisy O/E estimates that distort density curves
+chr_region_stats <- chr_region_stats[!is.na(chr_region_stats$cpg_oe), ]
+chr_len_check <- do.call(rbind, lapply(names(regions_list), function(nm) {
+  reg <- trim(regions_list[[nm]])
+  reg <- reg[width(reg) > 0]
+  do.call(rbind, lapply(names(genome), function(chr_name) {
+    chr_reg <- reg[seqnames(reg) == chr_name]
+    data.frame(region = gsub("_", " ", nm), chr = chr_name,
+               total_bp = sum(as.numeric(width(chr_reg))))
+  }))
+}))
+chr_region_stats <- merge(chr_region_stats, chr_len_check, by = c("region", "chr"))
+chr_region_stats <- chr_region_stats[chr_region_stats$total_bp >= 10000, ]
+
 # CpG O/E density curve — X = O/E, Y = density, one curve per region
 p_oe_dist <- ggplot(chr_region_stats, aes(x = cpg_oe, fill = region, color = region)) +
   geom_density(alpha = 0.3, linewidth = 0.8) +
@@ -620,6 +644,20 @@ te_chr_stats <- do.call(rbind, lapply(keep_classes, function(cls) {
     data.frame(te_class = cls, chr = chr_name, cpg_per_kb = n_cpg / (len / 1000), cpg_oe = oe)
   }))
 }))
+
+# Filter out chromosomes with < 10 kb of TE per class (noisy O/E)
+te_chr_stats <- te_chr_stats[!is.na(te_chr_stats$cpg_oe), ]
+te_chr_bp <- do.call(rbind, lapply(keep_classes, function(cls) {
+  cls_gr <- reduce(te_gr[te_gr$te_class == cls])
+  cls_gr <- trim(cls_gr); cls_gr <- cls_gr[width(cls_gr) > 0]
+  do.call(rbind, lapply(names(genome), function(chr_name) {
+    chr_reg <- cls_gr[seqnames(cls_gr) == chr_name]
+    data.frame(te_class = cls, chr = chr_name,
+               total_bp = sum(as.numeric(width(chr_reg))))
+  }))
+}))
+te_chr_stats <- merge(te_chr_stats, te_chr_bp, by = c("te_class", "chr"))
+te_chr_stats <- te_chr_stats[te_chr_stats$total_bp >= 10000, ]
 
 te_chr_stats$te_class <- factor(te_chr_stats$te_class, levels = levels(te_family_stats$te_class))
 

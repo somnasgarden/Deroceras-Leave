@@ -12,3 +12,4 @@ cluster/genome/
 *.rds
 *.bam
 *.bai
+.mamba/

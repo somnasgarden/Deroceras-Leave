@@ -147,21 +147,38 @@ All code must be in R. Assume NOTHING is correct until you run it and see the ou
 
 ## Project layout
 
-- **Scripts live with their batch**: `scripts/batchNN/script_name.R` (e.g. `scripts/batch01/genome_characterization.R`)
-- **Results live in a matching folder**: `results/batchNN/{pdf/, png/, *_report.html}`
-- **Prerequisite scripts** stay in `scripts/00_setup/`
-- **No `figures/` folder.** All output goes in `results/`.
-- Inside each batch folder:
-  - `pdf/` — PDF versions of all plots (cairo_pdf)
-  - `png/` — PNG versions of all plots (300 DPI)
-  - `*_report.html` — HTML report with tables and embedded `<img src="png/filename.png">` images
+```
+STANDBY/
+  local/scripts/       — R scripts that run locally (Windows R)
+    batch01/            — genome characterization
+    batch02/            — methylation machinery
+    batch03/            — baseline methylome
+    batch1.5/           — TF motif annotation (local part)
+    methylation_tutorial/ — DSS tutorial pipeline
+    00_setup/           — prerequisite scripts
+  cluster/scripts/     — R scripts + SLURM for HPC
+  results/             — ALL output organized by batch
+    batchNN/
+      data/            — TSV, RDS output files
+      png/             — PNG plots (300 DPI)
+      pdf/             — PDF plots (cairo_pdf)
+      *_report.html    — HTML report
+  papers/              — Reference PDFs organized by batch
+    batch01/ batch02/ batch03/ batch1.5/ ...
+  genome/cache/        — RDS caches (genome, GFF, BSseq, etc.)
+```
+
+- **Local scripts**: `local/scripts/batchNN/script_name.R`
+- **Cluster scripts**: `cluster/scripts/job_name.R` + `.slurm`
+- **Results by batch**: `results/batchNN/{data/, png/, pdf/, report.html}`
+- **Papers by batch**: `papers/batchNN/*.pdf`
 - Image paths in reports are relative: `png/filename.png` (sibling folder).
 - Reports are HTML (not markdown) so images render in RStudio and browsers.
 - Don't over-generate plots. Only make graphs that answer a specific question.
 
 ## Batch workflow rules
 
-1. **One batch = one script = all output.** Each `scripts/batchNN/*.R` script generates every plot (PDF + PNG) AND the HTML report in a single run. Never split a batch across multiple scripts or patch files.
+1. **One batch = one script = all output.** Each `local/scripts/batchNN/*.R` script generates every plot (PDF + PNG) AND the HTML report in a single run. Never split a batch across multiple scripts or patch files.
 2. **The script is the single source of truth.** If a plot or report needs updating, edit the batch script and rerun it — don't manually edit the HTML or run side scripts.
 3. **Every plot must appear in the report.** If the script creates a PNG, the HTML report section must have a matching `<img>` tag. No orphan plots.
 4. **PDF lock workaround.** Windows can lock PDFs open in a viewer. Scripts should save PNG first (always works), then write PDF to `tempdir()` and `file.copy()` to the final location. If copy fails, warn but don't crash:
@@ -361,10 +378,10 @@ cluster/
 
 | Batch | Script | Plots | What it covers | Status |
 |-------|--------|-------|---------------|--------|
-| batch01 | `scripts/batch01/genome_characterization.R` | 9 | Genome stats, CpG O/E by region + TE class, bar charts + density distributions | Needs rerun — S4Vectors update + outlier fix (intergenic + SINE O/E distributions) |
-| batch1.5 | `scripts/batch1.5/tf_motif_annotation.R` | 4 | TF census (DeepTFactor) + JASPAR boolean hits on 25K promoters | Partial — cluster motif job failed, see below |
-| batch02 | `scripts/batch02/methylation_machinery.R` | 3 | Methylation toolkit: presence/absence, expression boxplot, z-scored heatmap (18 genes) | Done (rerun on native Windows R) |
-| batch03 | `scripts/batch03/baseline_methylome.R` | 10 | Act 2: global methylation landscape, region-wise methylation, TSS profile, TE methylation vs age | Script ready, not run. Needs Schubeler promoter classification (LCP/ICP/HCP) |
+| batch01 | `local/scripts/batch01/genome_characterization.R` | 9 | Genome stats, CpG O/E by region + TE class, bar charts + density distributions | Needs rerun — S4Vectors update + outlier fix (intergenic + SINE O/E distributions) |
+| batch1.5 | `local/scripts/batch1.5/tf_motif_annotation.R` | 4 | TF census (DeepTFactor) + JASPAR boolean hits on 25K promoters | Partial — cluster motif job failed, see below |
+| batch02 | `local/scripts/batch02/methylation_machinery.R` | 3 | Methylation toolkit: presence/absence, expression boxplot, z-scored heatmap (18 genes) | Done (rerun on native Windows R) |
+| batch03 | `local/scripts/batch03/baseline_methylome.R` | 10 | Act 2: global methylation landscape, region-wise methylation, TSS profile, TE methylation vs age | Script ready, not run. Needs Schubeler promoter classification (LCP/ICP/HCP) |
 
 ### Motif annotation gap (batch 1.5)
 

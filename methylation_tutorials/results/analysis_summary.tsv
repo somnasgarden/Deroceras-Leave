@@ -1,0 +1,8 @@
+Metric	Value
+Total CpG sites analyzed	200,000
+Significant DMPs (FDR < 0.05, |diff| > 10%)	858
+Significant DMRs	0
+Hypermethylated DMPs (Amputated > Control)	423
+Hypomethylated DMPs (Amputated < Control)	435
+Mean DMR length (bp)	N/A
+Mean CpGs per DMR	N/A

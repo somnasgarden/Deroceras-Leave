@@ -61,7 +61,12 @@ All code must be in R. Assume NOTHING is correct until you run it and see the ou
 | `genome/cache/genome_chr1_31.rds` | Cached genome DNAStringSet (~10x faster load) | 365 MB |
 | `genome/cache/gff_chr1_31.rds` | Cached GFF GRanges (chr1–31 only) | 12 MB |
 | `genome/cache/te_chr1_31.rds` | Cached TE GRanges + reduced regions | 59 MB |
+| `genome/cache/promoters_2kb.rds` | Cached 2kb upstream promoter GRanges | 178 KB |
+| `genome/cache/extended_regions_10kb.rds` | 10kb flanks + gene body regions for all genes | 777 KB |
+| `genome/cache/bsseq_tutorial.rds` | BSseq object (25.4M CpGs × 4 samples, cov≥5, strand-collapsed) | 170 MB |
+| `genome/cache/bsseq_tutorial_sub.rds` | Subsampled BSseq (200K methylated CpGs) for local DSS tutorial | 2 MB |
 | `scripts/00_setup/r_genome_pipeline.R` | Extracts chr1–31 FASTA from BSgenome (prerequisite for batch01) | — |
+| `scripts/00_setup/prepare_extended_regions.R` | Creates 10kb extended regions (upstream + body + downstream) | — |
 
 ### Important data notes
 
@@ -158,9 +163,9 @@ All code must be in R. Assume NOTHING is correct until you run it and see the ou
 1. **One batch = one script = all output.** Each `scripts/batchNN/*.R` script generates every plot (PDF + PNG) AND the HTML report in a single run. Never split a batch across multiple scripts or patch files.
 2. **The script is the single source of truth.** If a plot or report needs updating, edit the batch script and rerun it — don't manually edit the HTML or run side scripts.
 3. **Every plot must appear in the report.** If the script creates a PNG, the HTML report section must have a matching `<img>` tag. No orphan plots.
-4. **PDF lock workaround (WSL/Windows).** Windows can lock PDFs open in a viewer. Scripts should save PNG first (always works), then write PDF to `TMPDIR` and `file.copy()` to the final location. If copy fails, warn but don't crash:
+4. **PDF lock workaround.** Windows can lock PDFs open in a viewer. Scripts should save PNG first (always works), then write PDF to `tempdir()` and `file.copy()` to the final location. If copy fails, warn but don't crash:
    ```r
-   tmp_pdf <- file.path(Sys.getenv("TMPDIR", "/tmp"), "plot_name.pdf")
+   tmp_pdf <- file.path(tempdir(), "plot_name.pdf")
    cairo_pdf(tmp_pdf, width = w, height = h); print(p); dev.off()
    ok <- file.copy(tmp_pdf, final_path, overwrite = TRUE)
    if (!ok) cat("WARNING: PDF locked, saved to:", tmp_pdf, "\n")
@@ -183,10 +188,10 @@ keep_chr <- paste0("chr", 1:31)
 library(...)
 
 # --- 2. PATHS ---
-out_dir     <- "/mnt/c/Users/rafae/Projects/STANDBY/results/batchXX"
+out_dir     <- "C:/Users/rafae/Projects/STANDBY/results/batchXX"
 fig_pdf_dir <- file.path(out_dir, "pdf")
 fig_png_dir <- file.path(out_dir, "png")
-cache_dir   <- "/mnt/c/Users/rafae/Projects/STANDBY/genome/cache"
+cache_dir   <- "C:/Users/rafae/Projects/STANDBY/genome/cache"
 dir.create(fig_pdf_dir, showWarnings = FALSE, recursive = TRUE)
 dir.create(fig_png_dir, showWarnings = FALSE, recursive = TRUE)
 
@@ -195,7 +200,7 @@ save_plot <- function(p, name, w = 8, h = 5) {
   png(file.path(fig_png_dir, paste0(name, ".png")),
       width = w, height = h, units = "in", res = 300)
   print(p); dev.off()
-  tmp_pdf <- file.path(Sys.getenv("TMPDIR", "/tmp"), paste0(name, ".pdf"))
+  tmp_pdf <- file.path(tempdir(), paste0(name, ".pdf"))
   cairo_pdf(tmp_pdf, width = w, height = h); print(p); dev.off()
   ok <- file.copy(tmp_pdf, file.path(fig_pdf_dir, paste0(name, ".pdf")),
                   overwrite = TRUE)
@@ -252,43 +257,25 @@ cat("Done!\n")
    - **TF family classification**: Use keyword matching on EviAnn gene names + descriptions. Map TF families to JASPAR family names using exact JASPAR 2024 naming (e.g., "Three-zinc finger Kruppel-related", "FOX", "Ets-related"). Cross-reference protein predictions vs genome motifs for confirmation.
    - **Extra conda packages needed**: `bioconductor-jaspar2024`, `bioconductor-motifmatchr`, `bioconductor-universalmotif`, `r-rsqlite`
 
-## R environment (Claude Code WSL)
+## R environment (Native Windows)
 
-Micromamba at `/tmp/claude-1000/bin/micromamba`, env `renv`. Environment does NOT persist between sessions — must rebuild each time. Micromamba download requires sandbox disabled (`dangerouslyDisableSandbox: true`).
+R 4.5.2 at `C:\Program Files\R\R-4.5.2\bin\Rscript.exe`. Packages installed via BiocManager to `C:/Users/rafae/AppData/Local/R/win-library/4.5`. Environment persists across sessions — no rebuilding needed.
+
+**All scripts use Windows-native paths** (`C:/Users/rafae/...`), not WSL paths (`/mnt/c/...`). No shell pipelines (`awk`, `grep`, `sort`) — use `data.table::fread()` for reading large files natively. Use `tempdir()` instead of `/tmp` for temp files.
 
 ```bash
-# Install (needs sandbox disabled for network access)
-mkdir -p /tmp/claude-1000/bin && curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj -C /tmp/claude-1000/ bin/micromamba
-export MAMBA_ROOT_PREFIX=/tmp/claude-1000/mamba
-/tmp/claude-1000/bin/micromamba create -n renv -y -c conda-forge -c bioconda \
-  r-base=4.4 r-ggplot2 r-dplyr r-tidyr r-data.table r-rcolorbrewer r-scales \
-  r-ggrepel r-patchwork r-pheatmap r-reshape2 r-stringr r-gridextra r-cairo \
-  r-infotheo r-entropy r-corrplot r-circlize \
-  bioconductor-genomicranges bioconductor-rtracklayer bioconductor-biostrings \
-  bioconductor-genomicfeatures bioconductor-bsseq bioconductor-deseq2 \
-  bioconductor-complexheatmap bioconductor-chipseeker bioconductor-clusterprofiler \
-  bioconductor-genomation bioconductor-gviz bioconductor-tfbstools \
-  bioconductor-jaspar2024 bioconductor-motifmatchr bioconductor-universalmotif \
-  r-rsqlite r-wgcna
-
 # Run scripts
-export PATH="/tmp/claude-1000/mamba/envs/renv/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH" \
-  TMPDIR=/tmp/claude-1000 \
-  R_LIBS_SITE="/tmp/claude-1000/mamba/envs/renv/lib/R/library" \
-  R_LIBS_USER="/tmp/claude-1000/rlibs" && Rscript script.R
+"C:\Program Files\R\R-4.5.2\bin\Rscript.exe" script.R
+
+# Install missing packages
+"C:\Program Files\R\R-4.5.2\bin\Rscript.exe" -e "BiocManager::install(c('bsseq','DSS'), ask=FALSE)"
 ```
+
+**Key installed packages:** bsseq, DSS, GenomicRanges, rtracklayer, Biostrings, DESeq2, data.table, ggplot2, dplyr, tidyr, pheatmap, scales, gridExtra, RColorBrewer, TFBSTools, JASPAR2024, motifmatchr, universalmotif, WGCNA
 
 ## Cluster workflow (HPC)
 
-Some analyses exceed local WSL memory (7.6 GB). These run on the college HPC cluster.
-
-### Structure
-
-```
-cluster/
-  scripts/   — R scripts + SLURM submission files
-  results/   — output from cluster jobs (copy back to results/batchNN/)
-```
+Some analyses exceed local memory (16 GB). These run on the college HPC cluster.
 
 ### Cluster data paths
 
@@ -338,14 +325,92 @@ cluster/
 | Job | Script | RAM | What it does |
 |-----|--------|-----|-------------|
 | Motif positions | `cluster/scripts/batch1.5_motif_positions.R` | 32 GB | `matchMotifs(out="positions")` on 1362 JASPAR motifs x 25K promoters |
+| Expanded motif | `cluster/scripts/batch1.5_expanded_motif.R` | 64 GB | JASPAR + HOMER on 10kb extended regions (supersedes motif positions) |
+| HOMER setup | `cluster/scripts/setup_homer.sh` | — | Installs HOMER for de novo motif discovery |
 
 ## Completed batches
 
 | Batch | Script | Plots | What it covers | Status |
 |-------|--------|-------|---------------|--------|
 | batch01 | `scripts/batch01/genome_characterization.R` | 9 | Genome stats, CpG O/E by region + TE class, bar charts + density distributions | Done |
-| batch1.5 | `scripts/batch1.5/tf_motif_annotation.R` | 4 | TF census (DeepTFactor) + JASPAR motif scan of 25K promoters | Done |
+| batch1.5 | `scripts/batch1.5/tf_motif_annotation.R` | 4 | TF census (DeepTFactor) + JASPAR boolean hits on 25K promoters | Partial — see motif gap below |
 | batch02 | `scripts/batch02/methylation_machinery.R` | 3 | Methylation toolkit: presence/absence, expression boxplot, z-scored heatmap (18 genes) | Done |
+| batch03 | `scripts/batch03/baseline_methylome.R` | 10 | Act 2: global methylation landscape, region-wise methylation, TSS profile, TE methylation vs age | Script ready, not run |
+
+### Motif annotation gap (batch 1.5)
+
+Batch 1.5 ran locally but Section G (motif coordinate export) **never produced output** — `matchMotifs(out="positions")` on 1362 motifs × 25K promoters exceeds local RAM.
+
+**What EXISTS (local):**
+- Boolean hit matrix: "does motif X appear in promoter Y?" (yes/no) for 1362 JASPAR motifs × 25,413 promoters
+- 4 plots: TF family census, motif prevalence top 30, approach comparison tile, DeepTFactor scores
+- HTML report with summary tables
+
+**What is MISSING:**
+- `motif_hits_annotated.tsv.gz` — full genomic coordinates of every motif hit (never generated)
+- `motif_annotation_summary.tsv` — per-motif summary with hit counts (never generated)
+- HOMER de novo motif discovery (never run — needs Perl + cluster)
+- Region enrichment analysis: which motifs are over/underrepresented in promoters vs gene body vs intergenic
+
+**Cluster scripts ready but unsubmitted:**
+- `batch1.5_motif_positions.R` (32 GB) — promoter-only JASPAR positions
+- `batch1.5_expanded_motif.R` (64 GB) — JASPAR + HOMER across 10kb extended regions (supersedes positions script). Includes de novo discovery, region-type annotation, distance-to-TSS.
+- `setup_homer.sh` — installs HOMER on the HPC (prerequisite for expanded script)
+
+**To complete:** Submit `batch1.5_expanded_motif.slurm` on the HPC, copy results back, then update the local batch1.5 script to incorporate the coordinate data into plots.
+
+## Methylation tutorials
+
+`methylation_tutorials/` contains adaptations of the [NGS101 methylation tutorial series](https://ngs101.com/tutorials/) for *D. laeve*. These are **learning/reference scripts**, separate from the batch pipeline.
+
+### Source material (PDFs in `methylation_tutorials/pdfs/`)
+
+| Part | Original scope | Relevance to D. laeve |
+|------|---------------|----------------------|
+| Part 1 | EPIC array analysis (minfi, limma, DMRcate) | Concepts only — we use WGBS, not arrays |
+| Part 2 | WGBS/RRBS preprocessing (FastQC → Bismark → methylation calls) | Already done by lab — CpG_report.txt files exist |
+| Part 3 | Downstream analysis (BSseq → DSS → DMPs/DMRs → annotation) | **Directly applicable** — adapted in `part3_downstream_analysis.R` |
+
+### Tutorial scripts
+
+| Script | Adapts | What it does | Status |
+|--------|--------|-------------|--------|
+| `part3_downstream_analysis.R` | Part 3 | Full DSS pipeline: load CpG reports → BSseq → DMLtest → DMPs/DMRs → annotation → heatmaps → HTML report | Done |
+| `run_final.sh` | — | Shell wrapper: installs micromamba env + runs Part 3 script in single WSL call | — |
+
+### How to run
+
+```bash
+wsl -e bash -c "bash /mnt/c/Users/rafae/Projects/STANDBY/methylation_tutorials/run_final.sh"
+```
+
+### Tutorial results (200K CpG subsample)
+
+| Output | Description |
+|--------|-------------|
+| 9 PNG + 9 PDF plots | correlation heatmap, PCA, volcano, Manhattan, genome-wide, beta distribution, annotation pie, direction bar, DMP heatmap |
+| `part3_report.html` | HTML report with all plots + summary tables |
+| `dmps_annotated.tsv` | 858 DMPs with genomic annotation + nearest gene |
+| `analysis_summary.tsv` | Key metrics table |
+| `global_methylation_stats.tsv` | Per-sample methylation statistics |
+
+**Key findings (tutorial subsample — not for paper):**
+- Mean methylation ~0.52 (methylated sites only), median ~0.75
+- Sample correlations >0.97 (replicates tight)
+- 858 DMPs: 423 hyper, 435 hypo (balanced)
+- DMP distribution: 47% intron, 20% TE, 14% exon, 13% intergenic, 5% promoter
+- No DMRs found (subsampled data too sparse for regional clustering)
+
+### Key adaptations from original tutorial
+
+- **Input format**: CpG_report.txt (7 cols) instead of Bismark .cov (6 cols) — requires strand collapsing
+- **Genome**: chr1–31 instead of chr1–22,X,Y
+- **Annotation**: GFF + manual region classification instead of TxDb + ChIPseeker
+- **No GO/KEGG**: non-model organism, no enrichment databases
+- **Memory-safe loading**: Shell pipeline (awk→sort→awk) does strand collapse + coverage filter BEFORE R touches the data. Each 3 GB CpG report produces ~30M rows. Two-pass disk-save approach builds BSseq from common sites one sample at a time.
+- **BSseq cached**: `bsseq_tutorial.rds` (170 MB, 25.4M CpGs × 4 samples). Pre-subsampled `bsseq_tutorial_sub.rds` (2 MB, 200K sites) avoids loading the full object.
+- **DMLtest**: Uses `smoothing=FALSE` on 200K-site subsample locally. For publication, rerun with all sites + `smoothing=TRUE` on HPC.
+- **NULL DMR handling**: `callDMR()` returns NULL (not empty data.frame) when no DMRs found — script handles this gracefully.
 
 ## Git
 

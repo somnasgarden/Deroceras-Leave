@@ -21,7 +21,7 @@ library(Biostrings)
 keep_chr <- paste0("chr", 1:31)
 
 # -- Paths --
-project_dir  <- "/mnt/c/Users/rafae/Projects/STANDBY"
+project_dir  <- "C:/Users/rafae/Projects/STANDBY"
 cache_dir    <- file.path(project_dir, "genome/cache")
 genome_fasta <- file.path(project_dir, "genome/derLaeGenome_chr1_31.fasta")
 

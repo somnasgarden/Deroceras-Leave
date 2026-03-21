@@ -1,0 +1,5 @@
+sample	condition	total_sites	mean_methylation	median_methylation	sd_methylation	sites_high_meth	sites_low_meth	sites_intermediate
+C1	Control	25439068	0.1811	0	0.358	4085298	20246227	1107543
+C2	Control	25439068	0.1801	0	0.3555	3939199	20216130	1283739
+A1	Amputated	25439068	0.1815	0	0.3583	4129673	20241594	1067801
+A2	Amputated	25439068	0.1815	0	0.3581	4080949	20239617	1118502

@@ -11,7 +11,7 @@
 # =============================================================================
 
 # Set cache dir BEFORE loading any Bioconductor packages
-Sys.setenv(XDG_CACHE_HOME = "/tmp/claude-1000/bioc_cache")
+Sys.setenv(XDG_CACHE_HOME = file.path(tempdir(), "bioc_cache"))
 
 options(stringsAsFactors = FALSE)
 options(scipen = 999)
@@ -30,8 +30,8 @@ library(motifmatchr)
 library(universalmotif)
 
 # -- Paths --
-data_dir    <- "/mnt/c/Users/rafae/Projects/DATA"
-project_dir <- "/mnt/c/Users/rafae/Projects/STANDBY"
+data_dir    <- "C:/Users/rafae/Projects/DATA"
+project_dir <- "C:/Users/rafae/Projects/STANDBY"
 cache_dir   <- file.path(project_dir, "genome/cache")
 out_dir     <- file.path(project_dir, "results/batch1.5")
 fig_pdf_dir <- file.path(out_dir, "pdf")
@@ -237,12 +237,13 @@ cat("Promoter sequences extracted:", length(prom_seqs), "\n")
 # C3. Get JASPAR 2024 metazoan PWMs
 cat("Loading JASPAR 2024 motifs...\n")
 # JASPAR2024 SQLite was downloaded via JASPAR2024() in a previous session
-jaspar_sqlite <- list.files("/tmp/claude-1000/bioc_cache", pattern = "JASPAR.*sqlite",
+bioc_cache <- Sys.getenv("XDG_CACHE_HOME", tempdir())
+jaspar_sqlite <- list.files(bioc_cache, pattern = "JASPAR.*sqlite",
                             recursive = TRUE, full.names = TRUE)[1]
 if (is.na(jaspar_sqlite)) {
   # First run — need to download it
   jaspar_db <- JASPAR2024()
-  jaspar_sqlite <- list.files("/tmp/claude-1000/bioc_cache", pattern = "JASPAR.*sqlite",
+  jaspar_sqlite <- list.files(bioc_cache, pattern = "JASPAR.*sqlite",
                               recursive = TRUE, full.names = TRUE)[1]
 }
 cat("JASPAR SQLite:", jaspar_sqlite, "\n")

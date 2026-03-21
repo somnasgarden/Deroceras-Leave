@@ -22,8 +22,8 @@ library(grid)
 library(pheatmap)
 
 # -- Paths --
-data_dir    <- "/mnt/c/Users/rafae/Projects/DATA"
-project_dir <- "/mnt/c/Users/rafae/Projects/STANDBY"
+data_dir    <- "C:/Users/rafae/Projects/DATA"
+project_dir <- "C:/Users/rafae/Projects/STANDBY"
 dir_counts  <- file.path(data_dir, "counts_HTseq_EviAnn")
 gff_cache   <- file.path(project_dir, "genome/cache/gff_chr1_31.rds")
 annot_file  <- file.path(data_dir, "derLaeGenome_eviann_annotations.tsv")
@@ -248,7 +248,7 @@ p1 <- ggplot(pres_df, aes(x = 1, y = gene, fill = status)) +
 
 ggsave(file.path(out_dir, "png/methylation_toolkit_presence.png"),
        p1, width = 7, height = 10, dpi = 300)
-tmp1 <- file.path(Sys.getenv("TMPDIR", "/tmp"), "methylation_toolkit_presence.pdf")
+tmp1 <- file.path(tempdir(), "methylation_toolkit_presence.pdf")
 ggsave(tmp1, p1, width = 7, height = 10, device = cairo_pdf)
 if (!file.copy(tmp1, file.path(out_dir, "pdf/methylation_toolkit_presence.pdf"), overwrite = TRUE))
   cat("  WARNING: PDF locked, saved to:", tmp1, "\n")
@@ -326,7 +326,7 @@ p2 <- ggplot(expr_long, aes(x = gene_name, y = vst_expression, fill = tissue_lab
 
 ggsave(file.path(out_dir, "png/methylation_machinery_expression.png"),
        p2, width = 16, height = 6, dpi = 300)
-tmp2 <- file.path(Sys.getenv("TMPDIR", "/tmp"), "methylation_machinery_expression.pdf")
+tmp2 <- file.path(tempdir(), "methylation_machinery_expression.pdf")
 ggsave(tmp2, p2, width = 16, height = 6, device = cairo_pdf)
 if (!file.copy(tmp2, file.path(out_dir, "pdf/methylation_machinery_expression.pdf"), overwrite = TRUE))
   cat("  WARNING: PDF locked, saved to:", tmp2, "\n")
@@ -366,7 +366,7 @@ p3 <- pheatmap(mat_z,
 png(file.path(out_dir, "png/methylation_toolkit_heatmap.png"), width = 8, height = 8, units = "in", res = 300)
 grid::grid.draw(p3$gtable); dev.off()
 
-tmp_pdf <- file.path(Sys.getenv("TMPDIR", "/tmp"), "methylation_toolkit_heatmap.pdf")
+tmp_pdf <- file.path(tempdir(), "methylation_toolkit_heatmap.pdf")
 cairo_pdf(tmp_pdf, width = 8, height = 8)
 grid::grid.draw(p3$gtable); dev.off()
 ok <- file.copy(tmp_pdf, file.path(out_dir, "pdf/methylation_toolkit_heatmap.pdf"), overwrite = TRUE)

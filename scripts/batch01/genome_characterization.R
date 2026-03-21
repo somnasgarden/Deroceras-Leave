@@ -10,14 +10,14 @@ library(ggplot2)       # plotting library
 library(data.table)    # fread() reads big TSV files fast
 
 # <- is assignment: store the text on the right into the name on the left
-genome_fasta <- "/mnt/c/Users/rafae/Projects/STANDBY/genome/derLaeGenome_chr1_31.fasta"
-gff_file     <- "/mnt/c/Users/rafae/Projects/DATA/derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff"
-te_file      <- "/mnt/c/Users/rafae/Projects/DATA/collapsed_te_age_data.tsv"
-out_report   <- "/mnt/c/Users/rafae/Projects/STANDBY/results/batch01/genome_report.html"
-fig_pdf_dir  <- "/mnt/c/Users/rafae/Projects/STANDBY/results/batch01/pdf"
-fig_png_dir  <- "/mnt/c/Users/rafae/Projects/STANDBY/results/batch01/png"
+genome_fasta <- "C:/Users/rafae/Projects/STANDBY/genome/derLaeGenome_chr1_31.fasta"
+gff_file     <- "C:/Users/rafae/Projects/DATA/derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff"
+te_file      <- "C:/Users/rafae/Projects/DATA/collapsed_te_age_data.tsv"
+out_report   <- "C:/Users/rafae/Projects/STANDBY/results/batch01/genome_report.html"
+fig_pdf_dir  <- "C:/Users/rafae/Projects/STANDBY/results/batch01/pdf"
+fig_png_dir  <- "C:/Users/rafae/Projects/STANDBY/results/batch01/png"
 # RDS cache directory — saves parsed objects so second run is ~10x faster
-cache_dir    <- "/mnt/c/Users/rafae/Projects/STANDBY/genome/cache"
+cache_dir    <- "C:/Users/rafae/Projects/STANDBY/genome/cache"
 # options: no scientific notation, strings stay as strings
 options(scipen = 999, stringsAsFactors = FALSE)
 
@@ -377,7 +377,7 @@ for (i in seq_len(nrow(region_stats))) {
 save_plot <- function(p, name, w = 8, h = 5) {
   png(file.path(fig_png_dir, paste0(name, ".png")), width = w, height = h, units = "in", res = 300)
   print(p); dev.off()
-  tmp_pdf <- file.path(Sys.getenv("TMPDIR", "/tmp"), paste0(name, ".pdf"))
+  tmp_pdf <- file.path(tempdir(), paste0(name, ".pdf"))
   cairo_pdf(tmp_pdf, width = w, height = h)
   print(p); dev.off()
   ok <- file.copy(tmp_pdf, file.path(fig_pdf_dir, paste0(name, ".pdf")), overwrite = TRUE)

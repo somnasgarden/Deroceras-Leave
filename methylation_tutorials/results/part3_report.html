@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html><head><meta charset='utf-8'>
+<title>Methylation Tutorial Part 3: D. laeve Downstream Analysis</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1200px; margin: 40px auto; padding: 0 20px; color: #333; }
+h1 { color: #2c3e50; border-bottom: 2px solid #2471A3; padding-bottom: 10px; }
+h2 { color: #2471A3; margin-top: 30px; }
+table { border-collapse: collapse; width: auto; margin: 15px 0; }
+th { background: #2471A3; color: white; padding: 8px 12px; text-align: left; }
+td { padding: 6px 12px; border-bottom: 1px solid #ddd; }
+tr:nth-child(even) { background: #f8f9fa; }
+img { max-width: 100%; border: 1px solid #ddd; margin: 10px 0; }
+.key-finding { background: #eaf2f8; padding: 12px; border-left: 4px solid #2471A3; margin: 15px 0; }
+.metric { font-size: 1.2em; font-weight: bold; color: #2471A3; }
+</style>
+</head><body>
+<h1>Methylation Tutorial Part 3: WGBS Downstream Analysis</h1>
+<p>Adapted from <a href='https://ngs101.com'>NGS101</a> tutorial for <em>D. laeve</em> tail regeneration | Generated: 2026-03-18 </p>
+<p><strong>Design:</strong> 2 Control (C1, C2) vs 2 Amputated (A1, A2) tail samples</p>
+
+<h2>1. Analysis Summary</h2>
+<table>
+<tr><td>Total CpG sites analyzed</td><td class='metric'>200,000</td></tr>
+<tr><td>Significant DMPs (FDR < 0.05, |diff| > 10%)</td><td class='metric'>858</td></tr>
+<tr><td>Significant DMRs</td><td class='metric'>0</td></tr>
+<tr><td>Hypermethylated DMPs (Amputated > Control)</td><td class='metric'>423</td></tr>
+<tr><td>Hypomethylated DMPs (Amputated < Control)</td><td class='metric'>435</td></tr>
+<tr><td>Mean DMR length (bp)</td><td class='metric'>N/A</td></tr>
+<tr><td>Mean CpGs per DMR</td><td class='metric'>N/A</td></tr>
+</table>
+
+<h2>2. Global Methylation Statistics</h2>
+<table>
+<tr><th>Sample</th><th>Condition</th><th>Sites</th><th>Mean Beta</th><th>Median Beta</th><th>High (&gt;0.8)</th><th>Low (&lt;0.2)</th><th>Intermediate</th></tr>
+<tr><td>C1</td><td>Control</td><td>200,000</td><td>0.5220</td><td>0.7500</td><td>92,535</td><td>82,304</td><td>25,161</td></tr>
+<tr><td>C2</td><td>Control</td><td>200,000</td><td>0.5190</td><td>0.7273</td><td>89,380</td><td>81,615</td><td>29,005</td></tr>
+<tr><td>A1</td><td>Amputated</td><td>200,000</td><td>0.5230</td><td>0.7600</td><td>93,657</td><td>82,263</td><td>24,080</td></tr>
+<tr><td>A2</td><td>Amputated</td><td>200,000</td><td>0.5229</td><td>0.7500</td><td>92,338</td><td>82,170</td><td>25,492</td></tr>
+</table>
+
+<h2>3. Beta Value Distribution</h2>
+<img src='png/beta_distribution.png'>
+
+<h2>4. Sample Correlation</h2>
+<img src='png/sample_correlation_heatmap.png'>
+
+<h2>5. PCA of Methylation Profiles</h2>
+<img src='png/pca_methylation.png'>
+
+<h2>6. Volcano Plot — DMPs</h2>
+<img src='png/volcano_plot_dmps.png'>
+
+<h2>7. Manhattan Plot — DMPs</h2>
+<img src='png/manhattan_plot_dmps.png'>
+
+<h2>8. Genome-Wide Methylation Profiles</h2>
+<img src='png/genome_wide_methylation.png'>
+
+<h2>9. DMP Genomic Distribution</h2>
+<img src='png/dmp_annotation_pie.png'>
+
+<h2>10. DMP Direction by Region</h2>
+<img src='png/dmp_direction_by_region.png'>
+
+<h3>DMP Annotation Summary</h3>
+<table><tr><th>Region</th><th>Count</th><th>%</th></tr>
+<tr><td>Intron</td><td>404</td><td>47.1</td></tr>
+<tr><td>TE</td><td>173</td><td>20.2</td></tr>
+<tr><td>Exon</td><td>121</td><td>14.1</td></tr>
+<tr><td>Intergenic</td><td>114</td><td>13.3</td></tr>
+<tr><td>Promoter</td><td>46</td><td>5.4</td></tr>
+</table>
+
+<h2>11. DMP Heatmap (Top DMPs)</h2>
+<img src='png/dmp_heatmap.png'>
+
+<h2>Methods</h2>
+<div class='key-finding'>
+<p><strong>Tutorial adaptation notes:</strong></p>
+<ul>
+<li>Original tutorial: human Alzheimer's study (GEO: GSE46644), hg38 genome</li>
+<li>This adaptation: <em>D. laeve</em> tail regeneration, custom genome (1.78 Gb, 31 chromosomes)</li>
+<li>Input: Bismark CpG_report.txt files (not .cov files) — required strand collapsing</li>
+<li>Differential methylation: DSS without smoothing (2M CpG subset for local execution)</li>
+<li>Coverage filter: &ge;5 reads per CpG in all samples</li>
+<li>Significance: FDR &lt; 0.05, |methylation difference| &gt; 10%</li>
+<li>Annotation: custom GFF (no TxDb available for non-model organism)</li>
+<li>GO/KEGG enrichment: skipped (no database for <em>D. laeve</em>)</li>
+</ul>
+</div>
+
+</body></html>

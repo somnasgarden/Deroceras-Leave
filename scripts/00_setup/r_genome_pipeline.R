@@ -20,6 +20,6 @@ cat("Chromosomes retained:", length(genome_chr), "\n")
 cat("Names:", head(names(genome_chr)), "...\n")
 
 # --- Export genome FASTA ------------------------------------------------------
-out_fasta <- "/mnt/c/Users/rafae/Projects/STANDBY/derLaeGenome_chr1_31.fasta"
+out_fasta <- "C:/Users/rafae/Projects/STANDBY/derLaeGenome_chr1_31.fasta"
 writeXStringSet(genome_chr, filepath = out_fasta)
 cat("Genome FASTA written to:", out_fasta, "\n")

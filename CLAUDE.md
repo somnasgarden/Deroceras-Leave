@@ -75,6 +75,7 @@ All code must be in R. Assume NOTHING is correct until you run it and see the ou
 - CpG_report.txt files are ~3 GB each, 7 tab-separated columns, no header
 - BSseq object covers chr1–31 only (scaffolds already filtered)
 - The ~59M CpG number in some files includes both strands + scaffolds — **verified from genome FASTA: 45,535,149 CpGs on chr1–31**
+- CpG_report.txt raw rows: ~91M per file (both strands + scaffolds). After chr1-31 + CG filter + strand collapse: ~45M. With cov >= 5: ~30M per sample. Common across all 4 samples: **25,439,068** (56% of genome CpGs)
 
 ## Paper structure — Science Advances
 
@@ -297,22 +298,39 @@ Some analyses exceed local memory (16 GB). These run on the college HPC cluster.
 
 ### Structure
 
-`cluster/` is self-contained — only this folder goes to the HPC.
+The **whole repo** is cloned to the HPC (not just `cluster/`).
 
 ```
 cluster/
-  genome/cache/  — RDS cache files (genome, GFF, promoters)
+  genome/cache/  — RDS cache files (GFF, promoters, extended regions)
   scripts/       — R scripts + SLURM submission files
   results/       — output (copy back to local results/batchNN/)
 ```
 
+### HPC details
+
+- **Repo location**: `/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/`
+- **Partition**: `defq` (default queue)
+- **Available RAM**: 1 TB on compute nodes
+- **HOMER**: installed at `cluster/homer/`
+- **SLURM quirk**: Uses `SLURM_SUBMIT_DIR` (not `dirname $0`) because SLURM copies scripts to `/var/spool/`
+
 ### How to run a cluster job
 
-1. **Write the script** in `cluster/scripts/`. Make it self-contained. Use `CLUSTER_ROOT` env var for paths (defaults to `cluster/`).
-2. **Write a SLURM file** in `cluster/scripts/`. Request adequate RAM (32 GB typical). Set `--partition` to your cluster's queue.
-3. **Copy `cluster/` to the HPC.** Ensure `genome/cache/*.rds` are in place.
-4. **`cd` into `cluster/`**, then `sbatch scripts/job_name.slurm`
-5. **Copy results back**: `cluster/results/*` → local `results/batchNN/`
+1. **Write the script** in `cluster/scripts/`. Make it self-contained. Use `CLUSTER_ROOT` env var for paths.
+2. **Write a SLURM file** using this template:
+   ```bash
+   #!/usr/bin/env bash
+   #SBATCH --job-name=Rjob
+   #SBATCH --output=slurm_%j.out
+   #SBATCH --error=slurm_%j.err
+   #SBATCH --cpus-per-task=1
+   #SBATCH --mem=32G
+   set -euo pipefail
+   Rscript scripts/my_script.R
+   ```
+3. **On HPC**: `cd Deroceras-Leave/cluster && sbatch scripts/job_name.slurm`
+4. **Copy results back**: `cluster/results/*` → local `results/batchNN/`
 
 ### Rules
 
@@ -322,20 +340,31 @@ cluster/
 
 ### Current cluster jobs
 
-| Job | Script | RAM | What it does |
-|-----|--------|-----|-------------|
-| Motif positions | `cluster/scripts/batch1.5_motif_positions.R` | 32 GB | `matchMotifs(out="positions")` on 1362 JASPAR motifs x 25K promoters |
-| Expanded motif | `cluster/scripts/batch1.5_expanded_motif.R` | 64 GB | JASPAR + HOMER on 10kb extended regions (supersedes motif positions) |
-| HOMER setup | `cluster/scripts/setup_homer.sh` | — | Installs HOMER for de novo motif discovery |
+| Job | Script | RAM | What it does | Status |
+|-----|--------|-----|-------------|--------|
+| Expanded motif | `cluster/scripts/batch1.5_expanded_motif.R` | 64 GB | JASPAR + HOMER on 10kb extended regions | Failed — needs `genome_chr1_31.rds` (see below) |
+| HOMER setup | `cluster/scripts/setup_homer.sh` | — | Installs HOMER for de novo motif discovery | Done — installed at `cluster/homer/` |
+| Full DMLtest | **TODO** | 32 GB | DMLtest with smoothing on 25.4M CpGs → DMPs/DMRs | Not written yet |
+
+### Cluster blockers
+
+- **`genome_chr1_31.rds` missing on HPC.** BSgenome loaded but couldn't save the RDS cache. Fix: run on HPC:
+  ```r
+  library(BSgenome.Dlaeve.NCBI.ASM5140357v1)
+  genome <- BSgenome.Dlaeve.NCBI.ASM5140357v1
+  seqs <- getSeq(genome, paste0("chr", 1:31))
+  saveRDS(seqs, "cluster/genome/cache/genome_chr1_31.rds")
+  ```
+- **DMLtest too slow locally** (16 GB RAM, ran 3+ hours without finishing). Must run on cluster.
 
 ## Completed batches
 
 | Batch | Script | Plots | What it covers | Status |
 |-------|--------|-------|---------------|--------|
-| batch01 | `scripts/batch01/genome_characterization.R` | 9 | Genome stats, CpG O/E by region + TE class, bar charts + density distributions | Done |
-| batch1.5 | `scripts/batch1.5/tf_motif_annotation.R` | 4 | TF census (DeepTFactor) + JASPAR boolean hits on 25K promoters | Partial — see motif gap below |
-| batch02 | `scripts/batch02/methylation_machinery.R` | 3 | Methylation toolkit: presence/absence, expression boxplot, z-scored heatmap (18 genes) | Done |
-| batch03 | `scripts/batch03/baseline_methylome.R` | 10 | Act 2: global methylation landscape, region-wise methylation, TSS profile, TE methylation vs age | Script ready, not run |
+| batch01 | `scripts/batch01/genome_characterization.R` | 9 | Genome stats, CpG O/E by region + TE class, bar charts + density distributions | Needs rerun — S4Vectors update + outlier fix (intergenic + SINE O/E distributions) |
+| batch1.5 | `scripts/batch1.5/tf_motif_annotation.R` | 4 | TF census (DeepTFactor) + JASPAR boolean hits on 25K promoters | Partial — cluster motif job failed, see below |
+| batch02 | `scripts/batch02/methylation_machinery.R` | 3 | Methylation toolkit: presence/absence, expression boxplot, z-scored heatmap (18 genes) | Done (rerun on native Windows R) |
+| batch03 | `scripts/batch03/baseline_methylome.R` | 10 | Act 2: global methylation landscape, region-wise methylation, TSS profile, TE methylation vs age | Script ready, not run. Needs Schubeler promoter classification (LCP/ICP/HCP) |
 
 ### Motif annotation gap (batch 1.5)
 
@@ -352,12 +381,15 @@ Batch 1.5 ran locally but Section G (motif coordinate export) **never produced o
 - HOMER de novo motif discovery (never run — needs Perl + cluster)
 - Region enrichment analysis: which motifs are over/underrepresented in promoters vs gene body vs intergenic
 
-**Cluster scripts ready but unsubmitted:**
-- `batch1.5_motif_positions.R` (32 GB) — promoter-only JASPAR positions
-- `batch1.5_expanded_motif.R` (64 GB) — JASPAR + HOMER across 10kb extended regions (supersedes positions script). Includes de novo discovery, region-type annotation, distance-to-TSS.
-- `setup_homer.sh` — installs HOMER on the HPC (prerequisite for expanded script)
+**Cluster script (only one — old positions script deleted):**
+- `batch1.5_expanded_motif.R` (64 GB) — JASPAR + HOMER across 10kb extended regions. Includes de novo discovery, region-type annotation, distance-to-TSS.
+- `setup_homer.sh` — installs HOMER (already done on HPC)
 
-**To complete:** Submit `batch1.5_expanded_motif.slurm` on the HPC, copy results back, then update the local batch1.5 script to incorporate the coordinate data into plots.
+**To complete:** Fix `genome_chr1_31.rds` on HPC (see cluster blockers), resubmit `batch1.5_expanded_motif.slurm`, copy results back, then update local batch1.5 script to incorporate coordinate data into plots.
+
+**Motif annotation approach (two methods, both needed):**
+1. **With TF:** DeepTFactor predicts TF proteins (DNA-binding domains) → JASPAR scans for their binding motifs → confirmed TF-TFBS pairs
+2. **Without TF:** JASPAR scans all regions for ANY known motif → "orphan motifs" where no matching TF exists in the genome (could be uncharacterized TFs)
 
 ## Methylation tutorials
 
@@ -375,31 +407,35 @@ Batch 1.5 ran locally but Section G (motif coordinate export) **never produced o
 
 | Script | Adapts | What it does | Status |
 |--------|--------|-------------|--------|
-| `part3_downstream_analysis.R` | Part 3 | Full DSS pipeline: load CpG reports → BSseq → DMLtest → DMPs/DMRs → annotation → heatmaps → HTML report | Done |
-| `run_final.sh` | — | Shell wrapper: installs micromamba env + runs Part 3 script in single WSL call | — |
+| `part3_downstream_analysis.R` | Part 3 | Full DSS pipeline: load BSseq → DMLtest (smoothing) → DMPs/DMRs → annotation → plots → HTML report | Rewritten for native Windows R + full 25.4M CpGs. DMLtest too slow locally — run on cluster. |
+| `run_final.sh` | — | Old WSL wrapper (deprecated — use native Windows R now) | Deprecated |
 
 ### How to run
 
 ```bash
-wsl -e bash -c "bash /mnt/c/Users/rafae/Projects/STANDBY/methylation_tutorials/run_final.sh"
+# Native Windows R
+"C:\Program Files\R\R-4.5.2\bin\Rscript.exe" methylation_tutorials\part3_downstream_analysis.R
+
+# Or on cluster (for DMLtest with smoothing)
+# TODO: write cluster DMLtest script
 ```
 
-### Tutorial results (200K CpG subsample)
+### Tutorial results (current: 200K subsample from old run)
+
+Results exist from old 200K-subsample WSL run. Need to be replaced with full-genome results once DMLtest runs on cluster.
 
 | Output | Description |
 |--------|-------------|
 | 9 PNG + 9 PDF plots | correlation heatmap, PCA, volcano, Manhattan, genome-wide, beta distribution, annotation pie, direction bar, DMP heatmap |
 | `part3_report.html` | HTML report with all plots + summary tables |
-| `dmps_annotated.tsv` | 858 DMPs with genomic annotation + nearest gene |
-| `analysis_summary.tsv` | Key metrics table |
-| `global_methylation_stats.tsv` | Per-sample methylation statistics |
+| `dmps_annotated.tsv` | 858 DMPs (from 200K subsample — NOT final) |
 
-**Key findings (tutorial subsample — not for paper):**
-- Mean methylation ~0.52 (methylated sites only), median ~0.75
-- Sample correlations >0.97 (replicates tight)
-- 858 DMPs: 423 hyper, 435 hypo (balanced)
-- DMP distribution: 47% intron, 20% TE, 14% exon, 13% intergenic, 5% promoter
-- No DMRs found (subsampled data too sparse for regional clustering)
+**Full-genome QC (from current run, before DMLtest was killed):**
+- **25,439,068 CpGs** tested (all common sites with cov >= 5 in all 4 samples)
+- Mean methylation: **18%** across all CpGs (median 0 — most CpGs unmethylated)
+- ~80% of CpGs unmethylated (<0.2), ~16% highly methylated (>0.8), ~4% intermediate
+- Sample correlations >0.985 (very tight replicates)
+- DMP/DMR results: **pending** (DMLtest killed after 3+ hours — must run on cluster)
 
 ### Key adaptations from original tutorial
 
@@ -407,13 +443,20 @@ wsl -e bash -c "bash /mnt/c/Users/rafae/Projects/STANDBY/methylation_tutorials/r
 - **Genome**: chr1–31 instead of chr1–22,X,Y
 - **Annotation**: GFF + manual region classification instead of TxDb + ChIPseeker
 - **No GO/KEGG**: non-model organism, no enrichment databases
-- **Memory-safe loading**: Shell pipeline (awk→sort→awk) does strand collapse + coverage filter BEFORE R touches the data. Each 3 GB CpG report produces ~30M rows. Two-pass disk-save approach builds BSseq from common sites one sample at a time.
-- **BSseq cached**: `bsseq_tutorial.rds` (170 MB, 25.4M CpGs × 4 samples). Pre-subsampled `bsseq_tutorial_sub.rds` (2 MB, 200K sites) avoids loading the full object.
-- **DMLtest**: Uses `smoothing=FALSE` on 200K-site subsample locally. For publication, rerun with all sites + `smoothing=TRUE` on HPC.
+- **Native Windows R**: Uses `data.table::fread()` directly (no shell pipelines). Two-pass disk-save approach builds BSseq from common sites one sample at a time.
+- **BSseq cached**: `bsseq_tutorial.rds` (170 MB, 25.4M CpGs × 4 samples). Pre-subsampled `bsseq_tutorial_sub.rds` (2 MB, 200K sites) for quick local testing.
+- **DMLtest**: Must run with `smoothing=TRUE` on full dataset on HPC (16 GB local RAM insufficient).
 - **NULL DMR handling**: `callDMR()` returns NULL (not empty data.frame) when no DMRs found — script handles this gracefully.
 
 ## Git
 
 - Remote: `https://github.com/somnasgarden/Deroceras-Leave.git`
 - Author: `GIT_AUTHOR_NAME="rlopezt" GIT_AUTHOR_EMAIL="rafae@users.noreply.github.com"`
-- Push fails in sandbox — user pushes manually
+- Push works from native Windows (no sandbox issue)
+- HPC clone: `/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/`
+
+## Papers reference
+
+- `papers/batch 3/` — Schubeler promoter CpG classification papers (nature14192, ng1990)
+- `papers/batch 4/` — s13059-024-03346-z
+- `papers/motifs/` — TFBS motif annotation methods (AJMB-11-130, benchmarking, motifs.pdf)

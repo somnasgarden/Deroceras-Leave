@@ -1,0 +1,12 @@
+Metric	Value
+Total CpG sites analyzed	25,439,068
+Significant DMPs (FDR < 0.05, |diff| > 10%)	17,729
+Significant DMRs	1,462
+Hypermethylated DMPs	8,285
+Hypomethylated DMPs	9,444
+Hypermethylated DMRs	690
+Hypomethylated DMRs	772
+Mean DMR length (bp)	264
+Mean CpGs per DMR	7.5
+DMLtest smoothing	TRUE
+Analysis time (minutes)	209.8

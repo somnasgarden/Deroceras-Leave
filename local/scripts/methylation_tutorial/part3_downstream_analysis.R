@@ -32,7 +32,7 @@ cat("FULL RUN — all CpGs, smoothing enabled, native Windows R\n\n")
 data_dir    <- "C:/Users/rafae/Projects/DATA"
 project_dir <- "C:/Users/rafae/Projects/STANDBY"
 cache_dir   <- file.path(project_dir, "genome/cache")
-out_dir     <- file.path(project_dir, "methylation_tutorials/results")
+out_dir     <- file.path(project_dir, "results/methylation_tutorial")
 fig_pdf_dir <- file.path(out_dir, "pdf")
 fig_png_dir <- file.path(out_dir, "png")
 

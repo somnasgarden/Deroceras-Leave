@@ -172,26 +172,43 @@ Each batch must test these against D. laeve data. See PROTOCOL.md for the full 2
 
 BSgenome package: `BSgenome.Dlaeve.NCBI.dlgm` (installed on Windows R)
 
-## Running on cluster
+## Running on cluster (HPC)
 
+### Full pipeline (all 10 batches)
 ```bash
-cd Deroceras-Leave/cluster
-dos2unix scripts/*.slurm scripts/*.sh
-sbatch scripts/generate_genome_cache.slurm   # run first if genome_chr1_31.rds missing
-sbatch scripts/dmltest_full.slurm            # full DMLtest (32 GB)
-sbatch scripts/batch1.5_expanded_motif.slurm # TFBS motif positions (64 GB)
+cd Deroceras-Leave
+git pull
+dos2unix methylation_pipeline/*.slurm methylation_pipeline/_config.R
+sbatch methylation_pipeline/run_pipeline.slurm   # runs batches 01-10 sequentially
 ```
 
-SLURM template:
+`_config.R` auto-detects cluster vs local. On cluster it uses:
+- CpG reports: `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/09_methylation_calls/*.CpG_report.txt.gz`
+- GFF: `/mnt/data/alfredvar/30-Genoma/31-Alternative_Annotation_EviAnn/`
+- TE age: `/mnt/data/alfredvar/30-Genoma/32-Repeats/age_of_transposons/collapsed_te_age_data.tsv`
+- Counts: `/mnt/data/alfredvar/jmiranda/20-Transcriptomic_Bulk/25-metaAnalysisTranscriptome/counts_HTseq_EviAnn/`
+- GENIE3: `/mnt/data/alfredvar/wgutierrez/genie3_2/genie3_all_links.tsv` (FULL file, not top 500K)
+- DeepTFactor: `/mnt/data/alfredvar/rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt`
+
+**NOTE:** CpG reports are `.txt.gz` on cluster (compressed). `data.table::fread()` reads gzipped files natively.
+
+### Individual batches
 ```bash
-#!/usr/bin/env bash
-#SBATCH --job-name=Rjob
-#SBATCH --output=slurm_%j.out
-#SBATCH --error=slurm_%j.err
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=32G
-set -euo pipefail
-Rscript scripts/my_script.R
+cd Deroceras-Leave
+Rscript methylation_pipeline/batch03/code/03_promoter_cpg_classification.R
+```
+
+### Prerequisite: genome cache
+If `genome/cache/genome_chr1_31.rds` doesn't exist, batch01 will generate it from BSgenome on first run. Or run separately:
+```bash
+sbatch cluster/scripts/generate_genome_cache.slurm
+```
+
+### Other cluster jobs
+```bash
+cd Deroceras-Leave/cluster
+sbatch scripts/dmltest_full.slurm            # DMLtest with smoothing (32 GB)
+sbatch scripts/batch1.5_expanded_motif.slurm # TFBS genome-wide positions (64 GB)
 ```
 
 ## Git

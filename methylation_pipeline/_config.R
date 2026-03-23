@@ -1,33 +1,72 @@
 # =============================================================================
 # Shared configuration for all methylation pipeline batches
+# Auto-detects local (Windows) vs cluster (HPC Linux) environment
 # Source this at the top of every batch script:
 #   source("methylation_pipeline/_config.R")
 # =============================================================================
 
 options(stringsAsFactors = FALSE, scipen = 999)
-
-# --- Paths ---
-PROJECT_DIR <- "C:/Users/rafae/Projects/STANDBY"
-DATA_DIR    <- "C:/Users/rafae/Projects/DATA"
-CACHE_DIR   <- file.path(PROJECT_DIR, "genome/cache")
-PIPE_DIR    <- file.path(PROJECT_DIR, "methylation_pipeline")
-
 keep_chr <- paste0("chr", 1:31)
 
-# --- OG data files ---
-OG <- list(
-  cpg_C1     = file.path(DATA_DIR, "C1.CpG_report.txt"),
-  cpg_C2     = file.path(DATA_DIR, "C2.CpG_report.txt"),
-  cpg_A1     = file.path(DATA_DIR, "A1.CpG_report.txt"),
-  cpg_A2     = file.path(DATA_DIR, "A2.CpG_report.txt"),
-  gff        = file.path(DATA_DIR, "derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff"),
-  annot      = file.path(DATA_DIR, "derLaeGenome_eviann_annotations.tsv"),
-  te_age     = file.path(DATA_DIR, "collapsed_te_age_data.tsv"),
-  counts_dir = file.path(DATA_DIR, "counts_HTseq_EviAnn"),
-  deeptf     = file.path(DATA_DIR, "prediction_result.txt"),
-  string     = file.path(DATA_DIR, "STRG0A31YWK.protein.orthology.v12.0.txt"),
-  genie3     = file.path(DATA_DIR, "genie3_top500k.tsv")
-)
+# --- Auto-detect environment ---
+ON_CLUSTER <- dir.exists("/mnt/data/alfredvar")
+
+if (ON_CLUSTER) {
+  # ---- CLUSTER PATHS (HPC) ----
+  cat("=== CLUSTER environment detected ===\n")
+  BASE_DATA   <- "/mnt/data/alfredvar"
+  # Find repo root (works whether sourced from methylation_pipeline/ or repo root)
+  PROJECT_DIR <- Sys.getenv("PROJECT_DIR",
+    if (file.exists("methylation_pipeline/_config.R")) getwd()
+    else if (file.exists("_config.R")) dirname(getwd())
+    else stop("Cannot find project root. Set PROJECT_DIR env var or cd to repo root."))
+  DATA_DIR    <- PROJECT_DIR  # OG data comes from cluster paths below
+  CACHE_DIR   <- file.path(PROJECT_DIR, "genome/cache")
+  PIPE_DIR    <- file.path(PROJECT_DIR, "methylation_pipeline")
+
+  OG <- list(
+    cpg_C1     = file.path(BASE_DATA, "jmiranda/50-Genoma/51-Metilacion/09_methylation_calls/C1.CpG_report.txt.gz"),
+    cpg_C2     = file.path(BASE_DATA, "jmiranda/50-Genoma/51-Metilacion/09_methylation_calls/C2.CpG_report.txt.gz"),
+    cpg_A1     = file.path(BASE_DATA, "jmiranda/50-Genoma/51-Metilacion/09_methylation_calls/A1.CpG_report.txt.gz"),
+    cpg_A2     = file.path(BASE_DATA, "jmiranda/50-Genoma/51-Metilacion/09_methylation_calls/A2.CpG_report.txt.gz"),
+    gff        = file.path(BASE_DATA, "30-Genoma/31-Alternative_Annotation_EviAnn/derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff"),
+    annot      = file.path(BASE_DATA, "30-Genoma/31-Alternative_Annotation_EviAnn/derLaeGenome_eviann_annotations.tsv"),
+    te_age     = file.path(BASE_DATA, "30-Genoma/32-Repeats/age_of_transposons/collapsed_te_age_data.tsv"),
+    counts_dir = file.path(BASE_DATA, "jmiranda/20-Transcriptomic_Bulk/25-metaAnalysisTranscriptome/counts_HTseq_EviAnn"),
+    deeptf     = file.path(BASE_DATA, "rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt"),
+    string     = file.path(BASE_DATA, "rlopezt/Preliminary/STRG0A31YWK.protein.orthology.v12.0.txt"),
+    genie3     = file.path(BASE_DATA, "wgutierrez/genie3_2/genie3_all_links.tsv")
+  )
+} else {
+  # ---- LOCAL PATHS (Windows) ----
+  cat("=== LOCAL environment detected ===\n")
+  PROJECT_DIR <- "C:/Users/rafae/Projects/STANDBY"
+  DATA_DIR    <- "C:/Users/rafae/Projects/DATA"
+  CACHE_DIR   <- file.path(PROJECT_DIR, "genome/cache")
+  PIPE_DIR    <- file.path(PROJECT_DIR, "methylation_pipeline")
+
+  OG <- list(
+    cpg_C1     = file.path(DATA_DIR, "C1.CpG_report.txt"),
+    cpg_C2     = file.path(DATA_DIR, "C2.CpG_report.txt"),
+    cpg_A1     = file.path(DATA_DIR, "A1.CpG_report.txt"),
+    cpg_A2     = file.path(DATA_DIR, "A2.CpG_report.txt"),
+    gff        = file.path(DATA_DIR, "derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff"),
+    annot      = file.path(DATA_DIR, "derLaeGenome_eviann_annotations.tsv"),
+    te_age     = file.path(DATA_DIR, "collapsed_te_age_data.tsv"),
+    counts_dir = file.path(DATA_DIR, "counts_HTseq_EviAnn"),
+    deeptf     = file.path(DATA_DIR, "prediction_result.txt"),
+    string     = file.path(DATA_DIR, "STRG0A31YWK.protein.orthology.v12.0.txt"),
+    genie3     = file.path(DATA_DIR, "genie3_top500k.tsv")
+  )
+}
+
+# --- Verify critical paths exist ---
+for (nm in c("gff", "te_age", "counts_dir", "deeptf")) {
+  if (!file.exists(OG[[nm]])) cat("  WARNING: missing", nm, "at", OG[[nm]], "\n")
+}
+
+# --- Cache dir ---
+dir.create(CACHE_DIR, showWarnings = FALSE, recursive = TRUE)
 
 # --- Cached objects ---
 CACHE <- list(
@@ -54,18 +93,14 @@ COLORS <- list(
 save_fig <- function(p, batch_dir, name, w = 8, h = 5) {
   fig_dir <- file.path(batch_dir, "figures")
   dir.create(fig_dir, showWarnings = FALSE, recursive = TRUE)
-
   png(file.path(fig_dir, paste0(name, ".png")),
       width = w, height = h, units = "in", res = 300)
   print(p); dev.off()
-
   tryCatch({
-    cairo_pdf(file.path(fig_dir, paste0(name, ".pdf")),
-              width = w, height = h)
+    cairo_pdf(file.path(fig_dir, paste0(name, ".pdf")), width = w, height = h)
     print(p); dev.off()
   }, error = function(e) {
-    pdf(file.path(fig_dir, paste0(name, ".pdf")),
-        width = w, height = h)
+    pdf(file.path(fig_dir, paste0(name, ".pdf")), width = w, height = h)
     print(p); dev.off()
   })
   cat("  Saved:", name, "\n")
@@ -91,6 +126,7 @@ load_genome <- function() {
     bsg <- BSgenome.Dlaeve.NCBI.dlgm
     seqs <- getSeq(bsg, intersect(keep_chr, seqnames(bsg)))
     names(seqs) <- intersect(keep_chr, seqnames(bsg))
+    cat("Caching genome RDS...\n")
     saveRDS(seqs, CACHE$genome)
     rm(bsg); gc(verbose = FALSE)
     seqs
@@ -141,4 +177,7 @@ annotate_regions <- function(chr, pos, promoters, exons, genes) {
   ann
 }
 
-cat("Config loaded. PROJECT_DIR:", PROJECT_DIR, "\n")
+cat("Config loaded. Environment:", ifelse(ON_CLUSTER, "CLUSTER", "LOCAL"), "\n")
+cat("  PROJECT_DIR:", PROJECT_DIR, "\n")
+cat("  CACHE_DIR:", CACHE_DIR, "\n")
+cat("  PIPE_DIR:", PIPE_DIR, "\n\n")

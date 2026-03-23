@@ -684,42 +684,55 @@ if (file.exists(promoters_rds)) {
 }
 cat("Promoters:", length(promoters), "\n")
 
+# Functional region annotation (mutually exclusive: Promoter > Exon > Intron > Intergenic)
+# TE overlap is reported as a separate column, NOT as a region category
+# (TEs overlap with introns/exons/intergenic — they're repeat annotations, not functional regions)
 annotate_positions <- function(chr, pos) {
   gr <- GRanges(seqnames = chr, ranges = IRanges(start = pos, width = 1))
   in_promoter <- overlapsAny(gr, promoters)
   in_exon     <- overlapsAny(gr, exons)
   in_gene     <- overlapsAny(gr, genes)
-  in_te       <- if (has_te) overlapsAny(gr, te_gr) else rep(FALSE, length(gr))
   annotation <- rep("Intergenic", length(gr))
-  annotation[in_te] <- "TE"
   annotation[in_gene & !in_exon] <- "Intron"
   annotation[in_exon] <- "Exon"
   annotation[in_promoter] <- "Promoter"
   return(annotation)
 }
 
+annotate_te <- function(chr, pos) {
+  if (!has_te) return(rep(FALSE, length(chr)))
+  gr <- GRanges(seqnames = chr, ranges = IRanges(start = pos, width = 1))
+  overlapsAny(gr, te_gr)
+}
+
 dmp_anno_summary <- NULL
 if (nrow(dmp_results) > 0) {
   cat("Annotating DMPs...\n")
   dmp_results$annotation <- annotate_positions(dmp_results$chr, dmp_results$pos)
+  dmp_results$in_te <- annotate_te(dmp_results$chr, dmp_results$pos)
 
   dmp_anno_summary <- as.data.frame(table(dmp_results$annotation))
   colnames(dmp_anno_summary) <- c("Region", "Count")
   dmp_anno_summary$Percent <- round(100 * dmp_anno_summary$Count / sum(dmp_anno_summary$Count), 1)
   dmp_anno_summary <- dmp_anno_summary[order(-dmp_anno_summary$Count), ]
-  cat("DMP annotation summary:\n")
+  cat("DMP annotation summary (functional regions):\n")
   print(dmp_anno_summary)
+  cat(sprintf("DMPs overlapping TEs: %s / %s (%.1f%%)\n",
+              format(sum(dmp_results$in_te), big.mark = ","),
+              format(nrow(dmp_results), big.mark = ","),
+              100 * mean(dmp_results$in_te)))
 
   region_colors <- c("Promoter" = "#8E44AD", "Exon" = "#2471A3",
-                     "Intron" = "#1ABC9C", "TE" = "#F39C12", "Intergenic" = "#C0392B")
+                     "Intron" = "#1ABC9C", "Intergenic" = "#C0392B")
 
   p_anno <- ggplot(dmp_anno_summary, aes(x = "", y = Count, fill = Region)) +
     geom_col(width = 1) +
     coord_polar("y") +
     scale_fill_manual(values = region_colors) +
     labs(title = "DMP Genomic Distribution",
-         subtitle = sprintf("D. laeve | %s significant DMPs",
-                            format(nrow(dmp_results), big.mark = ","))) +
+         subtitle = sprintf("D. laeve | %s significant DMPs (TE overlap: %.1f%%)",
+                            format(nrow(dmp_results), big.mark = ","),
+                            100 * mean(dmp_results$in_te))) +
     theme_void(base_size = 12) +
     theme(legend.position = "right")
 
@@ -758,6 +771,7 @@ if (nrow(dmr_results) > 0) {
   cat("\nAnnotating DMRs...\n")
   dmr_mid <- (dmr_results$start + dmr_results$end) %/% 2
   dmr_results$annotation <- annotate_positions(dmr_results$chr, dmr_mid)
+  dmr_results$in_te <- annotate_te(dmr_results$chr, dmr_mid)
 
   dmr_anno_summary <- as.data.frame(table(dmr_results$annotation))
   colnames(dmr_anno_summary) <- c("Region", "Count")

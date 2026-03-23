@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html><head><meta charset='utf-8'>
-<title>Methylation Tutorial Part 3: D. laeve Full-Genome Analysis</title>
+<title>Methylation Analysis: D. laeve Full-Genome</title>
 <style>
 body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1200px; margin: 40px auto; padding: 0 20px; color: #333; }
 h1 { color: #2c3e50; border-bottom: 2px solid #2471A3; padding-bottom: 10px; }
@@ -10,94 +10,39 @@ th { background: #2471A3; color: white; padding: 8px 12px; text-align: left; }
 td { padding: 6px 12px; border-bottom: 1px solid #ddd; }
 tr:nth-child(even) { background: #f8f9fa; }
 img { max-width: 100%; border: 1px solid #ddd; margin: 10px 0; }
-.key-finding { background: #eaf2f8; padding: 12px; border-left: 4px solid #2471A3; margin: 15px 0; }
 .metric { font-size: 1.2em; font-weight: bold; color: #2471A3; }
 </style>
 </head><body>
-<h1>Methylation Tutorial Part 3: Full-Genome WGBS Analysis</h1>
-<p>Adapted from <a href='https://ngs101.com'>NGS101</a> for <em>D. laeve</em> tail regeneration | Generated: 2026-03-21 </p>
-<p><strong>Design:</strong> 2 Control (C1, C2) vs 2 Amputated (A1, A2) tail samples</p>
-<p><strong>FULL GENOME RUN</strong> -- all CpG sites, DSS smoothing enabled, native Windows R</p>
+<h1>Full-Genome Methylation Analysis -- D. laeve</h1>
+<p>25,439,068 CpGs | DSS with smoothing | Generated: 2026-03-22 </p>
 
-<h2>1. Analysis Summary</h2>
+<h2>1. Summary</h2>
 <table>
-<tr><td>Total CpG sites analyzed</td><td class='metric'>25,439,068</td></tr>
-<tr><td>Significant DMPs (FDR < 0.05, |diff| > 10%)</td><td class='metric'>17,729</td></tr>
-<tr><td>Significant DMRs</td><td class='metric'>1,462</td></tr>
-<tr><td>Hypermethylated DMPs</td><td class='metric'>8,285</td></tr>
-<tr><td>Hypomethylated DMPs</td><td class='metric'>9,444</td></tr>
-<tr><td>Hypermethylated DMRs</td><td class='metric'>690</td></tr>
-<tr><td>Hypomethylated DMRs</td><td class='metric'>772</td></tr>
-<tr><td>Mean DMR length (bp)</td><td class='metric'>264</td></tr>
-<tr><td>Mean CpGs per DMR</td><td class='metric'>7.5</td></tr>
-<tr><td>DMLtest smoothing</td><td class='metric'>TRUE</td></tr>
-<tr><td>Analysis time (minutes)</td><td class='metric'>209.8</td></tr>
+<tr><td>Total CpGs tested</td><td class='metric'>25,439,068</td></tr>
+<tr><td>Significant DMPs</td><td class='metric'>17,729</td></tr>
+<tr><td>Hypermethylated</td><td class='metric'>8,285</td></tr>
+<tr><td>Hypomethylated</td><td class='metric'>9,444</td></tr>
+<tr><td>DMRs</td><td class='metric'>1,462</td></tr>
 </table>
 
-<h2>2. Global Methylation Statistics</h2>
-<table>
-<tr><th>Sample</th><th>Condition</th><th>Sites</th><th>Mean Beta</th><th>Median Beta</th><th>High (&gt;0.8)</th><th>Low (&lt;0.2)</th><th>Intermediate</th></tr>
-<tr><td>C1</td><td>Control</td><td>25,439,068</td><td>0.1811</td><td>0.0000</td><td>4,085,298</td><td>20,246,227</td><td>1,107,543</td></tr>
-<tr><td>C2</td><td>Control</td><td>25,439,068</td><td>0.1801</td><td>0.0000</td><td>3,939,199</td><td>20,216,130</td><td>1,283,739</td></tr>
-<tr><td>A1</td><td>Amputated</td><td>25,439,068</td><td>0.1815</td><td>0.0000</td><td>4,129,673</td><td>20,241,594</td><td>1,067,801</td></tr>
-<tr><td>A2</td><td>Amputated</td><td>25,439,068</td><td>0.1815</td><td>0.0000</td><td>4,080,949</td><td>20,239,617</td><td>1,118,502</td></tr>
-</table>
-
-<h2>3. Beta Value Distribution</h2>
-<img src='png/beta_distribution.png'>
-
-<h2>4. Sample Correlation</h2>
-<img src='png/sample_correlation_heatmap.png'>
-
-<h2>5. PCA of Methylation Profiles</h2>
-<img src='png/pca_methylation.png'>
-
-<h2>6. Volcano Plot -- DMPs</h2>
+<h2>2. Volcano Plot</h2>
 <img src='png/volcano_plot_dmps.png'>
 
-<h2>7. Manhattan Plot -- DMPs</h2>
-<img src='png/manhattan_plot_dmps.png'>
+<h2>3. DMP Region Enrichment</h2>
+<img src='png/dmp_enrichment_by_region.png'>
+<table><tr><th>Region</th><th>DMP %</th><th>Background %</th><th>Fold</th><th>Sig</th></tr>
+<tr><td>Exon</td><td>14.2</td><td>7.3</td><td>1.95</td><td>***</td></tr>
+<tr><td>Intergenic</td><td>35.3</td><td>43.8</td><td>0.81</td><td>***</td></tr>
+<tr><td>Intron</td><td>44.9</td><td>45.0</td><td>1.00</td><td>ns</td></tr>
+<tr><td>Promoter</td><td>5.6</td><td>3.9</td><td>1.44</td><td>***</td></tr>
+</table>
+<p>TE overlap: DMPs=53.4% vs background=53.0% (fold=1.01)</p>
 
-<h2>8. Genome-Wide Methylation Profiles</h2>
-<img src='png/genome_wide_methylation.png'>
-
-<h2>9. DMP Genomic Distribution</h2>
+<h2>4. DMP Genomic Distribution</h2>
 <img src='png/dmp_annotation_pie.png'>
 
-<h2>10. DMP Direction by Region</h2>
+<h2>5. DMP Direction by Region</h2>
 <img src='png/dmp_direction_by_region.png'>
 
-<h3>DMP Annotation Summary</h3>
-<table><tr><th>Region</th><th>Count</th><th>%</th></tr>
-<tr><td>Intron</td><td>7,962</td><td>44.9</td></tr>
-<tr><td>TE</td><td>3,573</td><td>20.2</td></tr>
-<tr><td>Intergenic</td><td>2,681</td><td>15.1</td></tr>
-<tr><td>Exon</td><td>2,514</td><td>14.2</td></tr>
-<tr><td>Promoter</td><td>999</td><td>5.6</td></tr>
-</table>
-
-<h2>11. DMP Heatmap (Top DMPs)</h2>
-<img src='png/dmp_heatmap.png'>
-
-<h2>12. DMR Summary</h2>
-<table><tr><th>Region</th><th>Count</th><th>%</th></tr>
-<tr><td>Exon</td><td>216</td><td>14.8</td></tr>
-<tr><td>Intergenic</td><td>219</td><td>15.0</td></tr>
-<tr><td>Intron</td><td>625</td><td>42.7</td></tr>
-<tr><td>Promoter</td><td>91</td><td>6.2</td></tr>
-<tr><td>TE</td><td>311</td><td>21.3</td></tr>
-</table>
-
-<h2>Methods</h2>
-<div class='key-finding'>
-<p><strong>Full-genome analysis (native Windows R):</strong></p>
-<ul>
-<li><em>D. laeve</em> tail regeneration, custom genome (1.78 Gb, 31 chromosomes)</li>
-<li>Input: Bismark CpG_report.txt files -- strand collapsed, coverage >= 5</li>
-<li>Differential methylation: DSS with smoothing enabled (full genome)</li>
-<li>Significance: FDR < 0.05, |methylation difference| > 10%</li>
-<li>Annotation: custom GFF (EviAnn) -- promoter/exon/intron/TE/intergenic</li>
-</ul>
-</div>
 
 </body></html>

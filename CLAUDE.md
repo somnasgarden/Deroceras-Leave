@@ -105,6 +105,52 @@ STANDBY/
 | `bsseq_tutorial.rds` | BSseq (25.4M CpGs × 4 samples, strand-collapsed, cov>=5) | 170 MB |
 | `dmltest_full.rds` | DMLtest results (smoothing=TRUE, all 25.4M sites) | 1.4 GB |
 
+## Batch 10: Entropy analysis framework (Fang et al. 2023, Feinberg lab)
+
+Traditional DMP/DMR analysis only detects **mean methylation shifts**. Fang et al. 2023 (NAR) showed that **entropy carries comparable or more developmental information than mean**, and 22-43% of developmental methylation changes are entropy-dominant (invisible to DMPs). Two loci can have identical beta = 0.5 but completely different biology: one has a clean 50/50 split (low entropy, two coordinated subpopulations), the other has random scattered patterns (high entropy, stochastic noise). DMPs cannot distinguish these.
+
+### Two levels of entropy analysis
+
+**Level 1: Per-site entropy (from CpG_report.txt — what we have):**
+```
+H = -(beta * log2(beta) + (1-beta) * log2(1-beta))
+```
+A proxy for NME. Tells you if a site is in an uncertain state. Cannot distinguish the two beta=0.5 scenarios above.
+
+**Level 2: Per-read NME (from BAM files — needs cluster):**
+```
+NME = -(1/N) * sum(p_i * log2(p_i)) for all 2^N epiallele patterns
+```
+The real methylation entropy. Captures co-methylation structure across CpGs on individual DNA molecules. Requires Bismark BAMs. **Check if BAMs exist at `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/`.**
+
+### The drift-vs-reprogramming test
+
+The null hypothesis for a DNMT3-absent organism: without de novo methyltransferase, methylation changes during regeneration should be stochastic (drift). DMPs should come from already-disordered (high-entropy) sites.
+
+**If DMPs are LOW entropy at baseline → directed reprogramming** (rejecting the null). Especially striking given no DNMT3.
+**If DMPs are HIGH entropy at baseline → stochastic drift** (failing to reject).
+
+### Critical control (from conversation with other agent)
+Sites near beta = 0 or 1 have low entropy by definition. Must compare DMPs to **matched non-DMPs at similar beta values**, not all CpGs. Otherwise you're just recapitulating the beta distribution. Stratify by local CpG density too (Fang showed entropy inversely related to CpG density).
+
+### The hidden layer
+Fang et al. found that entropy-only changes (mean unchanged, entropy changed) were enriched at enhancers and associated with pioneer TF motifs (KLF4, SOX, GATA). If we have BAMs, we could find regeneration-associated entropy changes invisible to our 17,729 DMPs. This would be the first such analysis in any regeneration system or invertebrate.
+
+### Entropy and expression
+Mean methylation correlates with mean expression. Entropy correlates with **expression variability** (cell-to-cell). High NME near TSS = high expression noise. This is a fundamentally different axis from mean-based analyses.
+
+## Cross-species validation points
+
+Each batch must test these against D. laeve data. See PROTOCOL.md for the full 25-point table mapping each to its responsible batch. Key comparisons:
+
+**Nautilus pompilius (Wu 2025, same phylum):** Metagene profile shape, expression decile vs methylation (non-monotonic?), promoter rho = -0.05, tissue-specific gene hypomethylation, DNMT3 loss effects.
+
+**Annelids (Guynes 2024, spiralian sister group):** Exon vs intron methylation direction, developmental erosion, GbM-expression correlation strength, D. gyrociliatus methylation loss despite DNMT1.
+
+**Weber/Schubeler (promoter architecture):** HCP unmethylated regardless of expression? ICP gain methylation during amputation? LCP methylated but not silenced? Gene body meth suppresses spurious transcription? Methylation at CG-poor regions follows TF binding (not causes it)?
+
+**Entropy (novel):** DMPs from high or low entropy baseline? Global entropy change? Regional entropy? Sox19a cluster entropy? Regeneration = rejuvenation (entropy decrease)?
+
 ## Critical rules
 
 1. **Strand collapse.** CpG_report.txt has both strands. Minus-strand pos shifted by -1, counts summed. One measurement per CpG dinucleotide.

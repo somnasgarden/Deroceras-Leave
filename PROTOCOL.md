@@ -156,30 +156,45 @@ Batch 1.5 (TFBS motifs) ──────────────→ Batch 04 (
 - **Key finding expected:** TFs enriched for DMPs (OR ~ 1.3) but none DE. Sox19a: 13 DMPs 4-5 kb upstream in intergenic region.
 
 ### Batch 10: Methylation Entropy
-- **Question:** Does regeneration increase or decrease methylation entropy?
-- **Input:** BSseq cache (for per-site entropy). BAM files needed for per-read entropy (cluster).
-- **Output:** Per-CpG entropy, entropy by region, entropy at DMPs vs non-DMPs
-- **Figures:** (A) Entropy distribution control vs amputated, (B) Per-region entropy, (C) Entropy at DMPs vs background
+- **Question:** Does regeneration increase or decrease methylation entropy? Are DMPs directed or stochastic?
+- **Input:** BSseq cache (Level 1). BAM files for Level 2 (available, to be added later).
+- **Output:** Per-CpG entropy, entropy by region, entropy at DMPs vs matched non-DMPs, entropy-expression variability correlation
+- **Figures:** (A) Entropy distribution control vs amputated, (B) Per-region entropy, (C) DMP vs matched non-DMP entropy, (D) Baseline entropy vs beta for DMPs and non-DMPs
 
-#### Two types of methylation entropy
+#### Two levels of entropy analysis (Fang et al. 2023, Feinberg lab)
 
-**Per-site (binary) entropy** — what we can compute from CpG_report.txt:
+Fang et al. showed that **entropy carries comparable or more developmental information than mean methylation**. 22-43% of developmental changes are entropy-dominant and **invisible to DMP/DMR analysis**. The field has been systematically missing half the picture by only looking at mean shifts.
+
+**Level 1: Per-site (binary) entropy** — from CpG_report.txt (available now):
 ```
 H = -(beta * log2(beta) + (1-beta) * log2(1-beta))
 ```
-Maximum at beta = 0.5, zero at 0 or 1. Measures uncertainty about each CpG's state.
+A proxy for NME. Cannot distinguish two loci both at beta = 0.5 where one has a clean 50/50 split (low true entropy) and the other has random patterns (high true entropy).
 
-**Per-read (epiallele) entropy** — needs BAM files:
+**Level 2: Per-read NME (normalized methylation entropy)** — from BAM files (available later):
 ```
-H = -sum(p_i * log2(p_i)) for all 2^k epiallele patterns in a 4-CpG window
+NME = -(1/N) * sum(p_i * log2(p_i)) for all 2^N epiallele patterns in a window
 ```
-Captures co-methylation structure across neighboring CpGs on individual DNA molecules. More informative but requires aligned reads, not just counts.
+The real methylation entropy. Captures co-methylation structure. Tools: DMEAS, informME (CPEL pipeline), or custom from Bismark BAMs. **BAMs exist on cluster — to be added.**
 
-#### Key question
-**Do DMPs come from high-entropy (already disordered) or low-entropy (stably committed) sites?**
-- High-entropy DMPs → stochastic drift (noise, passive demethylation during replication)
-- Low-entropy DMPs → directed reprogramming (active, targeted methylation changes)
-This distinguishes "the methylome is falling apart" from "the methylome is being specifically reprogrammed."
+**Level 2 unlocks:**
+- Entropy-only changes (mean unchanged, entropy changed) — the "hidden layer"
+- These are enriched at enhancers and pioneer TF binding sites (KLF4, SOX, GATA in Fang et al.)
+- Could find regeneration-associated changes invisible to our 17,729 DMPs
+
+#### Key question: drift vs reprogramming
+**Null hypothesis:** Without DNMT3 (de novo methyltransferase), methylation changes should be stochastic. DMPs should come from already-disordered (high-entropy) baseline sites.
+
+- **DMPs at LOW baseline entropy → directed reprogramming** (reject null). Striking for DNMT3-absent organism.
+- **DMPs at HIGH baseline entropy → stochastic drift** (fail to reject).
+
+From Shao et al. 2014: lineage commitment sites show **intermediate methylation + low entropy** = coordinated directed change. If D. laeve DMPs show this same signature, that's evidence for conserved programmed reprogramming.
+
+#### CRITICAL CONTROL: matched comparison
+Sites near beta = 0 or 1 have low entropy by definition. Comparing DMP entropy to all CpGs just recapitulates the beta distribution. **Must compare DMPs to matched non-DMPs at similar beta values.** For each DMP, sample non-DMPs with similar baseline beta (e.g., within 0.05) and compare entropy distributions. Also stratify by local CpG density (Fang showed entropy inversely related to CpG density, 2.1-fold enrichment, p < 2.2e-16).
+
+#### Entropy and expression variability
+Mean methylation correlates with mean expression. Entropy correlates with **expression variability** (cell-to-cell noise). High NME near TSS = high expression variability across cells. This is a fundamentally different axis. Fang et al.: entropy-associated TF motifs include KLF4, SOX, GATA (pluripotency/reprogramming factors). Mean-associated motifs include NFI family (lineage commitment).
 
 #### Literature
 - **No published study has computed methylation entropy in regeneration or invertebrates.** Both would be novel.
@@ -257,6 +272,7 @@ A previous analysis (`C:/Users/rafae/Projects/dlaeve-regeneration-epigenomics/`)
 - **Jenkinson et al. 2017 (Nature Genetics):** Ising model (informME). Both stem cells AND differentiated tissues have LOW entropy. Entropy increases with aging + cancer, NOT with differentiation per se. **Used BAMs.**
 - **Shao et al. 2014 (BMC Genomics):** Entropy DECREASES at promoters during adipose stem cell → adipocyte differentiation. Entropy INCREASES during reprogramming to iPSC. **Used BAMs.**
 - **Vaidya et al. 2023 (Genome Biology):** "Aging but NOT differentiation leads to increasing entropy." Very little entropy change between stem cells and differentiated progeny at same age. **Used BAMs (RRBS).**
+- **Fang et al. 2023 (NAR, Feinberg lab):** THE key entropy paper. Entropy carries comparable or MORE developmental information than mean methylation. 22-43% of developmental changes are entropy-dominant (invisible to DMPs). Entropy inversely related to CpG density. Entropy-associated TF motifs: KLF4, SOX, GATA (pluripotency factors). Mean-associated: NFI family (lineage commitment). Entropy predicts expression variability, not expression level. Conserved mouse-human. **Used BAMs + informME/CPEL pipeline.** Framework: MML (mean) + NME (entropy) + UC (uncertainty coefficient) per 250bp window.
 - **NO PUBLISHED STUDY on methylation entropy in regeneration or invertebrates.** Both would be novel contributions.
 
 ### TFBS motif annotation

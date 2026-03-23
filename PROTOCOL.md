@@ -270,6 +270,69 @@ A previous analysis (`C:/Users/rafae/Projects/dlaeve-regeneration-epigenomics/`)
 
 ---
 
+## Cross-species validation points
+
+Each batch must explicitly test these against our data. These are not assumptions — they are testable predictions from the literature. Report whether *D. laeve* confirms or contradicts each one.
+
+### From Nautilus pompilius (Wu et al. 2025) — same phylum, closest comparison
+
+| # | Point | Batch | How to test |
+|---|-------|-------|-------------|
+| 1 | Metagene profile: low at promoter → peak in gene body → drop at terminator | 04 | Compute mean beta in windows around TSS (upstream → exons → introns → downstream) |
+| 2 | Moderately expressed genes have HIGHEST gene body methylation (not the most expressed) | 04 | Bin genes by expression decile, plot mean gene body beta per decile |
+| 3 | Unexpressed genes still have moderate gene body methylation | 04 | Check beta for genes with FPKM/VST ~ 0 |
+| 4 | Promoter methylation weakly negatively correlated with expression (Nautilus rho = -0.05) | 04 | Compute Spearman(promoter_beta, expression) |
+| 5 | First exon methylation negatively correlated with expression | 04 | Compute Spearman(first_exon_beta, expression) |
+| 6 | Tissue-specific genes (Tau > 0.8) are hypomethylated vs housekeeping | 04 | Compute Tau index from multi-tissue RNA-seq, compare gene body beta |
+| 7 | Nautilus has DNMT1+DNMT3, D. laeve has DNMT1 only. Any pattern difference? | 02,04 | Qualitative comparison of metagene profiles and correlations |
+
+### From Annelids (Guynes et al. 2024) — spiralian sister group
+
+| # | Point | Batch | How to test |
+|---|-------|-------|-------------|
+| 8 | Exon vs intron methylation: which is higher? (varies by species) | 04 | Compare mean beta exon vs intron |
+| 9 | Methylation erodes from embryo → adult. Is regenerating tissue different from control? | 06 | Compare global mean beta: control vs amputated (even small difference matters) |
+| 10 | GbM-expression correlation strongest in early development. Where does our adult rho fit? | 04 | Report our rho = 0.307 in context of their developmental series |
+| 11 | Promoter always hypomethylated regardless of stage | 04 | Confirm promoter mean beta << gene body in both conditions |
+| 12 | D. gyrociliatus lost methylation despite DNMT1. D. laeve kept it. What's different? | 02 | Compare DNMT toolkit, note presence of UHRF1, TET, etc. |
+
+### From Weber et al. 2007 / Schubeler 2015 — promoter architecture
+
+| # | Point | Batch | How to test |
+|---|-------|-------|-------------|
+| 13 | HCP promoters unmethylated regardless of expression | 03,04 | Mean beta of our 6.5% HCP promoters — are they unmethylated? |
+| 14 | ICP promoters are targets for de novo methylation in mammals | 03,04 | Mean beta of our 91.6% ICP promoters — methylated or not? |
+| 15 | LCP promoters methylated but methylation doesn't silence them | 03,04 | Expression of genes with LCP promoters vs their methylation |
+| 16 | H3K4me protects CpG islands from methylation. Without islands, what protects D. laeve promoters? | 03 | Describe the structural absence; note no chromatin data (ATAC-seq needed) |
+| 17 | Weak CpG islands are predisposed to de novo methylation (Weber) — do ICP promoters gain methylation in amputation? | 03,06 | Compare promoter methylation between control and amputated for each Weber class |
+| 18 | Gene body methylation suppresses intragenic spurious transcription (Schubeler) | 04 | Can we detect cryptic TSS in unmethylated gene bodies? (needs RNA-seq, may not be testable) |
+| 19 | Methylation at CG-poor regulatory regions occurs DOWNSTREAM of TF binding (Schubeler 2015) | 09 | If TFBS overlaps DMP, is the TF expressed? If TF binds first then methylation follows, we expect TF expression to precede methylation change |
+| 20 | DNMT1 alone can perform de novo methylation at retrotransposons (Haggerty 2021) | 05 | Are young TEs methylated despite no DNMT3? If yes, DNMT1 may be doing de novo |
+
+### From entropy literature — novel territory
+
+| # | Point | Batch | How to test |
+|---|-------|-------|-------------|
+| 21 | DMPs from high-entropy (disordered) or low-entropy (committed) baseline sites? | 10 | Compare baseline per-site entropy at DMP positions vs non-DMP positions |
+| 22 | Global methylation entropy change upon amputation | 10 | Paired Wilcoxon test: control entropy vs amputated entropy (per-site) |
+| 23 | Entropy by region (promoter vs gene body vs intergenic) | 10 | Mean entropy per region, both conditions |
+| 24 | Intergenic DMP clusters (Sox19a) — high or low entropy at baseline? | 10 | Extract Sox19a upstream region, compute entropy |
+| 25 | Aging increases entropy (Jenkinson 2017). Regeneration = rejuvenation? Does entropy decrease? | 10 | If amputated entropy < control → dedifferentiation looks like rejuvenation |
+
+### Summary: what each batch must cross-validate
+
+| Batch | Points to test |
+|-------|---------------|
+| 02 | 7, 12 |
+| 03 | 13, 14, 15, 16, 17 |
+| 04 | 1, 2, 3, 4, 5, 6, 8, 10, 11, 18 |
+| 05 | 20 |
+| 06 | 9, 17 |
+| 09 | 19 |
+| 10 | 21, 22, 23, 24, 25 |
+
+---
+
 ## Critical rules
 
 1. **Strand collapse before any analysis.** Minus-strand pos - 1, sum counts. One CpG per dinucleotide.

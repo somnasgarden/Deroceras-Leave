@@ -1,0 +1,1 @@
+cmd = /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/methylation_pipeline/batch1.5/data/promoters_for_homer.fa fasta /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/methylation_pipeline/batch1.5/data/homer_denovo -len 8,10,12 -p 4 -S 25

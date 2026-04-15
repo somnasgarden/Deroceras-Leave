@@ -4,7 +4,7 @@
 # Reads BSseq from CpG reports (or cache), runs DMLtest, saves DMPs/DMRs
 # =============================================================================
 
-options(stringsAsFactors = FALSE, scipen = 999)
+source("methylation_pipeline/_config.R")
 
 suppressPackageStartupMessages({
   library(bsseq)
@@ -16,27 +16,18 @@ suppressPackageStartupMessages({
 cat("=== Full-Genome DMLtest (Cluster) ===\n")
 cat("Start time:", format(Sys.time()), "\n\n")
 
-# --- Paths ---
-CLUSTER_ROOT <- Sys.getenv("CLUSTER_ROOT", ".")
-cache_dir    <- file.path(CLUSTER_ROOT, "genome/cache")
-out_dir      <- file.path(CLUSTER_ROOT, "results")
+# --- Paths (from _config.R) ---
+out_dir <- file.path(PROJECT_DIR, "cluster/results")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
-
-# CpG report files on cluster (compressed)
-cpg_dir <- "/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/09_methylation_calls"
 
 sample_info <- data.frame(
   sample_id = c("C1", "C2", "A1", "A2"),
   condition = c("Control", "Control", "Amputated", "Amputated"),
-  file_path = file.path(cpg_dir, paste0(
-    c("C1", "C2", "A1", "A2"), ".CpG_report.txt.gz"
-  ))
+  file_path = c(OG$cpg_C1, OG$cpg_C2, OG$cpg_A1, OG$cpg_A2)
 )
 
-keep_chr <- paste0("chr", 1:31)
-
 # --- Load or build BSseq ---
-bsseq_cache <- file.path(cache_dir, "bsseq_full.rds")
+bsseq_cache <- CACHE$bsseq
 
 if (file.exists(bsseq_cache)) {
   cat("Loading cached BSseq...\n")
@@ -166,10 +157,9 @@ dml_time <- (proc.time() - t0)[3]
 cat(sprintf("\nDMLtest done in %.1f minutes\n", dml_time / 60))
 cat(sprintf("Sites tested: %s\n", format(nrow(dml_test), big.mark = ",")))
 
-# Cache DMLtest
-dml_cache <- file.path(out_dir, "dmltest_full.rds")
-saveRDS(dml_test, dml_cache)
-cat(sprintf("Cached: %s (%.1f MB)\n", dml_cache, file.size(dml_cache) / 1e6))
+# Cache DMLtest (to genome/cache/ for pipeline access)
+saveRDS(dml_test, CACHE$dmltest)
+cat(sprintf("Cached: %s (%.1f MB)\n", CACHE$dmltest, file.size(CACHE$dmltest) / 1e6))
 
 rm(bs_obj); gc(verbose = FALSE)
 

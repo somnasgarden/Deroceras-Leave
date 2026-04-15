@@ -1,0 +1,18 @@
+dmp_pos	motif_name	tf_class	dbd_family	conservation	yin_class
+43290398	Xrp1	""	Unknown	Unknown	Unknown
+43290398	Hox3	HOX	Homeodomain	High	MethylPlus
+43290398	Hox4	HOX	Homeodomain	High	MethylPlus
+43290398	Meox	HOX	Homeodomain	High	MethylPlus
+43290398	Noto	NK	Homeodomain	High	MethylPlus
+43290398	HOXB4	HOX	Homeodomain	High	MethylPlus
+43290398	HOXC4	HOX	Homeodomain	High	MethylPlus
+43290584	ZIC1	More than 3 adjacent zinc fingers	C2H2-ZF (multi)	Low	Mixed
+43290584	Blimp-1	More than 3 adjacent zinc fingers	C2H2-ZF (multi)	Low	Mixed
+43290584	ken	Other factors with up to three adjacent zinc fingers	C2H2-ZF (other)	Low	Mixed
+43290584	RXRA::VDR	RXR-related receptors (NR2)	Nuclear receptor	High	LittleEffect
+43290584	RARA	Thyroid hormone receptor-related factors (NR1)	Nuclear receptor	High	LittleEffect
+43290584	Rarb	Thyroid hormone receptor-related factors (NR1)	Nuclear receptor	High	LittleEffect
+43986630	MAZ	More than 3 adjacent zinc fingers	C2H2-ZF (multi)	Low	Mixed
+43986630	PATZ1	Factors with multiple dispersed zinc fingers	C2H2-ZF (multi)	Low	Mixed
+43986630	ZNF148	More than 3 adjacent zinc fingers	C2H2-ZF (multi)	Low	Mixed
+43986630	Pou4	POU domain factors	Homeodomain	High	MethylPlus

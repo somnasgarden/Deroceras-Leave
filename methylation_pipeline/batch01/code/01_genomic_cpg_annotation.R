@@ -2,7 +2,7 @@
 # =============================================================================
 # Batch 01: Genomic CpG Annotation
 # Question: What does the D. laeve CpG landscape look like?
-# Output: data/ (region stats, TE stats) + figures/ (9 plots)
+# Output: data/ (region stats, TE stats) + figures/ (7 plots)
 # =============================================================================
 
 source("methylation_pipeline/_config.R")
@@ -17,6 +17,12 @@ library(data.table)
 BATCH_DIR <- file.path(PIPE_DIR, "batch01")
 
 cat("=== Batch 01: Genomic CpG Annotation ===\n\n")
+
+# Clean old output
+unlink(file.path(BATCH_DIR, "figures"), recursive = TRUE)
+unlink(file.path(BATCH_DIR, "data"), recursive = TRUE)
+dir.create(file.path(BATCH_DIR, "figures"), showWarnings = FALSE, recursive = TRUE)
+dir.create(file.path(BATCH_DIR, "data"), showWarnings = FALSE, recursive = TRUE)
 
 # --- Load data ---
 genome <- load_genome()
@@ -104,8 +110,9 @@ region_stats <- do.call(rbind, lapply(names(regions_list), function(nm) {
   }
   oe <- ifelse(total_c > 0 & total_g > 0,
                (as.numeric(total_cpg_r) * len) / (as.numeric(total_c) * as.numeric(total_g)), NA)
+  gc_pct <- ifelse(len > 0, 100 * (total_c + total_g) / len, NA)
   data.frame(region = nm, total_bp = len, cpg_count = total_cpg_r,
-             cpg_per_kb = total_cpg_r / (len / 1000), cpg_oe = oe,
+             cpg_per_kb = total_cpg_r / (len / 1000), cpg_oe = oe, gc_pct = gc_pct,
              enrichment = ifelse(oe > cpg_oe, "OVER", "UNDER"))
 }))
 
@@ -116,53 +123,27 @@ save_data(region_stats, BATCH_DIR, "region_cpg_stats")
 region_colors <- COLORS$region
 region_stats$region_name <- gsub("_", " ", region_stats$region)
 
-# Fig 1A: Dinucleotide frequency
-obs_counts <- colSums(dinuc); obs_freq <- obs_counts / sum(obs_counts)
-combos <- expand.grid(first = names(base_freq), second = names(base_freq), stringsAsFactors = FALSE)
-combos$dinuc <- paste0(combos$first, combos$second)
-combos$expected <- base_freq[combos$first] * base_freq[combos$second]
-exp_freq <- combos$expected[match(names(obs_freq), combos$dinuc)]
+# Fig 1A: Dinucleotide frequencies (observed vs expected)
+dinuc_total <- colSums(dinuc)
+dinuc_pct <- 100 * dinuc_total / sum(dinuc_total)
+dinuc_df <- data.frame(dinuc = names(dinuc_pct), observed = as.numeric(dinuc_pct))
+dinuc_df$expected <- 100 * base_freq[substr(dinuc_df$dinuc, 1, 1)] *
+                          base_freq[substr(dinuc_df$dinuc, 2, 2)]
+dinuc_df <- dinuc_df[order(-dinuc_df$observed), ]
+dinuc_df$dinuc <- factor(dinuc_df$dinuc, levels = dinuc_df$dinuc)
+dinuc_df$is_cpg <- dinuc_df$dinuc == "CG"
 
-plot_df <- data.frame(dinucleotide = names(obs_freq), observed = as.numeric(obs_freq) * 100,
-                      expected = as.numeric(exp_freq) * 100)
-plot_df <- plot_df[order(-plot_df$observed), ]
-plot_df$dinucleotide <- factor(plot_df$dinucleotide, levels = plot_df$dinucleotide)
-plot_df$is_cpg <- ifelse(plot_df$dinucleotide == "CG", "CpG", "other")
-
-p1a <- ggplot(plot_df, aes(x = dinucleotide, y = observed, fill = is_cpg)) +
+p1a <- ggplot(dinuc_df, aes(x = dinuc, y = observed, fill = is_cpg)) +
   geom_col(width = 0.7) +
   geom_point(aes(y = expected), shape = 18, size = 3, color = "black") +
-  scale_fill_manual(values = c("CpG" = "#C0392B", "other" = "#2471A3"), guide = "none") +
+  scale_fill_manual(values = c("FALSE" = "#2980B9", "TRUE" = "#C0392B"), guide = "none") +
   labs(x = "Dinucleotide", y = "Frequency (%)",
-       title = "Dinucleotide frequencies", subtitle = "Bars = observed, diamonds = expected") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-save_fig(p1a, BATCH_DIR, "fig1a_dinucleotide_freq")
-
-# Fig 1B: CpG O/E by region
-region_stats$region_f <- factor(region_stats$region_name,
-                                levels = region_stats$region_name[order(region_stats$cpg_oe)])
-p1b <- ggplot(region_stats, aes(x = region_f, y = cpg_oe, fill = region_name)) +
-  geom_col(width = 0.7) +
-  geom_hline(yintercept = 1, linetype = "dashed", color = "gray40") +
-  geom_hline(yintercept = cpg_oe, linetype = "dotted", color = "black") +
-  annotate("text", x = 0.7, y = cpg_oe + 0.02, label = paste0("genome: ", round(cpg_oe, 3)), size = 3, hjust = 0) +
-  scale_fill_manual(values = c(region_colors, "Gene body" = "#27AE60", TE = "#F39C12"), guide = "none") +
-  labs(x = NULL, y = "CpG O/E ratio", title = "CpG O/E by genomic region") +
+       title = "Dinucleotide frequencies",
+       subtitle = "Bars = observed, diamonds = expected") +
   theme_minimal()
-save_fig(p1b, BATCH_DIR, "fig1b_cpg_oe_by_region", w = 7, h = 5)
+save_fig(p1a, BATCH_DIR, "fig1a_dinucleotide_freq", w = 8, h = 5)
 
-# Fig 1C: CpG density by region
-region_stats$region_f2 <- factor(region_stats$region_name,
-                                 levels = region_stats$region_name[order(region_stats$cpg_per_kb)])
-p1c <- ggplot(region_stats, aes(x = region_f2, y = cpg_per_kb, fill = region_name)) +
-  geom_col(width = 0.7) +
-  geom_hline(yintercept = cpg_density, linetype = "dotted", color = "black") +
-  scale_fill_manual(values = c(region_colors, "Gene body" = "#27AE60", TE = "#F39C12"), guide = "none") +
-  labs(x = NULL, y = "CpG per kb", title = "CpG density by genomic region") +
-  theme_minimal()
-save_fig(p1c, BATCH_DIR, "fig1c_cpg_density_by_region", w = 7, h = 5)
-
-# Fig 1D: Per-chromosome O/E distributions (outlier-filtered: >= 10kb per region)
+# Fig 1B-D: Per-chromosome distributions by region (outlier-filtered: >= 10kb per region)
 cat("Computing per-chromosome distributions...\n")
 chr_region_stats <- do.call(rbind, lapply(names(regions_list), function(nm) {
   reg <- trim(regions_list[[nm]]); reg <- reg[width(reg) > 0]
@@ -178,26 +159,53 @@ chr_region_stats <- do.call(rbind, lapply(names(regions_list), function(nm) {
     cc <- sum(letterFrequency(seqs, letters = "C"))
     gg <- sum(letterFrequency(seqs, letters = "G"))
     oe <- ifelse(cc > 0 & gg > 0, (as.numeric(n_cpg) * len) / (as.numeric(cc) * as.numeric(gg)), NA)
+    gc_pct <- ifelse(len > 0, 100 * (cc + gg) / len, NA)
     rm(seqs); gc(verbose = FALSE)
-    data.frame(region = gsub("_", " ", nm), chr = chr_name, cpg_per_kb = n_cpg / (len / 1000), cpg_oe = oe)
+    data.frame(region = gsub("_", " ", nm), chr = chr_name, cpg_per_kb = n_cpg / (len / 1000), cpg_oe = oe, gc_pct = gc_pct)
   }))
 }))
 chr_region_stats <- chr_region_stats[!is.na(chr_region_stats$cpg_oe), ]
 chr_region_stats$region <- factor(chr_region_stats$region,
                                   levels = c("Promoter", "Gene body", "Exon", "Intron", "TE", "Intergenic"))
 
-p1d <- ggplot(chr_region_stats, aes(x = cpg_oe, fill = region, color = region)) +
+region_fill <- c(region_colors, "Gene body" = "#27AE60", TE = "#F39C12")
+
+# Fig 1B: CpG density distribution by region (CpG per kb)
+dens_cap <- quantile(chr_region_stats$cpg_per_kb, 0.99, na.rm = TRUE)
+p1b <- ggplot(chr_region_stats, aes(x = cpg_per_kb, fill = region, color = region)) +
+  geom_density(alpha = 0.3, linewidth = 0.8) +
+  geom_vline(xintercept = cpg_density, linetype = "dotted", color = "black") +
+  scale_fill_manual(values = region_fill) + scale_color_manual(values = region_fill) +
+  coord_cartesian(xlim = c(NA, dens_cap * 1.05)) +
+  labs(x = "CpG per kb", y = "Density", title = "CpG density distribution by region",
+       subtitle = "Per-chromosome (>= 10kb). Dotted = genome avg") +
+  theme_minimal() + theme(legend.title = element_blank())
+save_fig(p1b, BATCH_DIR, "fig1b_cpg_density_distribution")
+
+# Fig 1C: CpG O/E distribution by region
+oe_cap <- quantile(chr_region_stats$cpg_oe, 0.99, na.rm = TRUE)
+p1c <- ggplot(chr_region_stats, aes(x = cpg_oe, fill = region, color = region)) +
   geom_density(alpha = 0.3, linewidth = 0.8) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray40") +
   geom_vline(xintercept = cpg_oe, linetype = "dotted", color = "black") +
-  scale_fill_manual(values = c(region_colors, "Gene body" = "#27AE60", TE = "#F39C12")) +
-  scale_color_manual(values = c(region_colors, "Gene body" = "#27AE60", TE = "#F39C12")) +
+  scale_fill_manual(values = region_fill) + scale_color_manual(values = region_fill) +
+  coord_cartesian(xlim = c(NA, oe_cap * 1.05)) +
   labs(x = "CpG O/E ratio", y = "Density", title = "CpG O/E distribution by region",
        subtitle = "Per-chromosome (>= 10kb). Dashed = expected, dotted = genome avg") +
   theme_minimal() + theme(legend.title = element_blank())
-save_fig(p1d, BATCH_DIR, "fig1d_cpg_oe_distribution")
+save_fig(p1c, BATCH_DIR, "fig1c_cpg_oe_distribution")
 
-rm(cpg_all, cpg_by_chr, chr_region_stats); gc(verbose = FALSE)
+# Fig 1D: GC% distribution by region
+p1d <- ggplot(chr_region_stats, aes(x = gc_pct, fill = region, color = region)) +
+  geom_density(alpha = 0.3, linewidth = 0.8) +
+  geom_vline(xintercept = overall_gc * 100, linetype = "dotted", color = "black") +
+  scale_fill_manual(values = region_fill) + scale_color_manual(values = region_fill) +
+  labs(x = "GC content (%)", y = "Density", title = "GC% distribution by region",
+       subtitle = "Per-chromosome (>= 10kb). Dotted = genome avg") +
+  theme_minimal() + theme(legend.title = element_blank())
+save_fig(p1d, BATCH_DIR, "fig1d_gc_distribution")
+
+rm(cpg_all, cpg_by_chr); gc(verbose = FALSE)
 
 # --- TE class analysis ---
 cat("Computing TE class CpG stats...\n")
@@ -220,22 +228,14 @@ te_family_stats <- do.call(rbind, lapply(keep_classes, function(cls) {
   }
   oe <- ifelse(total_c > 0 & total_g > 0,
                (as.numeric(total_cpg_cls) * len) / (as.numeric(total_c) * as.numeric(total_g)), NA)
+  gc_pct <- ifelse(len > 0, 100 * (total_c + total_g) / len, NA)
   data.frame(te_class = cls, total_bp = len, cpg_count = total_cpg_cls,
-             cpg_per_kb = total_cpg_cls / (len / 1000), cpg_oe = oe,
+             cpg_per_kb = total_cpg_cls / (len / 1000), cpg_oe = oe, gc_pct = gc_pct,
              n_elements = as.integer(te_class_counts[cls]))
 }))
 te_family_stats <- te_family_stats[order(te_family_stats$cpg_oe), ]
 te_family_stats$te_class <- factor(te_family_stats$te_class, levels = te_family_stats$te_class)
 save_data(te_family_stats, BATCH_DIR, "te_class_cpg_stats")
-
-# TE O/E bar
-p_te <- ggplot(te_family_stats, aes(x = te_class, y = cpg_oe, fill = cpg_oe)) +
-  geom_col(width = 0.7) +
-  geom_hline(yintercept = cpg_oe, linetype = "dotted") +
-  scale_fill_gradient(low = "#2471A3", high = "#C0392B", guide = "none") +
-  labs(x = NULL, y = "CpG O/E", title = "CpG O/E by TE class") +
-  theme_minimal() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-save_fig(p_te, BATCH_DIR, "fig1e_te_cpg_oe_by_class")
 
 # TE per-chr distributions (outlier-filtered)
 te_chr_stats <- do.call(rbind, lapply(keep_classes, function(cls) {
@@ -251,20 +251,45 @@ te_chr_stats <- do.call(rbind, lapply(keep_classes, function(cls) {
     cc <- sum(letterFrequency(seqs, letters = "C"))
     gg <- sum(letterFrequency(seqs, letters = "G"))
     oe <- ifelse(cc > 0 & gg > 0, (as.numeric(n_cpg) * len) / (as.numeric(cc) * as.numeric(gg)), NA)
+    gc_pct <- ifelse(len > 0, 100 * (cc + gg) / len, NA)
     rm(seqs); gc(verbose = FALSE)
-    data.frame(te_class = cls, chr = chr_name, cpg_per_kb = n_cpg / (len / 1000), cpg_oe = oe)
+    data.frame(te_class = cls, chr = chr_name, cpg_per_kb = n_cpg / (len / 1000), cpg_oe = oe, gc_pct = gc_pct)
   }))
 }))
 te_chr_stats <- te_chr_stats[!is.na(te_chr_stats$cpg_oe), ]
 te_chr_stats$te_class <- factor(te_chr_stats$te_class, levels = levels(te_family_stats$te_class))
 
-p_te_dist <- ggplot(te_chr_stats, aes(x = cpg_oe, fill = te_class, color = te_class)) +
+# Fig 1E: CpG density distribution by TE class (CpG per kb)
+te_dens_cap <- quantile(te_chr_stats$cpg_per_kb, 0.99, na.rm = TRUE)
+p1e <- ggplot(te_chr_stats, aes(x = cpg_per_kb, fill = te_class, color = te_class)) +
+  geom_density(alpha = 0.3, linewidth = 0.8) +
+  geom_vline(xintercept = cpg_density, linetype = "dotted") +
+  scale_fill_manual(values = COLORS$te) + scale_color_manual(values = COLORS$te) +
+  coord_cartesian(xlim = c(NA, te_dens_cap * 1.05)) +
+  labs(x = "CpG per kb", y = "Density", title = "CpG density distribution by TE class",
+       subtitle = "Per-chromosome (>= 10kb). Dotted = genome avg") +
+  theme_minimal() + theme(legend.title = element_blank())
+save_fig(p1e, BATCH_DIR, "fig1e_te_cpg_density_distribution")
+
+# Fig 1F: CpG O/E distribution by TE class
+p1f <- ggplot(te_chr_stats, aes(x = cpg_oe, fill = te_class, color = te_class)) +
   geom_density(alpha = 0.3, linewidth = 0.8) +
   geom_vline(xintercept = cpg_oe, linetype = "dotted") +
+  scale_fill_manual(values = COLORS$te) + scale_color_manual(values = COLORS$te) +
   labs(x = "CpG O/E", y = "Density", title = "CpG O/E distribution by TE class",
-       subtitle = "Per-chromosome (>= 10kb)") +
+       subtitle = "Per-chromosome (>= 10kb). Dotted = genome avg") +
   theme_minimal() + theme(legend.title = element_blank())
-save_fig(p_te_dist, BATCH_DIR, "fig1f_te_cpg_oe_distribution")
+save_fig(p1f, BATCH_DIR, "fig1f_te_cpg_oe_distribution")
+
+# Fig 1G: GC% distribution by TE class
+p1g <- ggplot(te_chr_stats, aes(x = gc_pct, fill = te_class, color = te_class)) +
+  geom_density(alpha = 0.3, linewidth = 0.8) +
+  geom_vline(xintercept = overall_gc * 100, linetype = "dotted") +
+  scale_fill_manual(values = COLORS$te) + scale_color_manual(values = COLORS$te) +
+  labs(x = "GC content (%)", y = "Density", title = "GC% distribution by TE class",
+       subtitle = "Per-chromosome (>= 10kb). Dotted = genome avg") +
+  theme_minimal() + theme(legend.title = element_blank())
+save_fig(p1g, BATCH_DIR, "fig1g_te_gc_distribution")
 
 # Save genome summary
 genome_summary <- data.frame(

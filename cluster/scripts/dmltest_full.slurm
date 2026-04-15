@@ -1,39 +1,46 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=dmltest
-#SBATCH --output=slurm_%j.out
-#SBATCH --error=slurm_%j.err
+#SBATCH --output=cluster/logs/slurm_%j.out
+#SBATCH --error=cluster/logs/slurm_%j.err
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
 
 set -euo pipefail
 
 # Full-genome DMLtest with smoothing on 25M+ CpGs
-# Run from: cd cluster && sbatch scripts/dmltest_full.slurm
+# Run from repo root: sbatch cluster/scripts/dmltest_full.slurm
 
-if [ -f "${SLURM_SUBMIT_DIR}/scripts/dmltest_full.R" ]; then
-  CLUSTER_ROOT="$SLURM_SUBMIT_DIR"
-elif [ -f "${SLURM_SUBMIT_DIR}/dmltest_full.R" ]; then
-  CLUSTER_ROOT="$(dirname "$SLURM_SUBMIT_DIR")"
+# Find repo root
+if [ -f "${SLURM_SUBMIT_DIR}/methylation_pipeline/_config.R" ]; then
+  PROJECT_DIR="$SLURM_SUBMIT_DIR"
+elif [ -f "${SLURM_SUBMIT_DIR}/../methylation_pipeline/_config.R" ]; then
+  PROJECT_DIR="$(cd "$SLURM_SUBMIT_DIR/.." && pwd)"
+elif [ -f "${SLURM_SUBMIT_DIR}/../../methylation_pipeline/_config.R" ]; then
+  PROJECT_DIR="$(cd "$SLURM_SUBMIT_DIR/../.." && pwd)"
 else
-  CLUSTER_ROOT="$(dirname "$SLURM_SUBMIT_DIR")"
+  echo "ERROR: Cannot find _config.R. Submit from repo root."
+  exit 1
 fi
-cd "$CLUSTER_ROOT"
-export CLUSTER_ROOT
+cd "$PROJECT_DIR"
+export PROJECT_DIR
+
+mkdir -p cluster/logs cluster/results genome/cache
 
 echo "========================================"
-echo "Job ID:       $SLURM_JOB_ID"
-echo "Node:         $(hostname)"
-echo "RAM:          $(free -h | grep Mem | awk '{print $2}')"
-echo "Cluster root: $CLUSTER_ROOT"
-echo "Started:      $(date)"
+echo "Full-Genome DMLtest"
+echo "Job ID:   $SLURM_JOB_ID"
+echo "Node:     $(hostname)"
+echo "RAM:      $(free -h | grep Mem | awk '{print $2}')"
+echo "Project:  $PROJECT_DIR"
+echo "Started:  $(date)"
 echo "========================================"
 
-mkdir -p results
-
-Rscript scripts/dmltest_full.R
+Rscript cluster/scripts/dmltest_full.R
 
 echo "========================================"
 echo "Finished: $(date)"
+echo "Caches:"
+ls -lh genome/cache/bsseq_tutorial.rds genome/cache/dmltest_full.rds 2>/dev/null
 echo "Results:"
-ls -lh results/dmps_strict.tsv results/dmrs.tsv results/dmltest_summary.tsv 2>/dev/null
+ls -lh cluster/results/dmps_strict.tsv cluster/results/dmrs.tsv 2>/dev/null
 echo "========================================"

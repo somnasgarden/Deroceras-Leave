@@ -7,9 +7,24 @@ genome/cache/*.rds
 genome/BSgenome.*
 cluster/genome/
 
+# Cluster outputs (too large for GitHub)
+cluster/results/
+cluster/homer/
+cluster/.cache/
+cluster/logs/
+
+# Large data files (>100MB, GitHub limit)
+extra/cross_species/bigwig/
+methylation_pipeline/batch1.5/data/homer_denovo/scrambleBg.fasta
+methylation_pipeline/batch1.5/data/motif_hits_extended.tsv.gz
+methylation_pipeline/batch05/data/te_methylation_by_age.tsv
+methylation_pipeline/batch09/data/dmp_motif_overlaps.tsv
+methylation_pipeline/batch10/data/entropy_only_hidden_layer.tsv
+
 # General
 *.RData
 *.rds
 *.bam
 *.bai
 .mamba/
+.nfs*

@@ -1,0 +1,31 @@
+========================================
+Job ID:       125943
+Node:         node01.cluster
+RAM:          1.0Ti
+CPUs:         8
+Cluster root: /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster
+Started:      Fri Mar 20 19:18:25 CST 2026
+========================================
+=== Step 1: HOMER Install ===
+=== HOMER Setup ===
+Cluster root: /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster
+HOMER dir:    /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster/homer
+Installing HOMER...
+HOMER installed successfully
+HOMER version: Unrecognized character \x7F; marked by <-- HERE after <-- HERE near column 1 at /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster/homer/bin/homer line 1.
+installed
+NOTE: Genome FASTA not found yet.
+  The R script will export it from BSgenome.Dlaeve.NCBI.dlgm on first run.
+  HOMER genome config will be done after the R script creates the FASTA.
+  Skipping HOMER genome setup for now.
+=== Step 2: Expanded Motif Annotation (R) ===
+=== Expanded Motif Annotation (Cluster) ===
+Cluster root: /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster 
+Cache dir: /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster/genome/cache 
+Output dir: /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster/results 
+Available RAM: 1.0Ti 
+
+=== A. Loading data and defining regions ===
+Genome loaded from BSgenome.Dlaeve.NCBI.dlgm
+Caching genome as RDS for faster future loads...
+BSgenome package not available: cannot open the connection 

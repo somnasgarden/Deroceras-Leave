@@ -1,0 +1,75 @@
+Start: Mon Apr 13 19:50:57 CST 2026
+=== Step 1: Classify human promoters ===
+  Genes on standard chromosomes: 22980
+  Promoter sequences extracted: 22980
+  Computing CpG O/E and GC%...
+  Promoter classification:
+   prom_class     N   pct
+       <char> <int> <num>
+1:        LCP  8211  35.7
+2:        HCP  8006  34.8
+3:        ICP  6763  29.4
+
+=== Step 2: Define gene body + promoter regions ===
+  Gene bodies: 22980 | Promoter regions: 22980
+
+=== Step 3: Load Roadmap RNA-seq ===
+  RNA matrix: 19795 genes x 58 samples
+  Epigenomes with WGBS + RNA: 33
+
+=== Step 4: Download WGBS and compute methylation ===
+  Target tissues: 10
+    E003: H1_Cell_Line
+    E066: Adult_Liver
+    E071: Brain_Hippocampus_Middle
+    E095: Left_Ventricle
+    E096: Lung
+    E084: Fetal_Intestine_Large
+    E100: Psoas_Muscle
+    E097: Ovary
+    E113: Spleen
+    E058: Penis_Foreskin_Keratinocyte_Primary_Cells_skin03
+  Downloading E003...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E003_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E066...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E066_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E071...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E071_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E095...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E095_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E096...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E096_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E084...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E084_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E100...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E100_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E097...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E097_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E113...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E113_WGBS_FractionalMethylation.bigwig' failed
+  Downloading E058...
+    FAILED: download from 'https://egg2.wustl.edu/roadmap/data/byDataType/dnamethylation/WGBS/FractionalMethylation_bigwig/E058_WGBS_FractionalMethylation.bigwig' failed
+
+  Computing gene body + promoter methylation...
+  Processing E003 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E066 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E071 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E095 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E096 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E084 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E100 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E097 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E113 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+  Processing E058 (Universal_Human_Reference)...
+    Failed to read gene body methylation
+ERROR: No methylation data extracted. Check bigwig files.
+End: Mon Apr 13 20:02:02 CST 2026

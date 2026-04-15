@@ -12,12 +12,13 @@
 
 set -euo pipefail
 
-CLUSTER_ROOT="${CLUSTER_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-HOMER_DIR="${CLUSTER_ROOT}/homer"
+# Accept PROJECT_DIR (from SLURM wrappers) or CLUSTER_ROOT (legacy) or auto-detect
+CLUSTER_ROOT="${PROJECT_DIR:-${CLUSTER_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}}"
+HOMER_DIR="${CLUSTER_ROOT}/cluster/homer"
 HOMER_BIN="${HOMER_DIR}/bin"
 
 echo "=== HOMER Setup ==="
-echo "Cluster root: ${CLUSTER_ROOT}"
+echo "Project root: ${CLUSTER_ROOT}"
 echo "HOMER dir:    ${HOMER_DIR}"
 
 # ---- 1. Install HOMER if not present ----

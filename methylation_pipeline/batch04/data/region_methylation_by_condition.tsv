@@ -1,0 +1,9 @@
+region	mean_meth	condition
+Intergenic	4.5	Control
+Promoter	10.3	Control
+Exon	48.7	Control
+Intron	26.9	Control
+Intergenic	4.6	Amputated
+Promoter	10.4	Amputated
+Exon	49	Amputated
+Intron	27	Amputated

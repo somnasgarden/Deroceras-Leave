@@ -1,0 +1,9 @@
+region	mean_delta	source
+Intergenic	-0.0964317080563336	DMP sites
+Intron	-0.0910731623070978	DMP sites
+Exon	-0.0939566926380795	DMP sites
+Promoter	-0.0876455537911013	DMP sites
+Intergenic	-0.00124532857633191	Genome-wide
+Promoter	-0.00152481649876052	Genome-wide
+Exon	-0.0045835671692891	Genome-wide
+Intron	-0.0028528243660776	Genome-wide

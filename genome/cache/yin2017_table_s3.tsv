@@ -1,0 +1,498 @@
+tf_name	clone_type	final_call	methyl_selex_call	bisulfite_call	comment	seed	cg_position	enrichment_mCG	cg_frequency
+ALX3	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAW	5	0.5	0.1
+CDX4	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NGTYGTAAAWN	4	0.59230782000000004	0.45
+CDX4	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NGTYGTAAAAN	4	1.64705872	0.27
+CEBPB	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRTTGYGYAAYN	6	0.14827597000000001	0.54
+CEBPE	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRTTGYGYAAYN	6	0.12007153	0.6
+CEBPG	FL	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NTTGYGYAAN	5	0.20073531999999999	0.31
+EGR4	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NHYGYYYAYGYHN	3	0.20300770000000001	0.45
+EN1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAACGAK	5	0.16666661999999999	0.18
+EN2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAT	5	-0.18181837000000001	0.17
+ESR1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NAGGTYANNNYGAYYTN	11	0.81451644999999995	0.37
+ESR1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NAGGTYANNNYGAYYTN	11	0.91489394999999996	0.27
+FOXG1	eDBD	MethylPlus	MethylPlus	low enrichment		NAYGTAAAYAN	3	-0.20440256000000001	0.19
+FOXJ3	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NYGTAAATA	2	0.12636185	0.18
+GATA3	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	WGATAAYGATYW	7	1.3446810899999999	0.36
+GATA5	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	WGATAAYGATYT	7	0.87003960000000002	0.32
+GBX2	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	0.88405814999999999	0.12
+GRHL1	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NAAYYGGTTN	5	0.15395296	0.41
+GSX2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.83492827999999997	0.24
+HLF	FL	MethylPlus	MethylMinus	weak MethylPlus	effect revealed by bisulfite	NRTTAYGYAAYN	6	0.38181805000000002	0.2
+HOXA1	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAT	5	1.56696411	0.22
+HOXA10	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRTYGTAAAAN	4	0.72908806000000004	0.45
+HOXA10	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NGTYGTAAAAN	4	0.36558296000000001	0.41
+HOXA11	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NGTYGTAAAAN	4	0.62315880000000001	0.77
+HOXA13	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYTYGTAAAAN	4	1.2799996899999999	0.59
+HOXA13	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NYTYGTAAAAN	4	0.73571441999999998	0.84
+HOXA2	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.76923111	0.18
+HOXA4	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	2.6238919999999999E-2	0.18
+HOXA5	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAT	5	0.71111122000000004	0.16
+HOXA5	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	-2.5640960000000001E-2	0.15
+HOXA6	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	0.21311474	0.2
+HOXA7	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAT	5	0.18113910999999999	0.22
+HOXB1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	-0.16666655999999999	0.17
+HOXB13	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NYTYGTAAAAN	4	0.91032616	0.79
+HOXB2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	1.0555558	0.15
+HOXB5	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.14999986000000001	0.12
+HOXB5	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGWK	5	-0.22424252	0.14000000000000001
+HOXB6	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	2.8248550000000001E-2	0.22
+HOXB7	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.16363632	0.2
+HOXB8	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	1.23809502	0.21
+HOXB9	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	GTYGTAAAA	3	0.53014351000000004	0.42
+HOXC10	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NGTYGTAAAAN	4	0.79150184999999995	0.56000000000000005
+HOXC10	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NRTYGTAAAWN	4	0.35531139	0.37
+HOXC11	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRTYGTAAAAN	4	0.65560576999999998	0.48
+HOXC11	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NRTYGTAAAWN	4	0.29514575999999998	0.46
+HOXC12	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NGTYGTAAAAN	4	0.66101730000000003	0.5
+HOXC13	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYTYGTAAAAN	4	0.91208800999999995	0.72
+HOXC4	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	-4.2553069999999998E-2	0.17
+HOXC8	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	1.35367722	0.24
+HOXC9	FL	MethylPlus	MethylPlus	MethylPlus	concordant	GTYGTAAAAN	3	0.85566986	0.4
+HOXD1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAACGAK	5	-0.35294117000000003	0.14000000000000001
+HOXD10	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRTYGTAAAAN	4	0.61172188000000005	0.56000000000000005
+HOXD11	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NGTYGTAAAAN	4	1.1937323	0.64
+HOXD12	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NRTYGTAAAAN	4	0.37254883	0.44
+HOXD13	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYTYGTAAAAN	4	1.07450081	0.75
+HOXD3	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	-8.3333199999999996E-2	0.16
+HOXD4	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAACGAK	5	0.69696975999999999	0.13
+HOXD8	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	0.77966095000000002	0.22
+HOXD9	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRTYGTAAAAN	4	0.96274483	0.39
+IRF2	FL	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NYGAAAGYGAAAGN	2	0.32614959999999998	0.33
+IRF6	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	RGTWTYGNNNNNNYGAWAYY	6	0.18181801	0.53
+IRX1	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NAYGYGNNNNNNYGYGTN	3	0.42857124000000002	0.21
+IRX3	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NAYGYGNNNNNNYGYGTN	3	1.81200027	0.54
+IRX5	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYRYGWNNNWYGYGN	2	0.78571426	0.12
+ISX	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.49999966000000001	0.08
+ISX	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAR	5	0.48809528000000002	0.1
+KLF10	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	RYYAYGYYYHNNYYAYGYYYHY	5	0.12745094000000001	0.49
+KLF11	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRYYAYGYYYAYN	6	0.19159328	0.4
+KLF12	FL	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRYYAYGYYYW	6	0.14774966	0.66
+KLF12	FL	MethylPlus	MethylPlus	not available		NGYYGAYGYYYW			
+KLF13	FL	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRYYAYGYYYAYYN	6	0.20155037000000001	0.65
+KLF13	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRYYAYGYYYHYN	6	0.30303037999999999	0.36
+KLF14	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRYYAYGYYYHYN	6	0.27735556	0.38
+KLF15	FL	MethylPlus	MethylPlus	weak MethylPlus	concordant	RYYAYGYYYHYN	5	0.37580142999999999	0.44
+KLF16	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NYYAYGYYYWN	5	0.14130402	0.3
+KLF17	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NGYYAYGYYYWN	6	0.44385039999999998	0.32
+KLF6	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NRYYAYGYYYN	6	0.25714291	0.17
+LBX2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAG	5	4.4444440000000002E-2	0.24
+LHX4	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAACGAK	5	6.8965440000000003E-2	0.12
+LHX5	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.60389603000000003	0.19
+LHX6	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	1.48443298	0.26
+LHX9	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	1.25925949	0.32
+LHX9	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAG	5	1.2666668699999999	0.26
+LMX1A	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAG	5	1.7272723400000001	0.14000000000000001
+LMX1B	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	YTYGTWAA	3	0.57894730000000005	0.05
+MEIS2	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	YGAYANNYGTYA	1	1.14615372	0.13
+MEIS3	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	YGAYANNYGTYA	1	0.65714309999999998	0.11
+MSX1	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	-3.571415E-2	0.12
+MSX1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.10294115	0.14000000000000001
+MSX2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.24081622999999999	0.15
+MYF6	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRAYANNTGAYGYN	11	0.18181812	0.45
+NANOG	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGA	5	-0.34883720000000001	0.17
+NFAT5	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NYGGAAANNTAYN	2	0.22361362000000001	0.39
+NFATC1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTTTYYGTNNNYGGAAAW	6	0.51851844999999996	0.35
+NFATC1	eDBD	MethylPlus	MethylPlus	not available		NTTTYYGYGGAAAN			
+NFATC2	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NKTTYYGTNNNYGGAAWN	6	0.20471037	0.4
+NFATC2	eDBD	MethylPlus	MethylPlus	not available		NTTTYYGYGGAAAN			
+NFATC3	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NAYGGAAAHN	3	0.77993522999999998	0.49
+NFATC3	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYGGAAANNNNNNNTTYYGN	2	0.57706093000000003	0.44
+NFATC3	eDBD	MethylPlus	MethylPlus	not available		NTTTYYRYGGAAAN			
+NKX2-3	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAT	5	1.3908042899999999	0.13
+NKX2-3	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAACGAK	5	0.29166661999999999	0.13
+NKX2-5	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAT	5	0.33333336000000002	0.12
+NKX3-1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.40000034000000001	0.15
+NKX3-2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	1.1538465099999999	0.11
+NR1I3	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NYGAAYTWN	2	1.10437706	0.2
+NR2C1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYRYGAYYYN	6	0.96857154999999995	0.24
+NR2F1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYAYGAYYYN	8	1.23423386	0.26
+NR2F6	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYRNYGAYYYN	6	1.3653845200000001	0.18
+NR2F6	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYRNYGAYYYN	6	0.53086398999999995	0.25
+NR3C2	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NGNAYGNNNYGTNYN	5	0.69230782000000002	0.22
+PAX1	eDBD	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NYGTYAYGYWTBANYGN	2	0.76923072999999997	0.2
+PAX2	eDBD	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NYGTYAYGYWTBANYGNNYN	2	0.73545990000000006	0.36
+PAX3	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NWAAGYGTGAYGN	6	0.58444439000000004	0.28999999999999998
+PAX6	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NYAYGYNTBANYGNNYN	4	1.1557419600000001	0.49
+PAX6	eDBD	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NYAYGYNTBANYGNNYN	4	0.78872063000000003	0.41
+PAX7	eDBD	MethylPlus	Little effect and MethylMinus	MethylPlus	effect revealed by bisulfite	NTAAYWNGYGTGAYKN	9	0.89882401000000001	0.62
+PAX8	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NYGTYAYGYWTGANYGNNYN	2	0.55615378999999998	0.59
+PAX9	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYGTYAYGYWTBANYGN	2	0.83417686000000002	0.33
+PBX1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTGATTGAYGN	9	0.50000023000000005	0.3
+PDX1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAACGAK	5	0.74358963	0.13
+PKNOX1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	YGAYANNYGTYA	1	0.79487205999999999	0.14000000000000001
+PKNOX2	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	YGAYANNYGTYA	1	0.53846156999999994	0.12
+POU2F2	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYATGYGYATAN	6	0.60114765000000003	0.35
+POU2F3	eDBD	MethylPlus	MethylPlus	low enrichment		NYATGYGYATRN	6	0.39639651999999997	0.14000000000000001
+POU3F1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTATGYGYATWN	6	1.02631592	0.47
+POU3F1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTAATTWATGYGN	11	1.0669932600000001	0.26
+POU3F1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTAATGAKATGYGN	12	0.96969711000000003	0.3
+POU3F2	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NTAATGAKATGYGN	12	0.49264717000000002	0.3
+POU3F2	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NTATGYGYATAN	6	0.46017719000000001	0.55000000000000004
+POU3F2	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYGYATAAATTAN	2	0.72151909000000003	0.31
+POU3F4	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTATGYGYATWN	6	0.67525246000000005	0.65
+POU3F4	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NTAATGAKATGYGN	12	0.97481490999999998	0.42
+POU3F4	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYGYATAAATTAN	2	1.1968569899999999	0.43
+POU5F1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NTAATTATGYGY	10	0.65158042999999999	0.69
+POU5F1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NTATGYGYATAN	6	0.77333320999999999	0.54
+PPARD	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRAGGTYAYGAYYYYN	9	1.65043304	0.37
+PRDM4	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	GGGNNNHYTYGAAAYYGYYR	10	0.62162125000000001	0.35
+RARA	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYRYGAYYYN	6	0.86388900999999996	0.27
+RARB	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYAYGAYYYN	8	1.6328361499999999	0.33
+RARG	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYRYGAYYYN	6	0.95663246000000002	0.26
+RFX5	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYGTTGYYRNRN	2	0.50491797999999999	0.32
+RORB	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NWWNTRGGTYRYGAYYYWNWWN	10	1.6153851299999999	0.3
+RXRB	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYAYGAYYYN	8	0.57142853000000005	0.4
+RXRG	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYAYGAYYYN	8	1.9010984799999999	0.3
+SCRT1	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	HAYYTGTYGYN	8	1.53846313	0.13
+SCRT2	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NGYRAYAGGTN	3	1.2857144199999999	0.1
+SNAI1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NAYAGGTGYR	9	0.66250023000000002	0.16
+SNAI1	eDBD	MethylPlus	MethylPlus	weak MethylPlus	concordant	NRYAGGTGYG	9	0.20430124	0.13
+SNAI2	FL	MethylPlus	MethylPlus	weak MethylPlus	concordant	NAYAGGTGYR	9	0.28030289000000003	0.16
+SP1	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRKGGGYGTGGYYWN	7	0.28295362000000002	0.77
+SP2	eDBD	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NTWAGYYYYGYYYHYYN	9	0.58444892999999998	0.97
+TBX20	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NAGGYGTGAN	5	0.62881587999999999	0.31
+TFCP2	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	AWYYGGTTNNAAYYGGWT	4	0.39344261000000003	0.21
+TFCP2L1	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	AWYYGGTTNNAAYYGGWT	4	0.42176891	0.15
+TGIF2LY	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	YGAYANNYGTYA	1	0.54999984999999996	0.12
+THRB	eDBD	MethylPlus	MethylPlus	not available		NRRGGTYRTGAYYYYN			
+UBP1	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	AWYYGGTTNNAAYYGGWT	4	0.15079366999999999	0.42
+UNCX	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.92307709000000004	0.08
+VSX1	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	1.12142853	0.14000000000000001
+VSX1	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.51578937999999996	0.14000000000000001
+VSX2	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.27272723999999998	7.0000000000000007E-2
+VSX2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.69999984999999998	0.14000000000000001
+ZBTB20	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NYAAYGTATRKN	5	0.27254093000000001	0.28000000000000003
+ZNF12	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	GGKGHTRYTYGTTATAGYGYN	10	0.55408192000000001	0.62
+ZNF174	eDBD	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NGNYGATYAYTYGNYN	4	0.56862736000000003	0.54
+ZNF23	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NNNYGYGGYYATGGGYGN	4	0.36329998000000002	0.67
+ZNF274	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRTRTGAGTTYTYRYN	13	0.13090669999999999	0.31
+ZNF32	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NYGTAAYNYGAYAYN	2	0.71428596	0.36
+ZSCAN31	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NGYATAAYYGYYYYGYKKYN	9	3.7948712200000001	0.16
+ZNF444	FL	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NYGWYYYYYYYYYYYN	2	0.3267815	0.25
+ZNF524	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NYTYGAAYYYKN	4	0.63817630999999997	0.89
+ZNF713	eDBD	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	NHGAYGAYTGYYAYGAAAN	2	0.83823517000000003	0.31
+ZNF740	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NYGYYYYYYYYAY	2	0.13622677	0.28000000000000003
+ZNF771	FL	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NGYGYTAAYYATTRN	3	0.40360164999999998	0.8
+ZNF771	eDBD	MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	NRYGYTAAYYATTRN	3	0.25999987000000002	0.75
+ZNF784	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	GTAYYTAYYKY	9	0.54213036000000003	0.42
+ZNF821	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRGAYAGAYGGAYRN	9	0.87519164999999999	0.44
+ARNT2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	RTYAYGTGAY	5	-0.95430999999999999	0.99
+ARNTL	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	GTYAYGTGAY	5	-0.78974197000000002	0.59
+ATF2	FL	MethylMinus	MethylMinus	low enrichment		NRTGAYGTYAYN	6	0.10079372	0.3
+ATF2	eDBD	MethylMinus	MethylMinus	low enrichment		NRTGAYGTYAYN	6	0.1130954	0.24
+ATF3	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.20964735000000001	0.65
+ATF3	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.25025039999999998	0.63
+ATF6	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NGRTGAYGTYAYN	7	-0.67504189000000003	0.97
+ATF6	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NGRTGAYGTGGYAN	7	-0.76815268999999997	0.96
+ATF6B	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	TGYYAYGTYAYN	6	-0.52200732999999999	0.84
+ATF6B	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NRTGAYGTYAYN	6	-0.60284214000000003	0.9
+ATF7	eDBD	MethylMinus	MethylMinus	low enrichment		NRTGAYGTYAYN	6	-7.8430800000000005E-3	0.4
+BARHL2	FL	MethylMinus	MethylMinus	low complexity motif	low complexity motif	NTAAAYGN	6	0.21899355000000001	0.36
+BARHL2	eDBD	MethylMinus	MethylMinus	low complexity motif	low complexity motif	NTAAAYGN	6	-1.5116269999999999E-2	0.31
+BCL6	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NTGYTTTYKAGGAAN	8	-0.21651775000000001	0.27
+BCL6B	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NTGYTTTYKAGGAAN	8	-0.37636612000000003	0.31
+BHLHE40	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	GTYAYGTGAY	5	-0.73493255999999996	0.97
+BHLHE41	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	GTYAYGTGAY	5	-0.93939391999999999	1
+BSX	eDBD	MethylMinus	MethylMinus	low complexity motif	low complexity motif	TTAAYGAK	5	0.63135611999999997	0.22
+CREB1	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.48658562	0.62
+CREB1	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NRTGAYGTYAYN	6	-0.63325394000000002	0.54
+CREB3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NRTGAYGTYAYN	6	-0.56350971000000005	0.75
+CREB3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NRTGAYGTGGYN	6	-0.57759373000000003	0.87
+CREB3	FL	MethylMinus	MethylMinus	not available		NGYYAYGTGKMN			
+CREB3L1	eDBD	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	NTGYYAYGTGGYN	7	-0.17714278999999999	0.71
+CREB3L1	eDBD	MethylMinus	MethylMinus	low enrichment		NRTGAYGTGGYAN	6	-5.4053780000000003E-2	0.6
+CREB3L1	FL	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	NTGYYAYGTGGYAN	7	-0.32701785999999999	0.74
+CREB3L1	FL	MethylMinus	MethylMinus	low enrichment		NTGAYGTGGYAN	5	0.10769223999999999	0.54
+CREB5	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.14958685999999999	0.42
+CREM	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.49751972	0.56999999999999995
+CUX1	eDBD	MethylMinus	MethylMinus	low enrichment		NATYGATYN	4	-4.7619160000000001E-2	0.28999999999999998
+DMRTC2	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NAAYGATAYA	4	-0.35416663999999998	0.16
+E2F2	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NGYGYGYGYGYB	3	-1	0.08
+E2F4	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	AAAATGGYGYYAAAA	8	-0.95335937999999998	1
+E2F7	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	WTTTYYYGYYAAAW	7	-0.52859531000000004	1
+ELF1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYYGGAAGTN	5	-0.86733002000000003	0.59
+ELF2	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYYGGAAGTN	5	-0.83771430999999996	0.68
+ELF2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAHBHGGAAGTN	5	-0.83164864000000005	0.66
+ELF3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	AYYHGGAAGTNNNNNNNNWWWWW	4	-0.75248137999999998	0.66
+ELF3	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYHGGAAGTNNNNNNNNNWWWWWN	5	-0.82683983000000005	0.15
+ELF4	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYHGGAAGTN	5	-0.85894844000000004	0.42
+ELF5	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYRHGGAAGTN	5	-0.68724280999999998	0.16
+ELK1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTN	4	-0.79086533000000003	0.41
+ELK3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTN	4	-0.74214690999999999	0.8
+ELK3	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTN	4	-0.81798340000000003	0.64
+ERG	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYHGGAARTN	4	-0.92624077000000005	0.39
+ERG	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NAYYGGAWATYYGGTN	4	-0.95466057000000004	0.9
+ERG	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYHGGAAGYN	4	-0.92444442999999998	0.6
+ERG	FL	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NAYYGGATATYYGGTN	4	-0.94356262000000002	0.89
+ETS2	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAANNNNNTYYGGTN	4	-0.95575728999999998	0.76
+ETV1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTN	4	-0.78663673000000001	0.52
+ETV2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAARTN	4	-0.89285713	0.56000000000000005
+ETV3	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAARTN	4	-0.75696770000000002	0.5
+ETV3	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NAYYGGATATYYGGTN	4	-0.89743591	0.86
+ETV4	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTN	4	-0.89407661000000005	0.7
+ETV5	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NRYYGGAAGTN	4	-0.76223777999999998	0.31
+FEV	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTKN	4	-0.90256621999999997	0.81
+FLI1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAARTN	4	-0.94342453000000004	0.72
+FLI1	FL	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NAYYGGATATYYGGTN	4	-0.93682098000000003	0.97
+FLI1	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYHGGAARTN	4	-0.91109627000000004	0.56000000000000005
+FLI1	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NAYYGGAWATYYGGTN	4	-0.94335517999999996	0.92
+FOS	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.43023265999999999	0.4
+FOXP3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAWTTGTAYGAYAAATN	9	-1	0.06
+GABPA	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAAGTN	4	-0.83492294	0.69
+GFI1	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NHAATYABNGYNNNNYAYT	8	-0.27368414000000002	0.09
+GLIS1	eDBD	MethylMinus	Little effect and MethylMinus	weak MethylMinus	effect revealed by bisulfite	KAYYYYYYRYRRHG	10	-0.10277790000000001	0.28999999999999998
+GLIS2	eDBD	MethylMinus	Little effect and MethylMinus	weak MethylMinus	effect revealed by bisulfite	NAYYYYYYRYRNYGN	8	-0.48172767999999999	0.15
+GMEB1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NKAYGTANNNTAYGTHN	4	-0.82608696000000004	0.69
+GMEB2	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	TAYGTNNNNTAYGT	3	-0.94462279999999998	0.89
+HES1	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	GGYRYGTGNY	3	-0.78395057999999995	0.18
+HES2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	GGYAYGTGYN	5	-0.53834117999999997	0.3
+HES5	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	GGYAYGTGYY	5	-0.88091438	0.96
+HES7	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	GGYAYGTGYN	5	-0.96713943000000002	0.96
+HEY1	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NGYAYGTGYN	5	-0.36046505000000001	0.32
+HEY2	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NGYAYGTGYN	5	-0.38048095999999998	0.37
+HEY2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NYAYGTGYN	4	-0.53225811000000001	0.16
+HSF5	eDBD	MethylMinus	MethylMinus	not available		NRYGTTYTAGAAYGYN			
+HSFY1	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NTTYGAANNNTTYGAAN	4	-0.94178565999999997	0.8
+HSFY1	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	TYGAAYGTTTYGAAYGY	2	-0.97289970000000003	0.53
+HSFY2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NTYGAAYGTTTYGAAYGN	3	-0.94680313000000005	0.51
+HSFY2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NTTYGAANNNTTYGAAN	4	-0.88988235000000004	0.76
+IRF7	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYGAAANYGAAANYN	2	-0.45743244	0.34
+LEF1	FL	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	WYATYGRGRYGYTGW	5	-0.28590314999999999	1
+LEF1	eDBD	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	WYATYGRGRYGYTGW	5	-0.40016025999999999	0.99
+LIN28B	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYGYGANNNNNYAGYGN	2	-0.40859146000000002	0.34
+MAFF	eDBD	MethylMinus	MethylMinus	low enrichment		NTGYTGAYRTYAGYAN	8	0.67836295999999996	0.16
+MAX	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	RNYAYGTGYN	5	-0.24922598000000001	0.39
+MAX	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYYAYGTGYN	5	-0.24420094000000001	0.45
+MBNL2	FL	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	AAGYGAAGYG	4	-0.38375346999999999	0.2
+MLX	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NYAYGTGN	4	-0.78075943000000003	0.95
+MLX	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYAYGTGN	4	-0.43510211999999998	0.89
+MYBL2	eDBD	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	NTAAYBGTTRN	5	-0.26102942000000001	0.24
+MYCN	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NYAYGTGNNNNNYAYGYGN	4	-0.57406413999999995	0.89
+ONECUT1	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYATYGATYN	5	-0.39043204999999997	0.41
+ONECUT1	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NTATYGATYN	5	-0.34841624999999998	0.26
+ONECUT2	FL	MethylMinus	MethylMinus	MethylMinus	concordant	AAAATYRATAWN	6	-0.58237983999999998	0.23
+ONECUT2	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NATYGATYGATAN	4	-0.70526314000000001	0.44
+ONECUT2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NTATYGATYN	5	-0.50070930000000002	0.27
+ONECUT3	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYATYGATYN	5	-0.13488381999999999	0.19
+OVOL1	FL	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	NRWAYYGTTATNYN	6	-0.33333331999999999	0.98
+OVOL2	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NWWYYGTTAYNYN	5	-0.55629039999999996	0.9
+PAX3	FL	MethylMinus	MethylMinus	not available		NTAATYGATTAN			
+PAX7	eDBD	MethylMinus	MethylMinus	low complexity motif	low complexity motif	NTAATYGATTAN	6	0.53945480000000001	0.3
+PROX1	eDBD	MethylMinus	MethylMinus	low enrichment		NAAGRYGTYTTN	6	0.31718899	0.36
+RUNX2	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	WAAYYRYAA	5	-0.33804356000000002	0.37
+RUNX3	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NRAYYGYAAAAAYYGTARN	5	-0.70303031999999999	0.14000000000000001
+RUNX3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NWAAYYGYAAAAAYYGYARN	6	-0.96595116000000003	0.9
+SOHLH2	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NGYAYGTGYN	5	-0.70634925999999998	0.19
+SPDEF	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAHYYGGATGYN	5	-0.88709678999999997	0.25
+SPDEF	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	AHYYGGATGTNNYATYYGGKT	4	-0.95714279000000002	0.97
+SPIB	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAAAAGNGGAAGTN	7	-0.69523811000000002	0.14000000000000001
+SPIB	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	AWWKNGGAAGTN	5	-0.49579842000000002	0.19
+SREBF1	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	RTYAYGTGAY	5	-0.37499991999999999	0.12
+SREBF1	eDBD	MethylMinus	MethylMinus	not available		NTYAYGYYAY			
+TCF4	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYAYSTGN	4	-0.33333336000000002	0.06
+TCF7L1	eDBD	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	NYATYGRGRYGYTGWN	5	-0.42023498999999997	0.92
+TCFL5	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NYAYGYGYAN	4	-0.93733582000000004	0.87
+TFE3	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	RNYAYGTGAYN	5	-0.17532914999999999	0.44
+TFEC	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	RTYAYGTGAY	5	-0.14112556000000001	0.39
+USF1	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRYYAYGTGAYN	6	-0.36342590000000002	0.54
+USF2	eDBD	MethylMinus	MethylMinus	weak MethylMinus	concordant	NYAYGTGAYN	4	-0.46524059000000001	0.7
+XBP1	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NTGAYGTGKYN	5	-0.3070175	0.44
+XBP1	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.29180592	0.4
+YY1	FL	MethylMinus	MethylMinus	not available		NMGTATNNNNNGTTWAARATGGTN			
+ZBED1	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NTGTYGYGAYATN	5	-0.77066115999999996	0.43
+ZBTB14	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NTGYGYGTGYAYGYGN	4	-0.89722785999999999	0.83
+ZBTB2	eDBD	MethylMinus	Little effect	weak MethylMinus	effect revealed by bisulfite	WAYYGGAAA	4	-0.24166673999999999	0.31
+ZBTB7A	eDBD	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NYGAYYHYYGN	2	-0.70892021000000005	0.25
+ZBTB7B	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NYGAYYAYYN	2	-0.52941176999999995	0.2
+ZNF460	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYGYYYYYYGN	3	-0.66969146999999996	0.38
+ZNF704	FL	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NRYYGGYYGGYN	4	-0.94627808000000002	0.78
+BCL6	eDBD	Little effect and MethylMinus	Little effect and MethylMinus	not available		NYGTAATYKAGGAATN			
+BCL6B	eDBD	Little effect and MethylMinus	Little effect and MethylMinus	Little effect	concordant	RYGTAATYKAGGAATN	2	4.7945139999999997E-2	0.68
+CLOCK	eDBD	MethylMinus and MethylPlus	MethylMinus and MethylPlus	weak MethylMinus	concordant	NAYAYGYGKN	5	-0.49915493	0.61
+CREB3L1	eDBD	MethylMinus and MethylPlus	MethylMinus and MethylPlus	not available		NTGYYAYGYGTAYN			
+CREB3L1	FL	MethylMinus and MethylPlus	MethylMinus and MethylPlus	not available		NTGYYAYGYGTAYN			
+GLI2	eDBD	Little effect and MethylMinus	Little effect and MethylMinus	Little effect	concordant	RGAYYAYYYAYGWYG	11	-7.9365130000000006E-2	0.35
+HSF2	eDBD	MethylMinus and MethylPlus	MethylMinus and MethylPlus	MethylMinus	concordant	NGAANNTTYNNGAA	1	-0.54411757999999999	0.14000000000000001
+IRF4	FL	Little effect and MethylPlus	MethylMinus	Little effect	effect revealed by bisulfite	NYGAAAYYGAAAYY	2	9.7560999999999995E-2	0.5
+IRF9	FL	MethylPlus and Little effect	MethylMinus	weak MethylPlus	effect revealed by bisulfite	NYGAAANYGAAAYY	2	0.10526312	0.36
+NPAS2	eDBD	MethylMinus and MethylPlus	MethylMinus and MethylPlus	weak MethylMinus	concordant	WWAYAYGYGYN	6	-0.46718143000000001	0.51
+PAX3	FL	MethylMinus and Little effect	MethylMinus and Little effect	not available		NRATTHGTYAYGBTN			
+PAX7	eDBD	MethylMinus and Little effect	MethylMinus and Little effect	not available		NNATTHGTYAYGBTN			
+YY2	FL	MethylPlus and MethylMinus	MethylPlus and MethylMinus	weak MethylMinus	concordant	WWYAAAATGGYBGHN	11	-0.19547874000000001	0.56999999999999995
+ZFP42	eDBD	MethylPlus and MethylMinus	MethylPlus and MethylMinus	weak MethylMinus	concordant	NYAAKATGGYBGYYN	10	-0.14285707	0.05
+ZNF343	eDBD	Little effect and MethylPlus	Little effect and MethylPlus	Little effect	concordant	NYGYTTYAYYRYGGYHN	2	9.3458059999999996E-2	0.42
+ZNF345	eDBD	MethylPlus and MethylMinus	MethylPlus and MethylMinus	MethylPlus	concordant	NTYGYAAYNNNNNYAAYYGKAYN	3	0.58953712000000003	0.38
+ZSCAN29	eDBD	Little effect and MethylPlus	Little effect	weak MethylPlus	effect revealed by bisulfite	HHGYRTAGHYGKYTAYRYN	2	0.22222210000000001	0.25
+CEBPD	eDBD	Little effect	Little effect	low enrichment		NRTTGYGYAAYN	6	2.53011E-2	0.3
+E2F2	eDBD	Little effect	Little effect	Little effect	concordant	WWWTGGYGYYAAAA	7	-9.9999959999999999E-2	0.76
+E2F3	eDBD	Little effect	Little effect	Little effect	concordant	NTTTTGGYGYYAAAAN	8	7.037902E-2	0.72
+E2F8	eDBD	Little effect	Little effect	Little effect	concordant	TTTYYYGYYAAA	6	4.0594699999999997E-2	0.91
+EGR1	eDBD	Little effect	Little effect	Little effect	concordant	NHYGYYYAYGYHN	3	-1.086956E-2	0.26
+EGR2	FL	Little effect	Little effect	Little effect	concordant	NHYGYYYAYGYAN	3	-1.473004E-2	0.84
+EGR3	FL	Little effect	Little effect	Little effect	concordant	NYYGYYYAYGYAN	3	3.171098E-2	0.92
+IRF5	FL	Little effect	MethylMinus	Little effect	effect revealed by bisulfite	NYGAAAYYGAAAYYN	2	-6.066531E-2	0.62
+IRF5	eDBD	Little effect	MethylMinus	Little effect	effect revealed by bisulfite	NYGAAAYYGAAAYYN	2	-9.0073589999999995E-2	0.56000000000000005
+KLF17	eDBD	Little effect	Little effect	not available		NMYYAYGYWYYYMYY			
+KLF2	eDBD	Little effect	Little effect	low enrichment		NGGGYGTGGYN	5	-0.41176476000000001	0.25
+KLF4	eDBD	Little effect	Little effect	low enrichment		NGGGYGTGGY	5	-0.22077925000000001	0.36
+MTF1	eDBD	Little effect	Little effect	Little effect	concordant	NYTTTGYAYAYGRYNYN	11	-6.3164800000000002E-3	0.9
+MYOD1	FL	Little effect	Little effect	low enrichment		YGTYAGYTGTYN	1	0.57160484	0.39
+MYOG	FL	Little effect	Little effect	low enrichment		NYGTYAGYTGTYN	2	0.44989322999999998	0.69
+NHLH1	FL	Little effect	Little effect	low enrichment		NYGYAGYTGYK	2	-0.15789479000000001	0.23
+NHLH2	FL	Little effect	Little effect	Little effect	concordant	NYGYAGYTGYGN	2	-8.8673059999999998E-2	0.41
+NR2F1	eDBD	MethylPlus	MethylPlus	low enrichment		NRGGTYRNYGAYYYN	6	-2.702707E-2	0.16
+OSR1	eDBD	Little effect	MethylMinus	Little effect	effect revealed by bisulfite	NGYTAYYGTN	7	7.6087000000000002E-2	0.26
+PAX4	eDBD	Little effect	Little effect	low enrichment		WWGYGTGWAATY	4	1.4201678499999999	0.54
+PAX4	eDBD	Little effect	Little effect	not available		NYAYGYTAATTAN			
+PAX4	eDBD	Little effect	Little effect	not available		NATTTYAYGYWTBANYGNNYN			
+RFX5	eDBD	Little effect	Little effect	not available		NRRYAAYBGTTGYYAN			
+SP3	eDBD	Little effect	Little effect	low enrichment		NKGGGYGTGGYN	6	-0.26027392999999999	0.32
+TGIF2LX	eDBD	MethylPlus	MethylPlus	low enrichment		YGAYANNYGTYA	1	0.51578948999999996	0.12
+ZNF140	eDBD	Little effect	Little effect	Little effect	concordant	NRYAATTYYGYTYN	9	6.9504380000000004E-2	0.96
+BATF3*	eDBD	inconclusive	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYATN	6	-0.22142864000000001	0.57999999999999996
+BATF3*	FL	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NRTGAYGTYAYN	6	0.20930243000000001	0.59
+DBP*	FL	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NRTTAYGTAAYN	6	0.25333331999999997	0.45
+DBP*	eDBD	inconclusive	MethylMinus	Little effect	effect revealed by bisulfite	NRTTAYGTAAYN	6	2.4144289999999999E-2	0.37
+FOSB	eDBD	inconclusive	MethylMinus	Little effect	inconclusive direction	NRTGAYGTYAYN	6	9.8901160000000002E-2	0.56999999999999995
+GCM1	FL	inconclusive	MethylMinus	Little effect	inconclusive direction	ATGYKGGTN	4	1.1999999999999999E-7	0.21
+GCM2	FL	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	ATGYGGGTN	4	0.13725482999999999	0.27
+HSF1	FL	inconclusive	MethylMinus and MethylPlus	Little effect	inconclusive direction	NGAANNTTYYGGAAN	1	4.761899E-2	0.1
+HSF5	eDBD	inconclusive	MethylMinus	MethylPlus	inconclusive direction	NYRGAAYNNNNNNNNNNNNNRYRTTYYR	2	1.2000000799999999	0.18
+IRF3*	eDBD	inconclusive	MethylMinus	weak MethylMinus	concordant	NYRGTTTYYNSGAAAYYGN	11	-0.16271548999999999	0.32
+IRF3*	FL	inconclusive	MethylMinus	MethylPlus	inconclusive direction	NGGAAANYGAAANYGAAAN	8	0.53846145999999995	0.21
+IRF8*	FL	inconclusive	MethylMinus	weak MethylMinus	inconclusive direction	NYGAAAYYGAAAYYN	2	-0.13593649999999999	0.53
+JDP2	FL	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NRTGAYGTYAYN	6	0.33333351	0.37
+OSR2	eDBD	inconclusive	MethylMinus	MethylPlus	inconclusive direction	NGYTWYYGHRGWAGYN	7	1.33333328	0.12
+YY1	FL	inconclusive	MethylMinus and MethylPlus	MethylPlus	inconclusive direction	NYAAAATGGYNGYY	10	0.61764717000000002	0.27
+ZFP41	FL	inconclusive	MethylMinus	MethylPlus	inconclusive direction	NGYTAAYTYTYYRYRN	12	0.60156239	0.5
+ZIC1*	eDBD	inconclusive	MethylMinus	Little effect	inconclusive direction	NRYYYYYYGYTGYKN	8	2.9850720000000001E-2	0.28999999999999998
+ZIC1*	FL	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NRYYYYYYGYTGYGN	8	0.28851532000000002	0.34
+ZIC3*	eDBD	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NGAYYYYYYGYTGYGH	9	0.15625	0.2
+ZIC3*	FL	inconclusive	MethylMinus	Little effect	inconclusive direction	NGAYYYYYYGYTGYGN	9	-6.1728529999999997E-2	0.34
+ZIC4	eDBD	inconclusive	MethylMinus	Little effect	inconclusive direction	NRYYYYYYGYTGYGN	8	6.25E-2	0.28999999999999998
+ZIC5	eDBD	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NGAYYYYYYGYTGYGH	9	0.15909076	0.31
+ZNF177	eDBD	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	NTYGRTYKNNNNNNNNAGTYATN	3	0.15714288000000001	0.19
+ZNF597	FL	inconclusive	MethylMinus and MethylPlus	MethylPlus	inconclusive direction	GGYBGYYATYTTGN	3	1.15757607	0.44
+ZNF76	eDBD	inconclusive	MethylMinus	weak MethylMinus	inconclusive direction	NWYYYAYAATGYANYGYGN	15	-0.10261207999999999	0.3
+ZSCAN1	eDBD	inconclusive	Little effect	MethylPlus	inconclusive direction	NYRYAYAYNYTGHAAHN	2	0.85074631000000001	0.26
+ZSCAN4	eDBD	inconclusive	Little effect	MethylPlus	inconclusive direction	NYGYAYAYNYTGAAAHN	2	1.00501274	0.22
+GATA3	FL	MethylPlus	Little effect	MethylPlus	effect revealed by bisulfite	WGATAAYGATYW	7	1.5185	0.41
+GBX2	eDBD	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	1.325	0.17
+HOXD3	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	0.71109999999999995	0.17
+IRX5	eDBD	MethylPlus	MethylPlus	MethylPlus	concordant	NYGYGTNNNAYGYGN	2	0.91249999999999998	0.17
+ISX	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAY	5	1.1000000000000001	0.08
+KLF15	eDBD	MethylPlus	MethylPlus	low enrichment		RKGGGYGTGGY	6	-1.3299999999999999E-2	0.43
+LHX9	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	-0.2276	0.31
+LHX9	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAK	5	0.89559999999999995	0.32
+NKX2-5	FL	MethylPlus	MethylPlus	low complexity motif	low complexity motif	TTAAYGAG	5	1.1048	0.14000000000000001
+POU5F1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NYTAATTATGYGYA	11	0.72929999999999995	0.48
+POU5F1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NTATGYGYATAN	6	0.50149999999999995	0.61
+RXRG	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRGGTYAYGAYYYN	8	1.4523999999999999	0.35
+SNAI1	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NRYAGGTGYG	9	0.73540000000000005	0.17
+ZSCAN31	FL	MethylPlus	MethylPlus	MethylPlus	concordant	NGYATAAYYGYYYYGYKKYN	9	1.8889	0.16
+CREB3	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.40978766999999999	0.7
+CREB3	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTGGYN	6	-0.41555629999999999	0.81
+CREB3	FL	MethylMinus	MethylMinus	not available		NGYYAYGTGKMN			
+CREB3	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTYAYN	6	-0.41694365999999999	0.8
+CREB3	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NRTGAYGTGGYN	6	-0.40737185999999997	0.88
+CREB3	FL	MethylMinus	MethylMinus	not available		NGYYAYGTGKMN			
+CREB5	FL	MethylMinus	MethylMinus	low enrichment		NRTGAYGTYAYN	6	-6.7117330000000003E-2	0.39
+ELF3	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYHGGAAGTNNNNNNNNNWWWWW	5	-0.68373497000000005	0.51
+ELF5	FL	MethylMinus	MethylMinus	weak MethylMinus	concordant	NANNHGGAAGTN	5	-0.40544868000000001	0.26
+FEV	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAARTN	4	-0.58284663999999997	0.62
+FLI1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAYYGGAARTN	4	-0.92521735999999999	0.85
+FLI1	FL	MethylMinus	Little effect	MethylMinus	effect revealed by bisulfite	NAYYGGATATYYGGTN	4	-0.88585303999999998	0.97
+GMEB1	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NKTAYGTNNNNAYGTAN	5	-1	0.72
+HES5	eDBD	MethylMinus	MethylMinus	MethylMinus	concordant	GGYAYGTGYY	5	-0.69863006999999999	0.24
+SPIB	FL	MethylMinus	MethylMinus	MethylMinus	concordant	NAAAAGNGGAAGTN	7	-0.73571425999999995	0.16
+EGR3	FL	Little effect	Little effect	Little effect	concordant	NYYGYYYAYGYAN	3	9.1363199999999999E-3	0.8
+BATF3*	FL	inconclusive	MethylMinus	Little effect	inconclusive direction	NRTGAYGTYAYN	6	-9.8040100000000002E-3	0.56000000000000005
+DBP*	eDBD	inconclusive	MethylMinus	Little effect	effect revealed by bisulfite	NRTTAYGTAAYN	6	-2.6542010000000001E-2	0.34
+GCM1*	eDBD	inconclusive	MethylMinus	low enrichment		RTGNGGGTA	4	0.19791676	0.12
+IRF3*	FL	inconclusive	MethylMinus	weak MethylPlus	effect revealed by bisulfite	NGGAAANYGAAANYGAAAYN	8	0.44927525000000001	0.35
+IRF8*	FL	inconclusive	MethylMinus	Little effect	effect revealed by bisulfite	NYGAAANYGAAAYYN	2	-6.5124029999999999E-2	0.49
+YY1	FL	inconclusive	MethylMinus and MethylPlus	MethylPlus	inconclusive direction	NYAAAATGGYNGYY	10	0.81914916999999998	0.26
+ZIC3	FL	inconclusive	MethylMinus	weak MethylPlus	inconclusive direction	KRYYYYYYGYTGHGN	8	0.21421109999999999	0.37
+ZNF76	eDBD	inconclusive	MethylMinus	MethylPlus	inconclusive direction	NWYYYAYAATGYAYYRYGN	15	0.50183188999999995	0.15
+MNX1		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+BARHL1		MethylMinus	MethylMinus		no data from bisulfite	NTAAACGN			
+DLX6		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+DLX4		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+DLX3		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+DLX5		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+NKX2-8		MethylPlus	MethylPlus		no data from bisulfite	NATGTCGTTAYTGN			
+VENTX		MethylMinus	MethylMinus		no data from bisulfite	CGATTATCG			
+HOXB4		MethylPlus	MethylPlus		no data from bisulfite	RTCGTTAR			
+GSX1		MethylPlus	MethylPlus		no data from bisulfite	MTCGTTAN			
+MEOX1		Little effect	Little effect		no data from bisulfite	NTCGTTAN			
+MEOX2		Little effect	Little effect		no data from bisulfite	NTCGTTAN			
+HOXA9		MethylPlus	MethylPlus		no data from bisulfite	RTCGTAAANN			
+CDX2		MethylPlus	MethylPlus		no data from bisulfite	NRTCGTAAANNN			
+CDX1		MethylPlus	MethylPlus		no data from bisulfite	NGTCGTAAAAN			
+EVX1		MethylPlus	MethylPlus		no data from bisulfite	RTCGTTAN			
+EVX2		MethylPlus	MethylPlus		no data from bisulfite	STCGTTAN			
+ALX4		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+PRRX2		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+SHOX		MethylPlus	MethylPlus		no data from bisulfite	STCGTTAN			
+PROP1		MethylPlus	MethylPlus		no data from bisulfite	TAAYNTCGTTA			
+MIXL1		MethylPlus	MethylPlus		no data from bisulfite	TAAYNKCGTTA			
+RAX		MethylPlus	MethylPlus		no data from bisulfite	CTCGTTAN			
+LHX1		MethylPlus	MethylPlus		no data from bisulfite	NTCGTTAN			
+SIX4		Little effect	Little effect		no data from bisulfite	NCGTATCATN			
+SIX1		Little effect	Little effect		no data from bisulfite	NSRTATCRYN			
+SIX3		Little effect	Little effect		no data from bisulfite	NSRTATCRYN			
+SIX6		Little effect	Little effect		no data from bisulfite	NYRTATCRYN			
+HES6		MethylMinus	MethylMinus		no data from bisulfite	GGCACGTGTN			
+SREBF2		MethylMinus	MethylMinus		no data from bisulfite	ATCACGTGAY			
+TFEB		MethylMinus	MethylMinus		no data from bisulfite	NNCACGTGAYN			
+TCF12		MethylMinus	MethylMinus		no data from bisulfite	NCACSTGN			
+PTF1A		Little effect	Little effect		no data from bisulfite	NYGTCAGCTGNY			
+ASCL2		MethylMinus	MethylMinus		no data from bisulfite	ACACGACGCN			
+CREB3L4		MethylMinus	MethylMinus		no data from bisulfite	YGCCACGTCAYN			
+BACH2		MethylMinus	MethylMinus		no data from bisulfite	NTAAACGN			
+JUN		MethylMinus	MethylMinus		no data from bisulfite	NATGACGTCAYN			
+JUND		MethylMinus	MethylMinus		no data from bisulfite	NRTGACGTCATN			
+JUNB		MethylMinus	MethylMinus		no data from bisulfite	NATGACGTCAYN			
+FOSL1		MethylMinus	MethylMinus		no data from bisulfite	NRTGAYGTCAYN			
+TEF		MethylMinus	MethylMinus		no data from bisulfite	NRTTAYGTAAYN			
+ATF4		MethylMinus	MethylMinus		no data from bisulfite	GGATGACGTCATCC			
+MAFG		MethylMinus	MethylMinus		no data from bisulfite	NYGCTGAYRTCAGCRN			
+MAF		MethylMinus	MethylMinus		no data from bisulfite	NYGCTGAYGTCAGCRN			
+MAFA		MethylMinus	MethylMinus		no data from bisulfite	NYGCTGAYGTCAGCRN			
+ELK4		MethylMinus	MethylMinus		no data from bisulfite	NRCCGGAWGTN			
+ETV7		MethylMinus	MethylMinus		no data from bisulfite	NMGGAARNNYTTCCKN			
+TFAP2E		MethylMinus	MethylMinus		no data from bisulfite	NGCCNNNGGCN			
+TFAP2B		MethylMinus	MethylMinus		no data from bisulfite	NGCCNNNGGCN			
+TFAP2A		MethylMinus	MethylMinus		no data from bisulfite	NSCCYNRGGSN			
+TFAP2C		MethylMinus	MethylMinus		no data from bisulfite	NGCCYNMGGCN			
+E2F1		MethylMinus	MethylMinus		no data from bisulfite	NWTTTGGCGCCAWWWN			
+FOXN2		MethylMinus	MethylMinus		no data from bisulfite	NNGCGTSNNNNNSACGCNN			
+FOXL2		MethylPlus	MethylPlus		no data from bisulfite	NAYRTMAACAN			
+TCF7		MethylMinus	MethylMinus		no data from bisulfite	WCATCGRGRCGCTGW			
+SOX14		MethylMinus	MethylMinus		no data from bisulfite	CCGAACAATN			
+SOX12		MethylMinus	MethylMinus		no data from bisulfite	ACCGAACAATN			
+HSF4		MehylMinus and MethylPlus	MehylMinus and MethylPlus		no data from bisulfite	NGAANNTTCNNGAAN			
+SMAD5		MethylPlus	MethylPlus		no data from bisulfite	YGTCTAGACA			
+NR1I2		MethylPlus	MethylPlus		no data from bisulfite	NYGAACYNNNYGAACYN			
+NR3C1		MethylPlus	MethylPlus		no data from bisulfite	NGWACANNNYGTWCN			
+POU1F1		MethylPlus	MethylPlus		no data from bisulfite	NTAATGAKATGCGN			
+POU6F1		MethylPlus	MethylPlus		no data from bisulfite	NTAATGAKATGCRN			
+NFATC4		MethylPlus	MethylPlus		no data from bisulfite	NAYGGAAAAN			
+BCL11B		Little effect	Little effect		no data from bisulfite	GTGAACRNNNNNNYTACAC			
+ZNF501		MethylMinus	MethylMinus		no data from bisulfite	NSSCGACGCGAACMN			
+ZNF449		MethylMinus	MethylMinus		no data from bisulfite	MAGCCCAACC			
+ZNF396		Little effect	Little effect		no data from bisulfite	RCGCCCAACC			
+SP8		Little effect	Little effect		no data from bisulfite	NCCACGCCCMYN			
+SP9		Little effect	Little effect		no data from bisulfite	NCCACGCCCMYN			
+KLF3		MethylPlus	MethylPlus		no data from bisulfite	NRCCGCAGCCCN			
+KLF5		Little effect	Little effect		no data from bisulfite	NMCACGCCCN			
+GATA6		Little effect	Little effect		no data from bisulfite	NGATAACGATCW			
+GLI3		Little effect and MethylMinus	Little effect and MethylMinus		no data from bisulfite	RGACCACCCACRWYG			
+SNAI3		MethylPlus	MethylPlus		no data from bisulfite	NRCAGGTGCR			
+ZNF385D		Little effect	Little effect		no data from bisulfite	NCGTCGCGACGN			
+ZNF454		Little effect	Little effect		no data from bisulfite	TRGCGCCGGCGCYN			
+ZNF684		MethylPlus	MethylPlus		no data from bisulfite	NYACAGTCCRCCCCTTKN			
+ZBTB33		MethylPlus	MethylPlus		no data from bisulfite	NRCGCNNWTTTAACATAAYN			
+ZBTB12		Little effect	Little effect		no data from bisulfite	NGCTGNNCCGCGYN			
+ZBTB37		MethylPlus	MethylPlus		no data from bisulfite	NTGCCGNNTTRGCCGWN			
+CUX2		inconclusive	MethylPlus		no data from bisulfite	NTGATCGATYRN			

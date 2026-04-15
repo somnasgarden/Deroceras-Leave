@@ -30,16 +30,17 @@
 #   - homer_denovo/                      HOMER de novo results
 # =============================================================================
 
-options(stringsAsFactors = FALSE, scipen = 999)
+source("methylation_pipeline/_config.R")
 
 # -- Cache dir for JASPAR/BiocFileCache --
-cache_home <- Sys.getenv("XDG_CACHE_HOME", "~/.cache")
+cache_home <- Sys.getenv("XDG_CACHE_HOME", file.path(PROJECT_DIR, "cluster/.cache"))
 Sys.setenv(XDG_CACHE_HOME = cache_home)
 
 suppressPackageStartupMessages({
   library(data.table)
   library(dplyr)
   library(GenomicRanges)
+  library(IRanges)
   library(rtracklayer)
   library(Biostrings)
   library(GenomeInfoDb)
@@ -49,21 +50,13 @@ suppressPackageStartupMessages({
   library(universalmotif)
 })
 
-# -- Paths --
-cluster_root <- Sys.getenv("CLUSTER_ROOT", getwd())
-cache_dir    <- file.path(cluster_root, "genome/cache")
-out_dir      <- file.path(cluster_root, "results")
+# -- Paths (from _config.R: PROJECT_DIR, CACHE_DIR, CACHE, OG, keep_chr) --
+out_dir <- file.path(PROJECT_DIR, "cluster/results")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
-keep_chr <- paste0("chr", 1:31)
-
-# Cluster data paths (fallbacks if RDS caches don't exist)
-CLUSTER_GFF <- "/mnt/data/alfredvar/30-Genoma/31-Alternative_Annotation_EviAnn/derLaeGenome_namesDlasi_v2.fasta.functional_note.pseudo_label.gff"
-GENOME_FASTA <- Sys.getenv("GENOME_FASTA", "")
-
 cat("=== Expanded Motif Annotation (Cluster) ===\n")
-cat("Cluster root:", cluster_root, "\n")
-cat("Cache dir:", cache_dir, "\n")
+cat("Project dir:", PROJECT_DIR, "\n")
+cat("Cache dir:", CACHE_DIR, "\n")
 cat("Output dir:", out_dir, "\n")
 cat("Available RAM:", system("free -h | grep Mem | awk '{print $2}'", intern = TRUE), "\n\n")
 
@@ -73,91 +66,20 @@ cat("Available RAM:", system("free -h | grep Mem | awk '{print $2}'", intern = T
 # =============================================================================
 cat("=== A. Loading data and defining regions ===\n")
 
-# -- A1. Load genome --
-# Primary: BSgenome package installed on cluster R environment
-# Fallback: RDS cache or FASTA file
-genome_loaded <- FALSE
-
-# Try BSgenome package first (this is how the cluster R env has the genome)
-tryCatch({
-  suppressPackageStartupMessages(library(BSgenome.Dlaeve.NCBI.dlgm))
-  bsg <- BSgenome.Dlaeve.NCBI.dlgm
-  cat("Genome loaded from BSgenome.Dlaeve.NCBI.dlgm\n")
-
-  # Extract chr1-31 as DNAStringSet for motifmatchr compatibility
-  genome <- getSeq(bsg, keep_chr)
-  names(genome) <- keep_chr
-  chr_lengths <- setNames(seqlengths(bsg)[keep_chr], keep_chr)
-
-  # Cache as RDS for future runs (faster reload)
-  genome_rds <- file.path(cache_dir, "genome_chr1_31.rds")
-  if (!file.exists(genome_rds)) {
-    cat("Caching genome as RDS for faster future loads...\n")
-    saveRDS(genome, genome_rds)
-  }
-  genome_loaded <- TRUE
-}, error = function(e) {
-  cat("BSgenome package not available:", e$message, "\n")
-})
-
-# Fallback: RDS cache
-if (!genome_loaded) {
-  genome_rds <- file.path(cache_dir, "genome_chr1_31.rds")
-  if (file.exists(genome_rds)) {
-    cat("Loading genome from RDS cache...\n")
-    genome <- readRDS(genome_rds)
-    chr_lengths <- setNames(width(genome), names(genome))
-    genome_loaded <- TRUE
-  }
-}
-
-# Fallback: FASTA file
-if (!genome_loaded) {
-  fasta_candidates <- c(
-    GENOME_FASTA,
-    file.path(cluster_root, "genome/derLaeGenome_chr1_31.fasta"),
-    "/mnt/data/alfredvar/30-Genoma/derLaeGenome_chr1_31.fasta",
-    "/mnt/data/alfredvar/30-Genoma/derLaeGenome_namesDlasi_v2.fasta"
-  )
-  fasta_path <- ""
-  for (f in fasta_candidates) {
-    if (f != "" && file.exists(f)) { fasta_path <- f; break }
-  }
-  if (fasta_path == "") stop("No genome found. Install BSgenome.Dlaeve.NCBI.dlgm or set GENOME_FASTA.")
-
-  cat("Parsing genome FASTA:", fasta_path, "\n")
-  genome <- readDNAStringSet(fasta_path)
-  genome <- genome[names(genome) %in% keep_chr]
-  chr_lengths <- setNames(width(genome), names(genome))
-
-  genome_rds <- file.path(cache_dir, "genome_chr1_31.rds")
-  cat("Caching genome RDS for future runs...\n")
-  saveRDS(genome, genome_rds)
-}
-
+# -- A1. Load genome (via _config.R loader — caches automatically) --
+genome <- load_genome()
+chr_lengths <- setNames(width(genome), names(genome))
 cat(sprintf("Genome: %d chromosomes, %s bp total\n",
             length(genome), format(sum(chr_lengths), big.mark = ",")))
 
-# -- A2. Load GFF --
-gff_rds <- file.path(cache_dir, "gff_chr1_31.rds")
-if (file.exists(gff_rds)) {
-  cat("Loading GFF from RDS cache...\n")
-  gff <- readRDS(gff_rds)
-} else if (file.exists(CLUSTER_GFF)) {
-  cat("Parsing GFF from cluster path...\n")
-  gff <- import(CLUSTER_GFF)
-  gff <- gff[seqnames(gff) %in% keep_chr]
-  seqlevels(gff) <- keep_chr
-  saveRDS(gff, gff_rds)
-} else {
-  stop("No GFF found. Place gff_chr1_31.rds in cache or check CLUSTER_GFF path.")
-}
+# -- A2. Load GFF (via _config.R loader — caches automatically) --
+gff <- load_gff()
 
 genes <- gff[gff$type == "gene"]
 cat("Genes:", length(genes), "\n")
 
 # -- A3. Define extended regions --
-regions_rds <- file.path(cache_dir, "extended_regions_10kb.rds")
+regions_rds <- CACHE$extended
 if (file.exists(regions_rds)) {
   cat("Loading extended regions from cache...\n")
   regions <- readRDS(regions_rds)
@@ -234,7 +156,7 @@ tss_lookup  <- data.frame(
 cat("\n=== B. Exporting data for HOMER ===\n")
 
 # -- B1. Export genome FASTA for HOMER (chr1-31 only) --
-homer_genome_fa <- file.path(cluster_root, "genome", "derLaeGenome_chr1_31.fasta")
+homer_genome_fa <- file.path(PROJECT_DIR, "genome", "derLaeGenome_chr1_31.fasta")
 if (!file.exists(homer_genome_fa)) {
   cat("Exporting genome FASTA for HOMER (chr1-31)...\n")
   dir.create(dirname(homer_genome_fa), showWarnings = FALSE, recursive = TRUE)
@@ -352,124 +274,153 @@ rm(prom_seqs); gc(verbose = FALSE)
 # D. JASPAR MOTIF SCANNING ON EXTENDED REGIONS
 # =============================================================================
 cat("\n=== D. JASPAR motif scanning on extended regions ===\n")
-cat("Scanning per chromosome × per region type to manage memory.\n")
-cat(sprintf("  %d motifs × %d regions across %d chromosomes\n",
-            length(jaspar_pfms), length(regions), length(keep_chr)))
+cat(sprintf("  %d motifs x %d regions\n", length(jaspar_pfms), length(regions)))
 
-# Strategy: for each region type, for each chromosome:
-#   1. Extract sequences for that chr+region
-#   2. motifmatchR(out="positions")
-#   3. Convert to genomic coordinates
-#   4. Save chunk
-#   5. Free memory
+# -- D0. Diagnostic: verify matchMotifs works --
+cat("\n  [DIAGNOSTIC] Testing matchMotifs on 10 promoters x 5 motifs...\n")
+test_reg <- regions[regions$region_type == "promoter"][1:10]
+test_seqs <- getSeq(genome, test_reg)
+names(test_seqs) <- test_reg$gene_id
+test_result <- matchMotifs(jaspar_pfms[1:5], test_seqs, out = "positions", p.cutoff = 5e-5)
+cat(sprintf("  [DIAGNOSTIC] Result class: %s, length: %d\n", class(test_result)[1], length(test_result)))
+cat(sprintf("  [DIAGNOSTIC] Element class: %s\n", class(test_result[[1]])[1]))
+test_nhits <- sum(sapply(seq_along(test_result), function(i) {
+  x <- test_result[[i]]
+  if (is(x, "IRangesList")) sum(lengths(x))
+  else if (is(x, "GRanges") || is(x, "GRangesList")) length(unlist(x))
+  else { cat(sprintf("  [DIAGNOSTIC] Unexpected class: %s\n", class(x)[1])); 0 }
+}))
+cat(sprintf("  [DIAGNOSTIC] Test hits: %d (expect > 0)\n", test_nhits))
+if (test_nhits == 0) {
+  cat("  [DIAGNOSTIC] WARNING: 0 test hits! Trying p.cutoff=1e-4...\n")
+  test_result2 <- matchMotifs(jaspar_pfms[1:5], test_seqs, out = "positions", p.cutoff = 1e-4)
+  test_nhits2 <- sum(sapply(seq_along(test_result2), function(i) {
+    x <- test_result2[[i]]
+    if (is(x, "IRangesList")) sum(lengths(x)) else length(unlist(x))
+  }))
+  cat(sprintf("  [DIAGNOSTIC] p=1e-4 hits: %d\n", test_nhits2))
+}
+rm(test_reg, test_seqs, test_result); gc(verbose = FALSE)
 
+# -- Helper: extract hits handling both IRangesList and GRanges --
+extract_hits <- function(pos_result, motif_idx, reg_lookup, rtype, motif_meta) {
+  x <- pos_result[[motif_idx]]
+  if (is(x, "IRangesList")) {
+    if (sum(lengths(x)) == 0) return(NULL)
+    ir <- unlist(x)
+    hit_genes <- names(ir)
+    rel_s <- start(ir); rel_e <- end(ir)
+  } else if (is(x, "GRanges")) {
+    if (length(x) == 0) return(NULL)
+    hit_genes <- as.character(seqnames(x))
+    rel_s <- start(x); rel_e <- end(x)
+  } else if (is(x, "GRangesList")) {
+    x <- unlist(x)
+    if (length(x) == 0) return(NULL)
+    hit_genes <- names(x)
+    rel_s <- start(x); rel_e <- end(x)
+  } else { return(NULL) }
+
+  ridx <- match(hit_genes, reg_lookup$gene_id)
+  valid <- !is.na(ridx)
+  if (!any(valid)) return(NULL)
+  ridx <- ridx[valid]; rel_s <- rel_s[valid]; rel_e <- rel_e[valid]
+  hit_genes <- hit_genes[valid]
+  rs <- reg_lookup$reg_strand[ridx]
+  ps <- reg_lookup$reg_start[ridx]; pe <- reg_lookup$reg_end[ridx]
+  data.frame(
+    chr = reg_lookup$reg_chr[ridx],
+    start = ifelse(rs == "+", ps + rel_s - 1L, pe - rel_e + 1L),
+    end   = ifelse(rs == "+", ps + rel_e - 1L, pe - rel_s + 1L),
+    strand = ifelse(rs == "+", "+", "-"),
+    motif_id = motif_meta$motif_id[motif_idx],
+    motif_name = motif_meta$motif_name[motif_idx],
+    tf_class = motif_meta$tf_class[motif_idx],
+    gene_id = hit_genes, region_type = rtype,
+    score = NA_real_, source = "JASPAR", stringsAsFactors = FALSE)
+}
+
+# -- D1. Scan per region type (all chromosomes batched in one call) --
 region_types <- c("promoter", "upstream_distal", "gene_body", "downstream")
 all_chunk_files <- c()
 total_hits <- 0L
-scan_start_global <- proc.time()
+scan_t0 <- proc.time()[3]
 
 for (rtype in region_types) {
-  cat(sprintf("\n--- Scanning region: %s ---\n", rtype))
   type_regions <- regions[regions$region_type == rtype]
+  n_reg <- length(type_regions)
+  cat(sprintf("\n  [%s] Extracting %d sequences...\n", rtype, n_reg))
+  flush.console()
 
-  for (chr_name in keep_chr) {
-    chr_reg <- type_regions[seqnames(type_regions) == chr_name]
-    if (length(chr_reg) == 0) next
+  t0 <- proc.time()[3]
+  type_seqs <- getSeq(genome, type_regions)
+  names(type_seqs) <- type_regions$gene_id
+  cat(sprintf("  [%s] Sequences extracted (%.0fs), total bp: %s\n",
+              rtype, proc.time()[3] - t0, format(sum(width(type_seqs)), big.mark = ",")))
+  flush.console()
 
-    # Extract sequences
-    chr_seqs <- getSeq(genome, chr_reg)
-    names(chr_seqs) <- chr_reg$gene_id
+  reg_lookup <- data.frame(
+    gene_id = type_regions$gene_id,
+    reg_chr = as.character(seqnames(type_regions)),
+    reg_start = start(type_regions), reg_end = end(type_regions),
+    reg_strand = as.character(strand(type_regions)), stringsAsFactors = FALSE)
 
-    if (length(chr_seqs) == 0) next
+  cat(sprintf("  [%s] Running matchMotifs (%d motifs x %d seqs)...\n",
+              rtype, length(jaspar_pfms), n_reg))
+  flush.console()
+  t0 <- proc.time()[3]
 
-    # Scan with motifmatchR
-    tryCatch({
-      pos_result <- matchMotifs(
-        jaspar_pfms, chr_seqs,
-        out = "positions", p.cutoff = 5e-5
-      )
-      pos_list <- motifPositions(pos_result)
-      rm(pos_result); gc(verbose = FALSE)
-
-      # Convert to genomic coordinates
-      reg_lookup <- data.frame(
-        gene_id  = chr_reg$gene_id,
-        reg_chr  = as.character(seqnames(chr_reg)),
-        reg_start = start(chr_reg),
-        reg_end   = end(chr_reg),
-        reg_strand = as.character(strand(chr_reg)),
-        stringsAsFactors = FALSE
-      )
-
-      chunk_hits <- vector("list", length(pos_list))
-      for (i in seq_along(pos_list)) {
-        gr <- pos_list[[i]]
-        if (length(gr) == 0) next
-
-        hit_genes <- as.character(seqnames(gr))
-        ridx      <- match(hit_genes, reg_lookup$gene_id)
-        if (all(is.na(ridx))) next
-
-        rel_s <- start(gr)
-        rel_e <- end(gr)
-        h_str <- as.character(strand(gr))
-
-        rs <- reg_lookup$reg_strand[ridx]
-        ps <- reg_lookup$reg_start[ridx]
-        pe <- reg_lookup$reg_end[ridx]
-
-        gen_s <- ifelse(rs == "+", ps + rel_s - 1L, pe - rel_e + 1L)
-        gen_e <- ifelse(rs == "+", ps + rel_e - 1L, pe - rel_s + 1L)
-        gen_str <- ifelse(h_str == "*", "*",
-                          ifelse(rs == "+", h_str,
-                                 ifelse(h_str == "+", "-", "+")))
-
-        score_vals <- if ("score" %in% colnames(mcols(gr))) {
-          mcols(gr)$score
-        } else rep(NA_real_, length(gr))
-
-        chunk_hits[[i]] <- data.frame(
-          chr        = reg_lookup$reg_chr[ridx],
-          start      = gen_s,
-          end        = gen_e,
-          strand     = gen_str,
-          motif_id   = motif_meta$motif_id[i],
-          motif_name = motif_meta$motif_name[i],
-          tf_class   = motif_meta$tf_class[i],
-          gene_id    = hit_genes,
-          region_type = rtype,
-          score      = score_vals,
-          source     = "JASPAR",
-          stringsAsFactors = FALSE
-        )
-      }
-
-      dt <- rbindlist(chunk_hits, fill = TRUE)
-      rm(chunk_hits, pos_list); gc(verbose = FALSE)
-
-      if (nrow(dt) > 0) {
-        chunk_file <- file.path(out_dir,
-          sprintf("_chunk_%s_%s.tsv", rtype, chr_name))
-        fwrite(dt, chunk_file, sep = "\t")
-        all_chunk_files <- c(all_chunk_files, chunk_file)
-        total_hits <- total_hits + nrow(dt)
-      }
-      rm(dt)
-
-    }, error = function(e) {
-      cat(sprintf("  WARNING: Error on %s/%s: %s\n", rtype, chr_name, e$message))
+  pos_result <- tryCatch(
+    matchMotifs(jaspar_pfms, type_seqs, out = "positions", p.cutoff = 5e-5),
+    error = function(e) {
+      cat(sprintf("  [%s] ERROR in matchMotifs: %s\n", rtype, e$message))
+      NULL
     })
 
-    rm(chr_seqs); gc(verbose = FALSE)
+  scan_time <- proc.time()[3] - t0
+  cat(sprintf("  [%s] matchMotifs done (%.0fs = %.1f min)\n", rtype, scan_time, scan_time/60))
+  flush.console()
+
+  if (is.null(pos_result)) {
+    cat(sprintf("  [%s] SKIPPED due to error\n", rtype))
+    rm(type_seqs); gc(verbose = FALSE)
+    next
   }
 
-  cat(sprintf("  %s complete — running total: %s hits\n",
-              rtype, format(total_hits, big.mark = ",")))
+  cat(sprintf("  [%s] Extracting hits from %d motifs...\n", rtype, length(pos_result)))
+  flush.console()
+  chunk_hits <- vector("list", length(pos_result))
+  for (i in seq_along(pos_result)) {
+    chunk_hits[[i]] <- extract_hits(pos_result, i, reg_lookup, rtype, motif_meta)
+    if (i %% 200 == 0) {
+      n_so_far <- sum(sapply(chunk_hits[1:i], function(x) if(is.null(x)) 0L else nrow(x)))
+      cat(sprintf("    [%s] %d/%d motifs, %s hits so far\n",
+                  rtype, i, length(pos_result), format(n_so_far, big.mark = ",")))
+      flush.console()
+    }
+  }
+
+  dt <- rbindlist(chunk_hits, fill = TRUE)
+  rtype_hits <- nrow(dt)
+  rm(chunk_hits, pos_result, type_seqs); gc(verbose = FALSE)
+
+  if (rtype_hits > 0) {
+    chunk_file <- file.path(out_dir, sprintf("_chunk_%s.tsv", rtype))
+    fwrite(dt, chunk_file, sep = "\t")
+    all_chunk_files <- c(all_chunk_files, chunk_file)
+    total_hits <- total_hits + rtype_hits
+  }
+  rm(dt); gc(verbose = FALSE)
+
+  elapsed <- proc.time()[3] - scan_t0
+  cat(sprintf("  [%s] DONE: %s hits | Running total: %s | Elapsed: %.1f min\n",
+              rtype, format(rtype_hits, big.mark = ","),
+              format(total_hits, big.mark = ","), elapsed/60))
+  flush.console()
 }
 
-scan_time_global <- (proc.time() - scan_start_global)[3]
-cat(sprintf("\nTotal JASPAR scanning time: %.1f minutes\n", scan_time_global / 60))
-cat(sprintf("Total JASPAR hits: %s\n", format(total_hits, big.mark = ",")))
+cat(sprintf("\nTotal JASPAR scanning: %s hits in %.1f min\n",
+            format(total_hits, big.mark = ","), (proc.time()[3] - scan_t0)/60))
 
 
 # =============================================================================

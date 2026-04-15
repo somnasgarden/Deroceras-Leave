@@ -1,0 +1,521 @@
+tf_upper	yin_source	yin_call	yin_enrichment	mm_class	mm_high	mm_low	mm_cell	final_call	sources_agree
+AFF1				Intermediate	0.1297	0.4505	K562	Intermediate	
+ALX3	DBD	MethylPlus	0.5					MethylPlus	
+AR				MethylMinus	0.0145	0.8658	LNCaP	MethylMinus	
+ARID2				MethylMinus	3e-04	0.9806	K562	MethylMinus	
+ARID3A				MethylMinus	0.0069	0.9531	HepG2	MethylMinus	
+ARNT2	DBD	MethylMinus	-0.95431					MethylMinus	
+ARNTL	DBD	MethylMinus	-0.78974197					MethylMinus	
+ATF1				MethylMinus	0.0064	0.8429	K562	MethylMinus	
+ATF2	DBD	MethylMinus	0.1130954	Intermediate	0.1614	0.5149	HepG2	MethylMinus	FALSE
+ATF3	DBD	MethylMinus	-0.2502504	MethylMinus	0.007	0.8255	K562	MethylMinus	TRUE
+ATF4				Intermediate	0.0432	0.485	K562	Intermediate	
+ATF6	DBD	MethylMinus	-0.72159729					MethylMinus	
+ATF6B	DBD	MethylMinus	-0.562424735					MethylMinus	
+ATF7	DBD	MethylMinus	-0.00784308	Intermediate	0.1776	0.4887	HepG2	MethylMinus	FALSE
+BACH1				Intermediate	0.1297	0.5717	HepG2	Intermediate	
+BARHL2	DBD	MethylMinus	-0.01511627					MethylMinus	
+BATF				MethylMinus	0.0297	0.7049	GM12878	MethylMinus	
+BATF3				MethylMinus	0.0217	0.6498	GM12878	MethylMinus	
+BATF3*	DBD	inconclusive	-0.22142864					inconclusive	
+BCL11A				MethylMinus	0.0021	0.921	GM12878	MethylMinus	
+BCL6	DBD	MethylMinus	-0.21651775	MethylMinus	0.0208	0.7598	HepG2	MethylMinus	TRUE
+BCL6B	DBD	MethylMinus	-0.16421049	Intermediate	0.0632	0.5914	HEK293	MethylMinus	FALSE
+BHLHE40	DBD	MethylMinus	-0.73493256	MethylMinus	0	0.7576	K562	MethylMinus	TRUE
+BHLHE41	DBD	MethylMinus	-0.93939392					MethylMinus	
+BSX	DBD	MethylMinus	0.63135612					MethylMinus	
+C11ORF30				MethylMinus	0.0523	0.6378	K562	MethylMinus	
+CBFA2T3				MethylMinus	0	0.8451	K562	MethylMinus	
+CBFB				MethylMinus	0	0.8631	GM12878	MethylMinus	
+CDX2				Intermediate	0.3003	0.2227	HUES64	Intermediate	
+CDX4	DBD	MethylPlus	1.64705872					MethylPlus	
+CEBPA				Intermediate	0.1921	0.4601	HepG2	Intermediate	
+CEBPB	DBD	MethylPlus	0.14827597	Intermediate	0.2305	0.359	IMR-90	MethylPlus	FALSE
+CEBPD	DBD	Little effect	0.0253011	MethylMinus	0.0505	0.7521	HepG2	Little effect	FALSE
+CEBPE	DBD	MethylPlus	0.12007153					MethylPlus	
+CEBPG	FL_only	MethylPlus	0.20073532	Intermediate	0.3819	0.2274	HepG2	MethylPlus	FALSE
+CHD2				MethylMinus	7e-04	0.9124	A549	MethylMinus	
+CLOCK	DBD	Multiple	-0.49915493	MethylMinus	0.0044	0.9215	MCF-7	Multiple	FALSE
+CREB1	DBD	MethylMinus	-0.63325394	MethylMinus	0.0805	0.6396	MCF-7	MethylMinus	TRUE
+CREB3	FL_only	MethylMinus	-0.465127155					MethylMinus	
+CREB3L1	DBD	MethylMinus	-0.115598285	MethylMinus	0	0.8543	K562	MethylMinus	TRUE
+CREB5	DBD	MethylMinus	-0.14958686					MethylMinus	
+CREM	DBD	MethylMinus	-0.49751972	MethylMinus	0	0.8477	K562	MethylMinus	TRUE
+CTBP1				MethylMinus	0	0.7917	HEK293T	MethylMinus	
+CTCF				MethylMinus	0.0217	0.803	HepG2	MethylMinus	
+CTCFL				MethylMinus	0.0189	0.848	K562	MethylMinus	
+CUX1	DBD	MethylMinus	-0.04761916	Intermediate	0.14	0.505	MCF-7	MethylMinus	FALSE
+DBP*	DBD	inconclusive	-0.00119886					inconclusive	
+DDX20				MethylMinus	9e-04	0.9931	MCF-7	MethylMinus	
+DMRTC2	FL_only	MethylMinus	-0.35416664					MethylMinus	
+DPF2				MethylMinus	0	0.7931	K562	MethylMinus	
+E2F1				MethylMinus	4e-04	0.9778	LNCaP	MethylMinus	
+E2F2	DBD	MethylMinus	-0.54999998					MethylMinus	
+E2F3	DBD	Little effect	0.07037902					Little effect	
+E2F4	DBD	MethylMinus	-0.95335938	MethylMinus	0.021	0.8634	K562	MethylMinus	TRUE
+E2F6				Intermediate	0.1562	0.4815	H1-hESC	Intermediate	
+E2F7	DBD	MethylMinus	-0.52859531	MethylMinus	0	0.9175	K562	MethylMinus	TRUE
+E2F8	DBD	Little effect	0.0405947	MethylMinus	0.0057	0.9667	K562	Little effect	FALSE
+E4F1				MethylMinus	0	0.8886	K562	MethylMinus	
+EBF1				MethylMinus	0.0285	0.716	GM12878	MethylMinus	
+EGR1	DBD	Little effect	-0.01086956	MethylMinus	0.0396	0.6664	K562	Little effect	FALSE
+EGR2	FL_only	Little effect	-0.01473004	Intermediate	0.3295	0.3885	HEK293	Little effect	TRUE
+EGR3	FL_only	Little effect	0.02042365					Little effect	
+EGR4	DBD	MethylPlus	0.2030077					MethylPlus	
+ELF1	FL_only	MethylMinus	-0.86733002	MethylMinus	0.0059	0.889	HepG2	MethylMinus	TRUE
+ELF2	DBD	MethylMinus	-0.83164864					MethylMinus	
+ELF3	DBD	MethylMinus	-0.82683983	MethylMinus	0	0.8333	HepG2	MethylMinus	TRUE
+ELF4	DBD	MethylMinus	-0.85894844	MethylMinus	1e-04	0.9063	K562	MethylMinus	TRUE
+ELF5	FL_only	MethylMinus	-0.546345745					MethylMinus	
+ELK1	FL_only	MethylMinus	-0.79086533	MethylMinus	0	0.9776	GM12878	MethylMinus	TRUE
+ELK3	DBD	MethylMinus	-0.8179834					MethylMinus	
+ELK4				MethylMinus	8e-04	0.9153	HeLa-S3	MethylMinus	
+EN1	DBD	MethylPlus	0.16666662					MethylPlus	
+EN2	DBD	MethylPlus	-0.18181837					MethylPlus	
+EOMES				Intermediate	0.3455	0.1638	H9	Intermediate	
+ERG	DBD	MethylMinus	-0.94045067					MethylMinus	
+ESR1	DBD	MethylPlus	0.91489395	MethylMinus	0.0397	0.6266	MCF-7	MethylPlus	FALSE
+ESRRA				MethylMinus	0.0329	0.6468	K562	MethylMinus	
+ETS1				MethylMinus	0	0.9765	GM12878	MethylMinus	
+ETS2	FL_only	MethylMinus	-0.95575729					MethylMinus	
+ETV1	FL_only	MethylMinus	-0.78663673					MethylMinus	
+ETV2	DBD	MethylMinus	-0.89285713					MethylMinus	
+ETV3	DBD	MethylMinus	-0.827201805					MethylMinus	
+ETV4	DBD	MethylMinus	-0.89407661	MethylMinus	0.0073	0.9372	HepG2	MethylMinus	TRUE
+ETV5	DBD	MethylMinus	-0.76223778					MethylMinus	
+ETV6				MethylMinus	0.0011	0.872	GM12878	MethylMinus	
+FEV	DBD	MethylMinus	-0.74270643					MethylMinus	
+FLI1	DBD	MethylMinus	-0.927225725					MethylMinus	
+FOS	DBD	MethylMinus	-0.43023266	MethylMinus	0.0246	0.6419	MCF-7	MethylMinus	TRUE
+FOSB	DBD	inconclusive	0.09890116					inconclusive	
+FOSL1				MethylMinus	0.0263	0.6474	HCT116	MethylMinus	
+FOSL2				Intermediate	0.0156	0.3938	SK-N-SH	Intermediate	
+FOXA1				Intermediate	0	0.5625	LNCaP	Intermediate	
+FOXA2				MethylMinus	0.0941	0.7104	HepG2	MethylMinus	
+FOXA3				MethylMinus	0	0.7692	HepG2	MethylMinus	
+FOXG1	DBD	MethylPlus	-0.20440256					MethylPlus	
+FOXH1				Intermediate	0.367	0.1642	H9	Intermediate	
+FOXJ3	DBD	MethylPlus	0.12636185					MethylPlus	
+FOXK2				MethylMinus	0.0027	0.9086	K562	MethylMinus	
+FOXM1				MethylMinus	0	0.9469	K562	MethylMinus	
+FOXP3	FL_only	MethylMinus	-1					MethylMinus	
+GABPA	DBD	MethylMinus	-0.83492294	MethylMinus	0.0039	0.8888	K562	MethylMinus	TRUE
+GABPB1				MethylMinus	0.005	0.8278	K562	MethylMinus	
+GATA1				MethylMinus	0	0.9151	K562	MethylMinus	
+GATA2				MethylMinus	0	0.76	LNCaP	MethylMinus	
+GATA3	FL_only	MethylPlus	1.431590545	MethylMinus	0.025	0.6635	MCF-7	MethylPlus	FALSE
+GATA4				Intermediate	0.3606	0.1435	HUES64	Intermediate	
+GATA5	FL_only	MethylPlus	0.8700396					MethylPlus	
+GBX2	DBD	MethylPlus	1.325					MethylPlus	
+GCM1	FL_only	inconclusive	1.2e-07					inconclusive	
+GCM1*	DBD	inconclusive	0.19791676					inconclusive	
+GCM2	FL_only	inconclusive	0.13725483					inconclusive	
+GFI1	DBD	MethylMinus	-0.27368414					MethylMinus	
+GFI1B				MethylMinus	0.0406	0.7669	HEK293	MethylMinus	
+GLI2	DBD	MethylMinus	-0.07936513					MethylMinus	
+GLIS1	DBD	MethylMinus	-0.1027779					MethylMinus	
+GLIS2	DBD	MethylMinus	-0.48172768					MethylMinus	
+GMEB1	FL_only	MethylMinus	-0.91304348					MethylMinus	
+GMEB2	DBD	MethylMinus	-0.9446228	MethylMinus	0	0.9515	HepG2	MethylMinus	TRUE
+GRHL1	DBD	MethylPlus	0.15395296					MethylPlus	
+GRHL2				Intermediate	0.04	0.5949	MCF-7	Intermediate	
+GSX2	DBD	MethylPlus	0.83492828					MethylPlus	
+HES1	DBD	MethylMinus	-0.78395058	MethylMinus	0	0.9379	HepG2	MethylMinus	TRUE
+HES2	DBD	MethylMinus	-0.53834118	Intermediate	0.0577	0.5744	A549	MethylMinus	FALSE
+HES5	DBD	MethylMinus	-0.789772225					MethylMinus	
+HES7	DBD	MethylMinus	-0.96713943					MethylMinus	
+HEY1	FL_only	MethylMinus	-0.36046505					MethylMinus	
+HEY2	DBD	MethylMinus	-0.53225811					MethylMinus	
+HHEX				MethylMinus	0.0185	0.9259	HepG2	MethylMinus	
+HLF	FL_only	MethylPlus	0.38181805	Intermediate	0.2506	0.3938	HepG2	MethylPlus	FALSE
+HMG20A				MethylMinus	0.0107	0.8296	HepG2	MethylMinus	
+HNF1A				MethylMinus	0.0055	0.8709	HepG2	MethylMinus	
+HNF4A				MethylMinus	0.0083	0.7873	HepG2	MethylMinus	
+HNF4G				MethylMinus	0.0104	0.8479	HepG2	MethylMinus	
+HOXA1	FL_only	MethylPlus	1.56696411					MethylPlus	
+HOXA10	DBD	MethylPlus	0.36558296					MethylPlus	
+HOXA11	DBD	MethylPlus	0.6231588					MethylPlus	
+HOXA13	DBD	MethylPlus	1.27999969					MethylPlus	
+HOXA2	FL_only	MethylPlus	0.76923111					MethylPlus	
+HOXA4	DBD	MethylPlus	0.02623892					MethylPlus	
+HOXA5	DBD	MethylPlus	-0.02564096					MethylPlus	
+HOXA6	DBD	MethylPlus	0.21311474					MethylPlus	
+HOXA7	DBD	MethylPlus	0.18113911					MethylPlus	
+HOXB1	DBD	MethylPlus	-0.16666656					MethylPlus	
+HOXB13	FL_only	MethylPlus	0.91032616	MethylMinus	0.0286	0.693	LNCaP	MethylPlus	FALSE
+HOXB2	DBD	MethylPlus	1.0555558					MethylPlus	
+HOXB5	DBD	MethylPlus	-0.22424252					MethylPlus	
+HOXB6	DBD	MethylPlus	0.02824855					MethylPlus	
+HOXB7	DBD	MethylPlus	0.16363632					MethylPlus	
+HOXB8	DBD	MethylPlus	1.23809502					MethylPlus	
+HOXB9	DBD	MethylPlus	0.53014351					MethylPlus	
+HOXC10	DBD	MethylPlus	0.35531139					MethylPlus	
+HOXC11	DBD	MethylPlus	0.29514576					MethylPlus	
+HOXC12	DBD	MethylPlus	0.6610173					MethylPlus	
+HOXC13	DBD	MethylPlus	0.91208801					MethylPlus	
+HOXC4	DBD	MethylPlus	-0.04255307					MethylPlus	
+HOXC8	FL_only	MethylPlus	1.35367722					MethylPlus	
+HOXC9	FL_only	MethylPlus	0.85566986					MethylPlus	
+HOXD1	DBD	MethylPlus	-0.35294117					MethylPlus	
+HOXD10	DBD	MethylPlus	0.61172188					MethylPlus	
+HOXD11	DBD	MethylPlus	1.1937323					MethylPlus	
+HOXD12	DBD	MethylPlus	0.37254883					MethylPlus	
+HOXD13	DBD	MethylPlus	1.07450081					MethylPlus	
+HOXD3	FL_only	MethylPlus	0.3138834					MethylPlus	
+HOXD4	DBD	MethylPlus	0.69696976					MethylPlus	
+HOXD8	DBD	MethylPlus	0.77966095					MethylPlus	
+HOXD9	FL_only	MethylPlus	0.96274483					MethylPlus	
+HSF1	FL_only	inconclusive	0.04761899	MethylMinus	0.081	0.6562	GM12878	MethylMinus	FALSE
+HSF2	DBD	Multiple	-0.54411758					Multiple	
+HSF5	DBD	MethylMinus	1.20000008					MethylMinus	
+HSFY1	DBD	MethylMinus	-0.95734268					MethylMinus	
+HSFY2	DBD	MethylMinus	-0.91834274					MethylMinus	
+IKZF3				MethylMinus	0.024	0.8131	HEK293	MethylMinus	
+IRF1				MethylMinus	0.0538	0.6126	K562	MethylMinus	
+IRF2	FL_only	MethylPlus	0.3261496	MethylMinus	0.0275	0.7683	K562	MethylPlus	FALSE
+IRF3				MethylMinus	0.0036	0.9151	SK-N-SH	MethylMinus	
+IRF3*	DBD	inconclusive	-0.16271549					inconclusive	
+IRF4	FL_only	MethylPlus	0.097561	MethylMinus	0.0033	0.9614	GM12878	MethylPlus	FALSE
+IRF5	DBD	Little effect	-0.09007359	MethylMinus	0	0.9714	GM12878	Little effect	FALSE
+IRF6	DBD	MethylPlus	0.18181801					MethylPlus	
+IRF7	DBD	MethylMinus	-0.45743244					MethylMinus	
+IRF8*	FL_only	inconclusive	-0.100530265					inconclusive	
+IRF9	FL_only	MethylPlus	0.10526312					MethylPlus	
+IRX1	DBD	MethylPlus	0.42857124					MethylPlus	
+IRX3	DBD	MethylPlus	1.81200027					MethylPlus	
+IRX5	DBD	MethylPlus	0.84910713					MethylPlus	
+ISX	DBD	MethylPlus	0.48809528					MethylPlus	
+JDP2	FL_only	inconclusive	0.33333351					inconclusive	
+JUN				MethylMinus	0.0199	0.752	HeLa-S3	MethylMinus	
+JUNB				MethylMinus	0.0281	0.7381	GM12878	MethylMinus	
+JUND				Intermediate	0.0123	0.4315	SK-N-SH	Intermediate	
+KLF1				Intermediate	0.2168	0.524	HEK293	Intermediate	
+KLF10	DBD	MethylPlus	0.12745094	MethylMinus	0.0278	0.8862	HEK293	MethylPlus	FALSE
+KLF11	DBD	MethylPlus	0.19159328					MethylPlus	
+KLF12	FL_only	MethylPlus	0.14774966					MethylPlus	
+KLF13	DBD	MethylPlus	0.30303038	MethylMinus	8e-04	0.9119	K562	MethylPlus	FALSE
+KLF14	DBD	MethylPlus	0.27735556					MethylPlus	
+KLF15	DBD	MethylPlus	-0.0133					MethylPlus	
+KLF16	DBD	MethylPlus	0.14130402					MethylPlus	
+KLF17	DBD	MethylPlus	0.4438504					MethylPlus	
+KLF2	DBD	Little effect	-0.41176476					Little effect	
+KLF4	DBD	Little effect	-0.22077925	MethylMinus	0.0048	0.9365	MCF-7	Little effect	FALSE
+KLF5				MethylMinus	0.0362	0.8966	HUES64	MethylMinus	
+KLF6	DBD	MethylPlus	0.25714291					MethylPlus	
+KLF9				MethylMinus	0.006	0.9467	MCF-7	MethylMinus	
+LBX2	DBD	MethylPlus	0.04444444					MethylPlus	
+LEF1	DBD	MethylMinus	-0.40016026					MethylMinus	
+LHX4	DBD	MethylPlus	0.06896544					MethylPlus	
+LHX5	FL_only	MethylPlus	0.60389603					MethylPlus	
+LHX6	FL_only	MethylPlus	1.48443298					MethylPlus	
+LHX9	DBD	MethylPlus	1.26666687					MethylPlus	
+LIN28B	FL_only	MethylMinus	-0.40859146					MethylMinus	
+LMX1A	DBD	MethylPlus	1.72727234					MethylPlus	
+LMX1B	FL_only	MethylPlus	0.5789473					MethylPlus	
+MAFF	DBD	MethylMinus	0.67836296	Intermediate	0.2581	0.4462	HepG2	MethylMinus	FALSE
+MAFG				MethylMinus	0.0553	0.6347	K562	MethylMinus	
+MAFK				Intermediate	0.2599	0.4226	HepG2	Intermediate	
+MAX	DBD	MethylMinus	-0.24420094	MethylMinus	0.0141	0.7195	K562	MethylMinus	TRUE
+MAZ				MethylMinus	0.0011	0.9216	K562	MethylMinus	
+MBNL2	FL_only	MethylMinus	-0.38375347					MethylMinus	
+MEF2A				MethylMinus	0.0336	0.7905	GM12878	MethylMinus	
+MEF2B				MethylMinus	0.0325	0.8036	GM12878	MethylMinus	
+MEF2C				MethylMinus	0.0109	0.8606	GM12878	MethylMinus	
+MEIS2	DBD	MethylPlus	1.14615372	Intermediate	0.0331	0.594	K562	MethylPlus	FALSE
+MEIS3	DBD	MethylPlus	0.6571431					MethylPlus	
+MITF				MethylMinus	0	0.9059	K562	MethylMinus	
+MLX	DBD	MethylMinus	-0.78075943					MethylMinus	
+MNT				Intermediate	0.2644	0.3426	HepG2	Intermediate	
+MSX1	DBD	MethylPlus	0.10294115					MethylPlus	
+MSX2	DBD	MethylPlus	0.24081623					MethylPlus	
+MTA1				MethylMinus	0	0.9976	MCF-7	MethylMinus	
+MTF1	DBD	Little effect	-0.00631648					Little effect	
+MXI1				MethylMinus	0.0363	0.657	SK-N-SH	MethylMinus	
+MYBL2	DBD	MethylMinus	-0.26102942					MethylMinus	
+MYCN	DBD	MethylMinus	-0.57406414					MethylMinus	
+MYF6	DBD	MethylPlus	0.18181812					MethylPlus	
+MYNN				MethylMinus	0.0444	0.7316	K562	MethylMinus	
+MYOD1	FL_only	Little effect	0.57160484					Little effect	
+MYOG	FL_only	Little effect	0.44989323					Little effect	
+MZF1				MethylMinus	0.0873	0.6624	HEK293	MethylMinus	
+NANOG	DBD	MethylPlus	-0.3488372	Intermediate	0.1788	0.3758	H9	MethylPlus	FALSE
+NCOA1				MethylMinus	0	0.9579	K562	MethylMinus	
+NCOA3				MethylMinus	0.0045	0.7174	MCF-7	MethylMinus	
+NFAT5	DBD	MethylPlus	0.22361362					MethylPlus	
+NFATC1	DBD	MethylPlus	0.51851845					MethylPlus	
+NFATC2	DBD	MethylPlus	0.20471037					MethylPlus	
+NFATC3	DBD	MethylPlus	0.67849808	MethylMinus	0	0.7647	K562	MethylPlus	FALSE
+NFE2				MethylMinus	0.0196	0.6941	K562	MethylMinus	
+NFE2L1				Intermediate	0.0645	0.5868	K562	Intermediate	
+NFE2L2				MethylMinus	0.0767	0.6134	IMR-90	MethylMinus	
+NFIA				MethylMinus	0.0313	0.6664	K562	MethylMinus	
+NFIB				Intermediate	0.1223	0.4977	MCF-7	Intermediate	
+NFIC				MethylMinus	0.0509	0.6378	K562	MethylMinus	
+NFIL3				MethylMinus	0.0644	0.6418	HepG2	MethylMinus	
+NFYA				MethylMinus	0.0578	0.8099	HeLa-S3	MethylMinus	
+NFYB				MethylMinus	0.0648	0.665	K562	MethylMinus	
+NFYC				MethylMinus	0.1198	0.6266	HepG2	MethylMinus	
+NHLH1	FL_only	Little effect	-0.15789479					Little effect	
+NHLH2	FL_only	Little effect	-0.08867306					Little effect	
+NKX2-3	DBD	MethylPlus	0.29166662					MethylPlus	
+NKX2-5	FL_only	MethylPlus	0.71906668					MethylPlus	
+NKX3-1	DBD	MethylPlus	0.40000034	MethylMinus	0	0.7931	LNCaP	MethylPlus	FALSE
+NKX3-2	DBD	MethylPlus	1.15384651					MethylPlus	
+NPAS2	DBD	Multiple	-0.46718143					Multiple	
+NR1I3	FL_only	MethylPlus	1.10437706					MethylPlus	
+NR2C1	DBD	MethylPlus	0.96857155	MethylMinus	0.0311	0.7036	K562	MethylPlus	FALSE
+NR2C2				MethylMinus	0	0.9516	HepG2	MethylMinus	
+NR2F1	DBD	MethylPlus	-0.02702707	MethylMinus	0.0389	0.7454	HepG2	MethylPlus	FALSE
+NR2F2				MethylMinus	0.0149	0.7586	MCF-7	MethylMinus	
+NR2F6	DBD	MethylPlus	0.53086399	MethylMinus	0.0246	0.757	HepG2	MethylPlus	FALSE
+NR3C1				Intermediate	0.0657	0.5943	LNCaP	Intermediate	
+NR3C2	DBD	MethylPlus	0.69230782					MethylPlus	
+NR5A2				MethylMinus	0.0119	0.8428	MCF-7	MethylMinus	
+NRF1				MethylMinus	0.0036	0.7772	K562	MethylMinus	
+ONECUT1	DBD	MethylMinus	-0.39043205					MethylMinus	
+ONECUT2	DBD	MethylMinus	-0.5007093					MethylMinus	
+ONECUT3	DBD	MethylMinus	-0.13488382					MethylMinus	
+OSR1	DBD	Little effect	0.076087					Little effect	
+OSR2	DBD	inconclusive	1.33333328	MethylMinus	0.0276	0.7448	HEK293	MethylMinus	FALSE
+OVOL1	FL_only	MethylMinus	-0.33333332					MethylMinus	
+OVOL2	DBD	MethylMinus	-0.5562904					MethylMinus	
+PAX1	DBD	MethylPlus	0.76923073					MethylPlus	
+PAX2	DBD	MethylPlus	0.7354599					MethylPlus	
+PAX3	FL_only	Ambiguous	0.58444439					Ambiguous	
+PAX4	DBD	Little effect	1.42016785					Little effect	
+PAX6	DBD	MethylPlus	0.78872063					MethylPlus	
+PAX7	DBD	Multiple	0.719139405					Multiple	
+PAX8	FL_only	MethylPlus	0.55615379					MethylPlus	
+PAX9	DBD	MethylPlus	0.83417686					MethylPlus	
+PBX1	DBD	MethylPlus	0.50000023					MethylPlus	
+PBX2				Intermediate	0.0317	0.5816	K562	Intermediate	
+PBX3				MethylMinus	0.0439	0.7534	GM12878	MethylMinus	
+PDX1	DBD	MethylPlus	0.74358963					MethylPlus	
+PHF21A				MethylMinus	0	0.9333	K562	MethylMinus	
+PKNOX1	DBD	MethylPlus	0.79487206	MethylMinus	0.0288	0.7098	K562	MethylPlus	FALSE
+PKNOX2	DBD	MethylPlus	0.53846157					MethylPlus	
+POU2F1				Intermediate	0.2475	0.4099	LNCaP	Intermediate	
+POU2F2	DBD	MethylPlus	0.60114765	MethylMinus	0.0143	0.8083	GM12878	MethylPlus	FALSE
+POU2F3	DBD	MethylPlus	0.39639652					MethylPlus	
+POU3F1	DBD	MethylPlus	1.02100209666667					MethylPlus	
+POU3F2	DBD	MethylPlus	0.558114483333333					MethylPlus	
+POU3F4	DBD	MethylPlus	0.948974786666667					MethylPlus	
+POU5F1	FL_only	MethylPlus	0.66392841	Intermediate	0.1043	0.3365	HUES64	MethylPlus	FALSE
+PPARD	DBD	MethylPlus	1.65043304					MethylPlus	
+PPARG				MethylMinus	0.0072	0.816	HepG2	MethylMinus	
+PRDM1				Intermediate	0.3602	0.2887	HEK293	Intermediate	
+PRDM4	DBD	MethylPlus	0.62162125	Intermediate	0.1722	0.5257	HEK293	MethylPlus	FALSE
+PROX1	DBD	MethylMinus	0.31718899					MethylMinus	
+RARA	DBD	MethylPlus	0.86388901					MethylPlus	
+RARB	FL_only	MethylPlus	1.63283615					MethylPlus	
+RARG	DBD	MethylPlus	0.95663246					MethylPlus	
+RBAK				MethylPlus	0.7789	0.0709	HEK293	MethylPlus	
+RBM25				Intermediate	0.0718	0.5772	K562	Intermediate	
+RELB				MethylMinus	0.0109	0.7565	GM12878	MethylMinus	
+REST				Intermediate	0.2069	0.5565	HEK293	Intermediate	
+RFX1				MethylMinus	0.0638	0.6297	K562	MethylMinus	
+RFX3				MethylMinus	0.1495	0.6363	HepG2	MethylMinus	
+RFX5	DBD	MethylPlus	0.50491798	MethylMinus	0.0774	0.7412	HepG2	MethylPlus	FALSE
+RING1				Intermediate	0.3183	0.0088	H1-hESC	Intermediate	
+RORB	DBD	MethylPlus	1.61538513					MethylPlus	
+RUNX1				MethylMinus	0	0.8815	K562	MethylMinus	
+RUNX2	DBD	MethylMinus	-0.33804356					MethylMinus	
+RUNX3	DBD	MethylMinus	-0.70303032	MethylMinus	0.0084	0.7072	GM12878	MethylMinus	TRUE
+RXRA				MethylMinus	0.013	0.8267	HepG2	MethylMinus	
+RXRB	DBD	MethylPlus	0.57142853					MethylPlus	
+RXRG	FL_only	MethylPlus	1.67674924					MethylPlus	
+SCRT1	DBD	MethylPlus	1.53846313	Intermediate	0.3815	0.3528	HEK293	MethylPlus	FALSE
+SCRT2	DBD	MethylPlus	1.28571442	Intermediate	0.3584	0.332	HEK293	MethylPlus	FALSE
+SIX4				MethylMinus	0.1061	0.7941	MCF-7	MethylMinus	
+SIX5				MethylMinus	0	0.8907	GM12878	MethylMinus	
+SMAD1				MethylMinus	0.0057	0.8765	K562	MethylMinus	
+SMAD2				Intermediate	0.1778	0.5111	H9	Intermediate	
+SMAD3				Intermediate	0.2963	0.4444	H9	Intermediate	
+SMAD4				Intermediate	0.1333	0.2667	H9	Intermediate	
+SMARCA5				Intermediate	0.084	0.499	K562	Intermediate	
+SMARCC2				MethylMinus	0	0.963	K562	MethylMinus	
+SMARCE1				MethylMinus	0	0.9508	MCF-7	MethylMinus	
+SNAI1	DBD	MethylPlus	0.20430124					MethylPlus	
+SNAI2	FL_only	MethylPlus	0.28030289					MethylPlus	
+SOHLH2	DBD	MethylMinus	-0.70634926					MethylMinus	
+SOX13				MethylMinus	0	1	HepG2	MethylMinus	
+SOX17				Intermediate	0.1762	0.4359	HUES64	Intermediate	
+SOX2				Intermediate	0.0444	0.3899	H1-hESC	Intermediate	
+SOX5				MethylMinus	0.014	0.798	HepG2	MethylMinus	
+SP1	DBD	MethylPlus	0.28295362	MethylMinus	0.0175	0.9124	GM12878	MethylPlus	FALSE
+SP2	DBD	MethylPlus	0.58444893	MethylMinus	0.023	0.8547	HEK293	MethylPlus	FALSE
+SP3	DBD	Little effect	-0.26027393	MethylMinus	0.0108	0.9137	HEK293	Little effect	FALSE
+SP4				MethylMinus	0	0.935	H1-hESC	MethylMinus	
+SP5				MethylMinus	0.0107	0.8331	HepG2	MethylMinus	
+SPDEF	DBD	MethylMinus	-0.95714279					MethylMinus	
+SPI1				MethylMinus	0.0167	0.7351	GM12878	MethylMinus	
+SPIB	DBD	MethylMinus	-0.49579842					MethylMinus	
+SREBF1	DBD	MethylMinus	-0.37499992	MethylMinus	0.0118	0.8732	MCF-7	MethylMinus	TRUE
+SRF				MethylMinus	0.0455	0.6103	GM12878	MethylMinus	
+TAF1				MethylMinus	0.0179	0.7245	H1-hESC	MethylMinus	
+TAL1				MethylMinus	0.0014	0.869	K562	MethylMinus	
+TBX20	FL_only	MethylPlus	0.62881588					MethylPlus	
+TCF12				MethylMinus	0	0.8957	K562	MethylMinus	
+TCF3				MethylMinus	0.0215	0.857	GM12878	MethylMinus	
+TCF4	DBD	MethylMinus	-0.33333336					MethylMinus	
+TCF7				MethylMinus	0	0.8224	HepG2	MethylMinus	
+TCF7L1	DBD	MethylMinus	-0.42023499					MethylMinus	
+TCF7L2				Intermediate	0.1174	0.5541	LNCaP	Intermediate	
+TCFL5	DBD	MethylMinus	-0.93733582					MethylMinus	
+TEAD4				Intermediate	0.0543	0.2696	H1-hESC	Intermediate	
+TFAP2A				MethylMinus	0.0184	0.6534	MCF-7	MethylMinus	
+TFAP2C				Intermediate	0.0671	0.5582	MCF-7	Intermediate	
+TFAP4				MethylMinus	0.0208	0.8651	HepG2	MethylMinus	
+TFCP2	DBD	MethylPlus	0.39344261					MethylPlus	
+TFCP2L1	DBD	MethylPlus	0.42176891					MethylPlus	
+TFDP1				MethylMinus	0	0.9772	K562	MethylMinus	
+TFE3	DBD	MethylMinus	-0.17532915					MethylMinus	
+TFEC	DBD	MethylMinus	-0.14112556					MethylMinus	
+TGIF2LX	DBD	MethylPlus	0.51578949					MethylPlus	
+TGIF2LY	DBD	MethylPlus	0.54999985					MethylPlus	
+THAP1				MethylMinus	0	0.9447	K562	MethylMinus	
+THRA				MethylMinus	0.0839	0.7098	K562	MethylMinus	
+THRB	DBD	MethylPlus						MethylPlus	
+TP53				Intermediate	0.218	0.4163	MCF-7	Intermediate	
+TP73				Intermediate	0.0741	0.5476	GM12878	Intermediate	
+TRIM22				MethylMinus	0.0012	0.9657	MCF-7	MethylMinus	
+UBP1	DBD	MethylPlus	0.15079367					MethylPlus	
+UNCX	DBD	MethylPlus	0.92307709					MethylPlus	
+USF1	FL_only	MethylMinus	-0.3634259	Intermediate	0.2315	0.2626	H1-hESC	MethylMinus	FALSE
+USF2	DBD	MethylMinus	-0.46524059	MethylMinus	0.0223	0.7576	IMR-90	MethylMinus	TRUE
+VDR				MethylMinus	0.0583	0.739	LNCaP	MethylMinus	
+VEZF1				MethylMinus	0	0.868	K562	MethylMinus	
+VSX1	DBD	MethylPlus	0.51578938					MethylPlus	
+VSX2	DBD	MethylPlus	0.69999985					MethylPlus	
+WIZ				MethylPlus	0.4796	0.0271	HEK293T	MethylPlus	
+WT1				MethylMinus	0.052	0.7612	HEK293	MethylMinus	
+XBP1	FL_only	MethylMinus	-0.29941171					MethylMinus	
+YY1	FL_only	Ambiguous	0.71839817	MethylMinus	0.0291	0.7103	K562	Ambiguous	FALSE
+YY2	FL_only	Multiple	-0.19547874	MethylMinus	0.0186	0.9138	HEK293	Multiple	FALSE
+ZBED1	DBD	MethylMinus	-0.77066116					MethylMinus	
+ZBTB12				MethylMinus	0.0893	0.7081	HEK293	MethylMinus	
+ZBTB14	DBD	MethylMinus	-0.89722786					MethylMinus	
+ZBTB2	DBD	MethylMinus	-0.24166674	MethylMinus	0.0316	0.7318	GM12878	MethylMinus	TRUE
+ZBTB20	DBD	MethylPlus	0.27254093	MethylMinus	0.0309	0.7908	HEK293	MethylPlus	FALSE
+ZBTB21				MethylMinus	0.0634	0.7061	HEK293	MethylMinus	
+ZBTB33				MethylMinus	0	0.9289	SK-N-SH	MethylMinus	
+ZBTB40				Intermediate	0.1156	0.4771	K562	Intermediate	
+ZBTB44				MethylMinus	0.0559	0.648	HEK293	MethylMinus	
+ZBTB5				MethylMinus	0	0.844	K562	MethylMinus	
+ZBTB6				MethylMinus	0.1282	0.6881	HEK293	MethylMinus	
+ZBTB7A	DBD	MethylMinus	-0.70892021	MethylMinus	0.0286	0.7429	K562	MethylMinus	TRUE
+ZBTB7B	DBD	MethylMinus	-0.52941177	Intermediate	0.0909	0.2727	MCF-7	MethylMinus	FALSE
+ZEB1				MethylMinus	0	0.9167	GM12878	MethylMinus	
+ZEB2				Intermediate	0.193	0.4815	SNU398	Intermediate	
+ZFHX2				Intermediate	0.2797	0.4232	HEK293	Intermediate	
+ZFP3				Intermediate	0.357	0.3443	HEK293	Intermediate	
+ZFP36				MethylMinus	0.0703	0.6372	K562	MethylMinus	
+ZFP41	FL_only	inconclusive	0.60156239					inconclusive	
+ZFP42	DBD	Multiple	-0.14285707					Multiple	
+ZFP64				MethylMinus	0.1225	0.6122	HepG2	MethylMinus	
+ZFP69B				MethylMinus	0.1127	0.6431	HEK293	MethylMinus	
+ZFP91				MethylMinus	0.0582	0.6497	K562	MethylMinus	
+ZFX				MethylMinus	0	0.7473	K562	MethylMinus	
+ZHX1				MethylMinus	2e-04	0.9553	K562	MethylMinus	
+ZIC1*	DBD	inconclusive	0.02985072					inconclusive	
+ZIC2				Intermediate	0.2084	0.4723	HEK293	Intermediate	
+ZIC3	FL_only	inconclusive	0.2142111					inconclusive	
+ZIC3*	DBD	inconclusive	0.15625					inconclusive	
+ZIC4	DBD	inconclusive	0.0625					inconclusive	
+ZIC5	DBD	inconclusive	0.15909076					inconclusive	
+ZKSCAN1				Intermediate	0.225	0.4263	K562	Intermediate	
+ZKSCAN8				Intermediate	0.0825	0.4799	K562	Intermediate	
+ZMYM3				Intermediate	0.0784	0.4419	K562	Intermediate	
+ZNF10				Intermediate	0.2305	0.4875	HEK293	Intermediate	
+ZNF112				MethylPlus	0.5694	0.0278	HEK293	MethylPlus	
+ZNF12	DBD	MethylPlus	0.55408192					MethylPlus	
+ZNF121				MethylPlus	0.5028	0.2644	HEK293	MethylPlus	
+ZNF133				MethylPlus	0.5866	0.1039	HEK293	MethylPlus	
+ZNF140	DBD	Little effect	0.06950438	MethylPlus	0.7143	0.1429	HEK293	Little effect	FALSE
+ZNF143				MethylMinus	0.072	0.6816	MCF-7	MethylMinus	
+ZNF146				Intermediate	0.3426	0.2297	HEK293	Intermediate	
+ZNF148				MethylMinus	0.0259	0.69	K562	MethylMinus	
+ZNF16				MethylPlus	0.4126	0.2195	HEK293	MethylPlus	
+ZNF174	DBD	MethylPlus	0.56862736					MethylPlus	
+ZNF177	DBD	inconclusive	0.15714288					inconclusive	
+ZNF18				Intermediate	0.3053	0.4033	HEK293	Intermediate	
+ZNF184				Intermediate	0.1782	0.3831	K562	Intermediate	
+ZNF189				Intermediate	0.1984	0.5386	HEK293	Intermediate	
+ZNF2				MethylMinus	0.0168	0.9151	HEK293	MethylMinus	
+ZNF211				Intermediate	0.4	0.2	HEK293	Intermediate	
+ZNF214				Intermediate	0.3282	0.2659	HEK293	Intermediate	
+ZNF217				MethylMinus	0	0.9942	MCF-7	MethylMinus	
+ZNF223				MethylMinus	0.1292	0.6409	HEK293	MethylMinus	
+ZNF23	DBD	MethylPlus	0.36329998	MethylPlus	0.5581	0.093	HEK293	MethylPlus	TRUE
+ZNF239				MethylPlus	0.6596	0.1847	HEK293	MethylPlus	
+ZNF24				Intermediate	0.126	0.3967	GM12878	Intermediate	
+ZNF26				MethylPlus	0.5402	0.0893	HEK293	MethylPlus	
+ZNF263				Intermediate	0.1858	0.5732	HEK293	Intermediate	
+ZNF274	DBD	MethylPlus	0.1309067	Intermediate	0.1995	0.1067	HCT116	MethylPlus	FALSE
+ZNF280C				MethylPlus	0.5001	0.2689	HEK293	MethylPlus	
+ZNF280D				MethylPlus	0.5799	0.2547	HEK293	MethylPlus	
+ZNF300				Intermediate	0.0871	0.4773	HEK293	Intermediate	
+ZNF302				MethylPlus	0.6	0.2	HEK293	MethylPlus	
+ZNF316				Intermediate	0.0757	0.5624	K562	Intermediate	
+ZNF32	FL_only	MethylPlus	0.71428596					MethylPlus	
+ZNF341				Intermediate	0.1316	0.5898	HEK293	Intermediate	
+ZNF343	DBD	MethylPlus	0.09345806					MethylPlus	
+ZNF345	DBD	Multiple	0.58953712					Multiple	
+ZNF350				Intermediate	0.2225	0.294	HEK293	Intermediate	
+ZNF362				Intermediate	0.3761	0.3816	HEK293	Intermediate	
+ZNF37A				MethylMinus	0.0708	0.6736	HEK293	MethylMinus	
+ZNF407				MethylMinus	0.0022	0.8911	K562	MethylMinus	
+ZNF410				Intermediate	0.0556	0.5298	K562	Intermediate	
+ZNF423				MethylMinus	0.0156	0.8208	HEK293	MethylMinus	
+ZNF444	FL_only	MethylPlus	0.3267815	MethylMinus	4e-04	0.9664	MCF-7	MethylPlus	FALSE
+ZNF449				Intermediate	0.1531	0.5603	HEK293	Intermediate	
+ZNF460	DBD	MethylMinus	-0.66969147					MethylMinus	
+ZNF491				Intermediate	0.05	0.55	HEK293	Intermediate	
+ZNF507				Intermediate	0.0759	0.4965	K562	Intermediate	
+ZNF513				MethylPlus	0.4369	0.2659	HEK293	MethylPlus	
+ZNF524	FL_only	MethylPlus	0.63817631					MethylPlus	
+ZNF529				MethylPlus	0.5673	0.0769	HEK293	MethylPlus	
+ZNF530				Intermediate	0.1287	0.5929	HEK293	Intermediate	
+ZNF544				Intermediate	0.1771	0.441	HEK293	Intermediate	
+ZNF547				MethylPlus	0.5	0.1875	HEK293	MethylPlus	
+ZNF548				MethylPlus	0.5375	0.2392	HEK293	MethylPlus	
+ZNF549				Intermediate	0.2245	0.5116	HEK293	Intermediate	
+ZNF558				MethylPlus	0.5826	0.0583	HEK293	MethylPlus	
+ZNF574				MethylMinus	0.0063	0.9557	MCF-7	MethylMinus	
+ZNF580				MethylPlus	0.4749	0.2746	HEK293	MethylPlus	
+ZNF585B				MethylPlus	0.4187	0.2955	HEK293	MethylPlus	
+ZNF592				Intermediate	0.091	0.449	K562	Intermediate	
+ZNF596				MethylPlus	0.4631	0.1699	HEK293	MethylPlus	
+ZNF597	FL_only	inconclusive	1.15757607	MethylMinus	0	0.8459	GM12878	MethylMinus	FALSE
+ZNF610				MethylMinus	0.0745	0.7689	HEK293	MethylMinus	
+ZNF623				MethylPlus	0.5642	0.1494	HEK293	MethylPlus	
+ZNF624				Intermediate	0.0833	0.5417	HEK293	Intermediate	
+ZNF629				MethylMinus	0.043	0.6782	HEK293	MethylMinus	
+ZNF639				MethylMinus	0	0.9191	K562	MethylMinus	
+ZNF644				MethylPlus	0.6522	0.0196	HEK293T	MethylPlus	
+ZNF652				Intermediate	0.2426	0.4278	HepG2	Intermediate	
+ZNF654				MethylMinus	0.0145	0.824	HEK293	MethylMinus	
+ZNF664				MethylPlus	0.4535	0.2177	HEK293	MethylPlus	
+ZNF677				Intermediate	0.3588	0.2795	HEK293	Intermediate	
+ZNF680				Intermediate	0.3533	0.3677	HEK293	Intermediate	
+ZNF692				MethylMinus	0.1382	0.6285	HEK293	MethylMinus	
+ZNF701				MethylMinus	0.091	0.6085	HEK293	MethylMinus	
+ZNF704	FL_only	MethylMinus	-0.94627808					MethylMinus	
+ZNF707				Intermediate	0.3931	0.2751	HEK293	Intermediate	
+ZNF713	DBD	MethylPlus	0.83823517					MethylPlus	
+ZNF740	DBD	MethylPlus	0.13622677	MethylMinus	0.0558	0.6727	K562	MethylPlus	FALSE
+ZNF75A				MethylMinus	3e-04	0.9325	K562	MethylMinus	
+ZNF76	DBD	inconclusive	0.199609905	MethylMinus	0.0047	0.9547	HEK293	MethylMinus	FALSE
+ZNF768				MethylPlus	0.4732	0.2727	HEK293	MethylPlus	
+ZNF771	DBD	MethylPlus	0.25999987					MethylPlus	
+ZNF784	FL_only	MethylPlus	0.54213036					MethylPlus	
+ZNF792				Intermediate	0.242	0.4692	HEK293	Intermediate	
+ZNF821	FL_only	MethylPlus	0.87519165					MethylPlus	
+ZNF83				MethylMinus	0.0436	0.7398	K562	MethylMinus	
+ZNF830				Intermediate	0.081	0.5665	HEK293	Intermediate	
+ZSCAN1	DBD	inconclusive	0.85074631					inconclusive	
+ZSCAN16				Intermediate	0.1199	0.5719	HEK293	Intermediate	
+ZSCAN2				MethylMinus	0	0.9231	HepG2	MethylMinus	
+ZSCAN29	DBD	MethylPlus	0.2222221	MethylMinus	0.0048	0.7635	K562	MethylPlus	FALSE
+ZSCAN31	FL_only	MethylPlus	2.84188561					MethylPlus	
+ZSCAN4	DBD	inconclusive	1.00501274					inconclusive	

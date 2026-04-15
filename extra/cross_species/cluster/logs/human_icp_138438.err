@@ -1,0 +1,10 @@
+  403 genes were dropped because they have exons located on both strands
+  of the same reference sequence or on more than one reference sequence,
+  so cannot be represented by a single genomic range.
+  Use 'single.strand.genes.only=FALSE' to get all the genes in a
+  GRangesList object, or use suppressMessages() to suppress this message.
+Warning message:
+In fread(cmd = paste0("zcat ", file.path(BASE, "roadmap_rpkm.pc.gz"))) :
+  Detected 58 column names but the data has 59 columns (i.e. invalid file). Added an extra default column name for the first column which is guessed to be row names or an index. Use setnames() afterwards if this guess is not correct, or fix the file write command that created the file to create a valid file.
+There were 20 warnings (use warnings() to see them)
+There were 20 warnings (use warnings() to see them)

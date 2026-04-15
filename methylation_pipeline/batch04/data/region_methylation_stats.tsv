@@ -1,0 +1,5 @@
+region	n_cpgs	mean_ctrl	median_ctrl	mean_ampu	median_ampu
+Promoter	993009	0.1035	0	0.1039	0
+Exon	1865128	0.487	0.7083	0.4897	0.7247
+Intron	11437200	0.269	0	0.2703	0
+Intergenic	11143731	0.0455	0	0.0456	0

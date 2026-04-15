@@ -1,0 +1,15 @@
+metric	value
+DMP_overall_rho	0.00935097970491173
+DMP_overall_p	0.552929103088978
+DMP_n_genes	4029
+DMP_genes_with_DE	401
+DMP_pct_DE	9.95
+DMP_concordant_3plus	2106
+DMP_concordant_3plus_DE	228
+DMR_overall_rho	-0.0210029911443905
+DMR_overall_p	0.434459209867264
+DMR_n_genes	1387
+DMR_genes_with_DE	160
+DMR_pct_DE	11.54
+DMR_concordant	1387
+DMR_concordant_DE	160

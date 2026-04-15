@@ -1,0 +1,2 @@
+test	wilcox_p	cohens_d	mean_dmp	mean_matched	n_dmp	n_matched
+DMP_vs_matched_baseline_entropy	0.0496922222693037	0.0280986552712676	0.627273768470303	0.617142454423049	17729	17729

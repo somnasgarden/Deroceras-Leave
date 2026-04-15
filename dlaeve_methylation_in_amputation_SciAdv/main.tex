@@ -254,7 +254,7 @@ To examine how methylation is distributed across gene structures, we computed me
 
 Across all genes, the metagene profile showed a characteristic pattern of low promoter methylation, a sharp increase at the transcription start site, elevated methylation throughout the gene body, and a decline at the 3' end. Critically, gene body methylation scaled with expression level: the highest-expressed decile showed the highest gene body methylation, consistent with the invertebrate paradigm of gene body methylation marking constitutively active genes (Fig.~\ref{fig:metagene}A,~B). In genes with three or more exons, the gene-body signal showed a distinctive oscillating pattern, with methylation peaks corresponding to exonic bins and troughs at intronic bins (Fig.~\ref{fig:metagene}C,~D). This exon--intron oscillation was absent in intronless genes, which showed a smooth, elevated methylation plateau (Fig.~\ref{fig:metagene}E,~F).
 
-Baseline gene body methylation was positively correlated with expression across all genes (Spearman $\rho = 0.407$, $p < 10^{-80}$, $n = 16{,}958$), with the strongest correlation in exonic regions ($\rho = 0.407$) and the weakest in promoters ($\rho = -0.015$) (Fig.~\ref{fig:metagene}G,~H).
+Baseline gene body methylation was positively correlated with expression across all genes (Spearman $\rho = 0.407$, $p < 10^{-80}$, $n = 16{,}958$), with the strongest correlation in exonic regions ($\rho = 0.407$) and the weakest in promoters ($\rho = -0.015$) (Fig.~\ref{fig:methexpr}A,~B).
 
 \begin{figure}[ht]
     \centering
@@ -298,8 +298,16 @@ Baseline gene body methylation was positively correlated with expression across 
         \caption{}
     \end{subfigure}
 
-    \vspace{0.5cm}
+    \caption{\textbf{Metagene methylation profiles across gene architecture classes.}
+    (\textbf{A},~\textbf{B}) All genes, amputated and control, colored by expression decile (red = highest, green = lowest).
+    (\textbf{C},~\textbf{D}) Genes with $\geq$3 exons, showing exon--intron methylation oscillation.
+    (\textbf{E},~\textbf{F}) Intronless (single-exon) genes, showing smooth gene-body methylation.
+    Metagene profiles span distal upstream (5--2~kb), promoter (2~kb), gene body (20 bins), and downstream (5~kb).}
+    \label{fig:metagene}
+\end{figure}
 
+\begin{figure}[ht]
+    \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{fig4f_region_meth_expression_correlation.pdf}
@@ -312,14 +320,10 @@ Baseline gene body methylation was positively correlated with expression across 
         \caption{}
     \end{subfigure}
 
-    \caption{\textbf{Metagene methylation profiles and expression-dependent gene body methylation.}
-    (\textbf{A},~\textbf{B}) All genes, amputated and control, colored by expression decile (red = highest, green = lowest).
-    (\textbf{C},~\textbf{D}) Genes with $\geq$3 exons, showing exon--intron methylation oscillation.
-    (\textbf{E},~\textbf{F}) Intronless (single-exon) genes, showing smooth gene-body methylation.
-    (\textbf{G}) Methylation--expression Spearman correlation by genomic region.
-    (\textbf{H}) Mean gene body methylation by expression decile (D1=lowest, D10=highest).
-    Metagene profiles span distal upstream (5--2~kb), promoter (2~kb), gene body (20 bins), and downstream (5~kb).}
-    \label{fig:metagene}
+    \caption{\textbf{Gene body methylation correlates with expression at baseline.}
+    (\textbf{A}) Methylation--expression Spearman correlation by genomic region.
+    (\textbf{B}) Mean gene body methylation by expression decile (D1=lowest, D10=highest).}
+    \label{fig:methexpr}
 \end{figure}
 
 
@@ -377,7 +381,6 @@ Gene Ontology enrichment analysis of all DMP-associated genes revealed significa
 
 \begin{figure}[ht]
     \centering
-
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{fig6d_dmp_volcano.pdf}
@@ -389,9 +392,7 @@ Gene Ontology enrichment analysis of all DMP-associated genes revealed significa
         \includegraphics[width=\textwidth]{fig6d3_dmr_volcano.pdf}
         \caption{}
     \end{subfigure}
-
-    \vspace{0.5cm}
-
+    \vspace{0.3cm}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{fig6j_top_genes_dmp.pdf}
@@ -403,22 +404,20 @@ Gene Ontology enrichment analysis of all DMP-associated genes revealed significa
         \includegraphics[width=\textwidth]{fig6k_top_genes_dmr.pdf}
         \caption{}
     \end{subfigure}
-
-    \vspace{0.5cm}
-
-    \begin{subfigure}[b]{0.90\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{fig6_dmp_go_all_dotplot.pdf}
-        \caption{}
-    \end{subfigure}
-
     \caption{\textbf{Tail amputation reshapes the \textit{D.\ laeve} methylation landscape.}
-    (\textbf{A}) Volcano plot of differentially methylated positions (DMPs; 17,729 total: 8,285 hyper, 9,444 hypo).
-    (\textbf{B}) Volcano plot of differentially methylated regions (DMRs; 1,462 total: 690 hyper, 772 hypo).
-    (\textbf{C}) Genes ranked by DMP burden (number of significant DMPs per gene).
-    (\textbf{D}) Genes ranked by DMR burden.
-    (\textbf{E}) Gene Ontology enrichment analysis of all DMP-associated genes.}
+    (\textbf{A}) Volcano plot of DMPs (17,729 total: 8,285 hyper, 9,444 hypo).
+    (\textbf{B}) Volcano plot of DMRs (1,462 total: 690 hyper, 772 hypo).
+    (\textbf{C}) Genes ranked by DMP burden.
+    (\textbf{D}) Genes ranked by DMR burden.}
     \label{fig:differential}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.90\textwidth]{fig6_dmp_go_all_dotplot.pdf}
+    \caption{\textbf{Gene Ontology enrichment of DMP-associated genes.}
+    Enrichment analysis of all genes carrying at least one DMP, showing overrepresentation of ciliary architecture, cell projection organization, and morphogenesis terms.}
+    \label{fig:go}
 \end{figure}
 
 
@@ -436,7 +435,6 @@ Despite the lack of correlation, 228 genes carried both $\geq$3 DMPs and signifi
 
 \begin{figure}[ht]
     \centering
-
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{fig7j_dmp_meth_vs_expression_scatter.pdf}
@@ -448,9 +446,7 @@ Despite the lack of correlation, 228 genes carried both $\geq$3 DMPs and signifi
         \includegraphics[width=\textwidth]{fig7k_dmr_meth_vs_expression_scatter.pdf}
         \caption{}
     \end{subfigure}
-
-    \vspace{0.5cm}
-
+    \vspace{0.3cm}
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{fig7a_dmp_correlation_by_region.pdf}
@@ -462,9 +458,15 @@ Despite the lack of correlation, 228 genes carried both $\geq$3 DMPs and signifi
         \includegraphics[width=\textwidth]{fig7b_dmr_correlation_by_region.pdf}
         \caption{}
     \end{subfigure}
+    \caption{\textbf{Differential methylation is decoupled from transcriptional changes.}
+    (\textbf{A}) DMP-associated methylation change vs.\ expression change (Spearman $\rho = 0.009$, $p = 0.55$).
+    (\textbf{B}) DMR-associated methylation change vs.\ expression change ($\rho = -0.021$, $p = 0.43$).
+    (\textbf{C},~\textbf{D}) Spearman correlation by genomic region for DMPs and DMRs; all regions show $\rho \approx 0$.}
+    \label{fig:decoupling}
+\end{figure}
 
-    \vspace{0.5cm}
-
+\begin{figure}[ht]
+    \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{fig7e_dmp_dose_response.pdf}
@@ -476,14 +478,10 @@ Despite the lack of correlation, 228 genes carried both $\geq$3 DMPs and signifi
         \includegraphics[width=\textwidth]{fig7c_dmp_de_rate_by_region.pdf}
         \caption{}
     \end{subfigure}
-
-    \caption{\textbf{Differential methylation is decoupled from transcriptional changes during regeneration.}
-    (\textbf{A}) DMP-associated methylation change vs.\ expression change (Spearman $\rho = 0.009$, $p = 0.55$).
-    (\textbf{B}) DMR-associated methylation change vs.\ expression change ($\rho = -0.021$, $p = 0.43$).
-    (\textbf{C},~\textbf{D}) Spearman correlation by genomic region for DMPs and DMRs; all regions show $\rho \approx 0$.
-    (\textbf{E}) Dose--response: DMP burden bins vs.\ differential expression rate.
-    (\textbf{F}) DE rate among DMP-carrying genes by genomic region.}
-    \label{fig:decoupling}
+    \caption{\textbf{DMP burden does not predict differential expression.}
+    (\textbf{A}) Dose--response: DMP burden bins vs.\ differential expression rate.
+    (\textbf{B}) DE rate among DMP-carrying genes by genomic region.}
+    \label{fig:doseresp}
 \end{figure}
 
 

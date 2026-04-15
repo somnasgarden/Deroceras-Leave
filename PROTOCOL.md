@@ -45,16 +45,18 @@ Test whether DNA methylation regulates gene expression during tail regeneration 
 ```
 methylation_pipeline/
   _config.R               — shared paths, colors, helpers (source this in every batch)
-  batch01/ {code/,data/,figures/}  — Genomic CpG annotation
-  batch02/ {code/,data/,figures/}  — Methylation machinery (18 genes, DNMT1 only)
-  batch03/ {code/,data/,figures/}  — Promoter Weber classification (HCP/ICP/LCP)
+  batch01/  {code/,data/,figures/}  — Genomic CpG annotation
+  batch1.5/ {code/,data/,figures/}  — TFBS motif annotation (JASPAR + HOMER, genome-wide)
+  batch02/  {code/,data/,figures/}  — Methylation machinery (18 genes, DNMT1 only)
+  batch03/  {code/,data/,figures/}  — Promoter Weber classification (HCP/ICP/LCP)
   batch04/ {code/,data/,figures/}  — Baseline methylation + gene body meth vs expression
   batch05/ {code/,data/,figures/}  — TE methylation + evolutionary age (Kimura)
   batch06/ {code/,data/,figures/}  — Differential methylation (DMP/DMR)
   batch07/ {code/,data/,figures/}  — Methylation-expression decoupling (MI, correlation)
   batch08/ {code/,data/,figures/}  — WGCNA modules + methylation enrichment
   batch09/ {code/,data/,figures/}  — TF + GENIE3 + motif integration
-  batch10/ {code/,data/,figures/}  — Entropy analysis
+  batch10/ {code/,data/,figures/}  — Entropy analysis (Level 1 marginal + Level 2 per-read NME from BAMs as 10b)
+  batch11/ {code/,data/,figures/}  — Motif × per-read NME × expression (closes the loop)
 ```
 
 ### Dependency graph
@@ -66,15 +68,24 @@ Batch 1.5 (TFBS motifs) ──────────────→ Batch 04 (
                                                           ↓
                                           Batch 06 (DMP/DMR) → Batch 07 (decoupling)
                                                           ↓
-                                          Batch 08 (WGCNA) → Batch 09 (TF+GENIE3) → Batch 10 (entropy)
+                                          Batch 08 (WGCNA) → Batch 09 (TF+GENIE3) → Batch 10 (entropy L1)
+                                                                                          ↓
+                                                                              Batch 10b (per-read NME, BAMs)
+                                                                                          ↓
+                                                          Batch 11 (motif × NME × expression — directed-mechanism shortlist)
 ```
 
 ### Rules for batch scripts
 1. **No HTML.** Batches produce TSV data + PNG/PDF figures only. Reviewers read the code.
 2. **Source `_config.R`.** Every batch starts with `source("methylation_pipeline/_config.R")`.
 3. **Save with helpers.** Use `save_fig(p, BATCH_DIR, "name")` and `save_data(df, BATCH_DIR, "name")`.
-4. **Let data speak.** Code asks questions and reports answers. Don't hardcode expected results.
+4. **Let data speak.** Code asks questions and reports answers. Don't hardcode expected results or gene names.
 5. **Strand-collapsed data throughout.** The BSseq cache (`bsseq_tutorial.rds`) is already strand-collapsed.
+6. **Self-contained.** All objects built from OG raw data by the pipeline. No external pre-computed objects.
+7. **Batch 04 builds BSseq** from CpG reports if cache doesn't exist. Batch 06 runs DMLtest if cache missing.
+8. **WGCNA power = 12.** Filter outlier samples via hierarchical clustering before module detection.
+9. **Motif annotation = genome-wide.** Scan all chr1-31, annotate each hit with nearest gene + region type.
+10. **Batch 09 integration chain:** GENIE3 (TF→target) + motif (TFBS near gene) + DMP (methylation change at motif) + DE (expression change at target). All 4 must align for a regulatory link.
 
 ---
 
@@ -157,7 +168,7 @@ Batch 1.5 (TFBS motifs) ──────────────→ Batch 04 (
 
 ### Batch 10: Methylation Entropy
 - **Question:** Does regeneration increase or decrease methylation entropy? Are DMPs directed or stochastic?
-- **Input:** BSseq cache (Level 1). BAM files for Level 2 (available, to be added later).
+- **Input:** BSseq cache (Level 1). BAM files for Level 2 at `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/08_deduplication/` (confirmed: C1=25GB, C2=20GB, A1=26GB, A2=22GB).
 - **Output:** Per-CpG entropy, entropy by region, entropy at DMPs vs matched non-DMPs, entropy-expression variability correlation
 - **Figures:** (A) Entropy distribution control vs amputated, (B) Per-region entropy, (C) DMP vs matched non-DMP entropy, (D) Baseline entropy vs beta for DMPs and non-DMPs
 
@@ -200,6 +211,36 @@ Mean methylation correlates with mean expression. Entropy correlates with **expr
 - **No published study has computed methylation entropy in regeneration or invertebrates.** Both would be novel.
 - All published entropy papers used BAM files for per-read entropy. Per-site entropy is a valid approximation.
 - Check if BAMs exist on cluster at `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/`
+
+### Batch 11: Motif × Per-read NME × Expression
+- **Question:** Do TF binding sites enforce ordered methylation patterns at differentially expressed genes? (Closes the directed-mechanism loop.)
+- **Input:** `batch10/data/perread_nme_windows.tsv` (4-CpG NME windows from batch10b) + `batch1.5/data/motif_hits_extended.tsv.gz` (75M genome-wide JASPAR hits, all 4 region classes) + `batch06/data/dmps_annotated.tsv` + `CACHE$transcriptome` (DESeq2 control vs amputated tail).
+- **Coverage filter:** Minimum 8 reads/sample/window across all 4 samples.
+- **Output:** `window_motif_assignments.tsv`, `nme_in_vs_out_motif_test.tsv`, `delta_nme_by_methyl_sens.tsv`, `read_coverage_by_motif_class.tsv`, `directed_mechanism_loci.tsv`.
+- **Figures:** (a) β-matched in-motif vs out-of-motif baseline NME, (b) Δ NME at TFBS by Yin 2017 methyl-sensitivity, (c) directed-loci volcano (log2FC vs −ctrl_nme, colored by Δ NME), (d) reads per window in vs out of motif, (e) reads per TF class top 20, (f) NME vs read depth sanity.
+
+#### The logic chain
+A 4-CpG window with low NME (≈0) means every read at that locus carries the same methylation pattern. That uniformity must be **enforced** by something — most plausibly a sequence-specific factor. High NME (≈1) means reads disagree → no enforcement → drift-compatible.
+
+If 4-CpG windows that overlap a JASPAR TFBS have **systematically lower NME than β-matched non-motif windows**, that is evidence the bound TF is the enforcement mechanism (directed). Then if those low-NME-in-motif windows belong to genes that are **differentially expressed during regeneration**, the loop closes:
+
+**TF motif → ordered methylation pattern (low NME) → DMP → DE gene → regeneration phenotype**
+
+Converts the small global Δ NME (~0.002) reported by batch10 into a per-locus story: the change is concentrated at TFBS of methylation-sensitive TFs in DE genes, with N specific cloning candidates.
+
+#### Three tests
+- **Test A — ordered enforcement.** β-matched (±0.05) Wilcoxon paired test on baseline NME, in-motif vs out-of-motif. β-matching is mandatory — without it the test rediscovers that promoter CpGs have different entropy than gene-body CpGs.
+- **Test B — ordering during regeneration.** For in-motif windows, Δ NME stratified by Yin 2017 methyl-sensitivity class, one-sample Wilcoxon vs 0. Expectation: negative.
+- **Test C — directed shortlist.** `in_motif & ctrl_nme < 0.30 & has_dmp`, join `CACHE$transcriptome$res_tail`, rank by `|Δ NME| × −log10(padj)`. Mechanistic priors for cloning targets.
+
+#### Implementation notes
+- Yin 2017 sensitivity is **inlined from batch09** (~100 hand-curated TF symbols + class-prior fallback). Batch11 does not depend on batch09 having run. The override list is partial — Yin assayed ~542 TFs. Upgrade target: HOCOMOCO v12 annotation (~1300 TFs, includes methyl-aware PWM variants for ~80) or Yin Table S2 directly.
+- 4-CpG windows are 50–500 bp; JASPAR PWMs are 6–20 bp. Windows are intentional **supersets** of the motif core — a TF footprint protects ~30–60 bp of flanking CpGs, where the entropy signal lives.
+- Whole gene body, not just promoters: input motif file covers 9M promoter + 20M upstream_distal + 24M gene_body + 22M downstream hits.
+- Read-coverage diagnostics (figs 11d/e/f) are mandatory: NME is unstable below ~8 reads/window, reviewers will ask whether low NME at TFBS is a coverage artifact.
+
+#### Cluster execution
+Batch10b must finish first (`perread_nme_windows.tsv` exists). Then `sbatch cluster/scripts/batch11_motif_entropy.slurm` (4 CPU / 48 GB / 4h on defq). Pure data joins, no BAM parsing. Wired into `run_pipeline.slurm` as the final batch.
 
 ---
 
@@ -281,8 +322,21 @@ A previous analysis (`C:/Users/rafae/Projects/dlaeve-regeneration-epigenomics/`)
 
 ### Methylation-expression relationship
 - **Stefansson et al. 2024:** Nanopore in humans showed much of meth-expression correlation driven by sequence variants, not methylation per se. Challenges causality even in mammals.
+- **Abbott et al. 2024 (Evolutionary Applications, e13662):** Coral gene body methylation changes do NOT correlate with expression on physiological timescales. Meta-analysis of 8 invertebrate taxa confirms. Supports MI=0 finding as expected, not surprising.
 - **Sarda et al. 2012:** Invertebrate gene body methylation marks housekeeping genes. Bimodal: highly methylated vs unmethylated. Methylated genes = broadly expressed.
 - **Zemach et al. 2010:** Foundational paper on gene body methylation across eukaryotes.
+
+### DNMT3 loss — mechanistic parallels
+- **Langer et al. 2025 (J Exp Zool B):** Colorado potato beetle (*L. decemlineata*) also lost DNMT3 but retains DNMT1. H3K36me3 mirrors CpG methylation patterns, suggesting histone marks guide methylation maintenance without de novo enzyme. Dynamic methylation changes between embryo and adult. Closest mechanistic parallel to D. laeve.
+- **Haggerty et al. 2021:** DNMT1 has de novo activity at retrotransposons in mouse ESCs, dependent on UHRF1. D. laeve has UHRF1 — could explain how young TEs get methylated.
+
+### Regeneration epigenetics
+- **Axolotl epigenetic clocks 2024 (bioRxiv):** Methylomes stable across lifespan but show "structure-specific rejuvenation events upon regeneration." If D. laeve shows entropy decrease, it parallels axolotl across phyla.
+- **Planarian regeneration:** No detectable 5mC in Schmidtea mediterranea. Makes D. laeve one of very few invertebrate regeneration systems where WGBS methylation analysis is meaningful.
+
+### Methylation entropy and aging
+- **Wang et al. 2024 (Aging Cell):** Long-lived humans suppress methylation entropy increase. Lower entropy = transcriptional noise suppression. Framework for regeneration-as-rejuvenation.
+- **Daphnia magna 2025 (Epigenetics & Chromatin):** No age-associated methylation changes. Counterpoint: not all invertebrates show aging-entropy pattern.
 
 ---
 
@@ -375,19 +429,19 @@ Each batch must explicitly test these against our data. These are not assumption
 - **CpG reports on cluster are .txt.gz** (compressed) vs .txt locally
 - **genome_chr1_31.rds needs to be generated on cluster** (run `generate_genome_cache.slurm` first)
 
-### Cluster jobs available
-| Job | Script | RAM | Status |
-|-----|--------|-----|--------|
-| Genome cache | `generate_genome_cache.R` | 8 GB | Ready to submit |
-| DMLtest (full) | `dmltest_full.R` | 32 GB | Ready to submit |
-| Expanded motif | `batch1.5_expanded_motif.R` | 64 GB | Failed (needs genome cache first) |
+### BAM files (for Level 2 per-read entropy)
+BAMs confirmed at `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/08_deduplication/`:
+- C1_paired_bismark_bt2_pe.deduplicated.bam (25 GB)
+- C2_paired_bismark_bt2_pe.deduplicated.bam (20 GB)
+- A1_paired_bismark_bt2_pe.deduplicated.bam (26 GB)
+- A2_paired_bismark_bt2_pe.deduplicated.bam (22 GB)
 
-### Run order on cluster
+### Running the pipeline
+All code is self-contained in `methylation_pipeline/`. From repo root:
 ```bash
-cd Deroceras-Leave && git pull
-cd cluster && dos2unix scripts/*.slurm scripts/*.sh
-sbatch scripts/generate_genome_cache.slurm   # FIRST
-# wait, then:
-sbatch scripts/dmltest_full.slurm
-sbatch scripts/batch1.5_expanded_motif.slurm
+sbatch methylation_pipeline/run_pipeline.slurm   # runs batch 01 → 1.5 → 02-10
 ```
+The pipeline auto-generates all caches (genome, GFF, TE, BSseq, DMLtest) from raw data on first run. Subsequent runs use caches. Requires 64GB RAM, 8 CPUs.
+
+### Cluster scripts (legacy, now integrated into pipeline)
+`cluster/scripts/` contains standalone versions that also source `_config.R`. These were used for initial cache generation but the pipeline is now self-contained.

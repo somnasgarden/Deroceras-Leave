@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=meth_pipe
-#SBATCH --output=slurm_%j.out
-#SBATCH --error=slurm_%j.err
+#SBATCH --output=cluster/logs/pipeline_%j.out
+#SBATCH --error=cluster/logs/pipeline_%j.err
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
 
@@ -25,6 +25,12 @@ fi
 
 cd "$PROJECT_DIR"
 export PROJECT_DIR
+mkdir -p cluster/logs genome/cache
+
+# HOMER for batch 1.5 motif annotation
+if [ -d "${PROJECT_DIR}/cluster/homer/bin" ]; then
+  export PATH="${PROJECT_DIR}/cluster/homer/bin:${PATH}"
+fi
 
 echo "========================================"
 echo "Methylation Pipeline"
@@ -36,7 +42,7 @@ echo "Started:      $(date)"
 echo "========================================"
 
 # Run each batch in order
-for batch in 01 02 03 04 05 06 07 08 09 10; do
+for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11; do
   script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | head -1)
   if [ -z "$script" ]; then
     echo "SKIP: No script found for batch${batch}"

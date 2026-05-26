@@ -461,7 +461,8 @@ if (file.exists(motif_file)) {
 
       # Fig 12H: Positional density of top enriched motifs
       cat("  Fig 12H: Top motif positional density...\n")
-      top_motifs <- motif_fisher[padj < 0.05][1:min(6, sum(padj < 0.05)), motif_name]
+      n_sig <- motif_fisher[, sum(padj < 0.05)]
+      top_motifs <- if (n_sig > 0) motif_fisher[padj < 0.05][seq_len(min(6, n_sig)), motif_name] else character(0)
       if (length(top_motifs) > 0) {
         mh_top <- mh[motif_name %in% top_motifs & gene_id %in%
                       gi[expr_decile %in% c("D09", "D10"), gene_id]]

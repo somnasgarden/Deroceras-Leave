@@ -255,7 +255,7 @@ plot_entropy_metagene <- function(mg_agg, title, subtitle, colors, seg_order) {
   seg_labels_pos <- (0:(n_segs - 1)) * N_BINS + N_BINS / 2
 
   ggplot(mg_agg, aes(x = x_pos, y = mean_entropy, color = expr_group)) +
-    geom_smooth(method = "loess", span = 0.15, se = FALSE, linewidth = 1) +
+    geom_smooth(method = "gam", formula = y ~ s(x, bs = "cs"), se = FALSE, linewidth = 1) +
     geom_vline(xintercept = seg_breaks, linetype = "dashed", color = "gray70", linewidth = 0.3) +
     scale_color_manual(values = colors) +
     scale_x_continuous(breaks = seg_labels_pos, labels = seg_order) +
@@ -461,9 +461,9 @@ save_fig(p13d, BATCH_DIR, "fig13d_entropy_vs_expression", w = 8, h = 7)
 
 # Fig 13e: Entropy vs methylation level — shows the concavity relationship
 # (sites near 0% or 100% have low entropy by definition)
-ctrl_sample_idx <- sample(length(ctrl_beta), min(500000, length(ctrl_beta)))
-sample_dt <- data.table(beta = ctrl_beta[ctrl_sample_idx], entropy = ctrl_entropy[ctrl_sample_idx])
-p13e <- ggplot(sample_dt, aes(x = beta * 100, y = entropy)) +
+all_dt <- data.table(beta = ctrl_beta, entropy = ctrl_entropy)
+all_dt <- all_dt[!is.na(beta) & !is.na(entropy)]
+p13e <- ggplot(all_dt, aes(x = beta * 100, y = entropy)) +
   geom_hex(bins = 100) +
   scale_fill_viridis_c(trans = "log10", name = "Count") +
   stat_function(fun = function(x) binary_entropy(x / 100), color = "red",

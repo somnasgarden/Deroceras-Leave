@@ -42,7 +42,7 @@ All analysis code in R. The `methylation_pipeline/` folder is supplementary code
 ```
 methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers see this)
   _config.R                 — shared config: paths, colors, helpers (see below)
-  run_pipeline.slurm        — SLURM runner (4 CPUs, 64 GB): 0.5→1.5→02→03→...→10
+  run_pipeline.slurm        — SLURM runner (4 CPUs, 64 GB): 0.5→1.5→02→03→...→13
   generate_report.R         — builds pipeline_report.html from all batch figures (run from repo root)
 
   batch0.5/ "What is the clean, filtered expression dataset?"
@@ -123,6 +123,21 @@ methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers se
             Read coverage diagnostics per TF class (sanity).
             → 5 TSV, 6 figures (a-f) [NOT YET RUN — blocked on batch10b]
 
+  batch12/  "What causes the methylation spike in the promoter of highly expressed 3+ exon genes?"
+            Promoter Spike Characterization — single-bp resolution (10bp bins) methylation
+            around TSS by expression decile, CpG density, GC%, CpG O/E, core promoter
+            elements (TATA/Inr/DPE/BRE), TFBS enrichment at spike, nucleosome prediction,
+            control vs amputated comparison. Finding: mid-promoter spike was metagene binning
+            artifact; ICP architecture (positive meth-expression) confirmed at high resolution.
+            → 9 TSV, 9 figures (a-j)
+
+  batch13/  "Does normalized entropy vary across gene structure by expression? Which genes gain/lose entropy?"
+            Entropy Metagene Profiles — binary Shannon entropy as metagene Y-axis (not meth %).
+            Control/amputated/delta metagenes by quintile+decile × 3 gene structure classes.
+            Per-gene delta entropy (Wilcoxon paired, BH-adjusted), entropy volcano,
+            concordant entropy-DE gene lists, motif enrichment at entropy-changed genes.
+            → 5 TSV, 24 metagene panels + 7 summary figures (b-i)
+
 cluster/scripts/            — R + SLURM for HPC jobs
 genome/cache/               — RDS caches (genome, GFF, BSseq, DMLtest, TE, promoters, extended)
 papers/                     — Reference PDFs + paper drafts
@@ -149,19 +164,21 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 
 ## Batch dependencies
 
-`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
-- **batch0.5** → `CACHE$transcriptome` (filtered expression, apeglm LFC) → used by batch04, batch07, batch08, batch10
+`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
+- **batch0.5** → `CACHE$transcriptome` (filtered expression, apeglm LFC) → used by batch04, batch07, batch08, batch10, batch12, batch13
 - **batch01** → genome CpG stats, cached genome → used by batch03, batch1.5, batch10
-- **batch1.5** → genome-wide TFBS motif hits (`CACHE$extended`) → used by batch09
+- **batch1.5** → genome-wide TFBS motif hits (`CACHE$extended`) → used by batch09, batch12, batch13
 - **batch03** → promoter classifications (HCP/ICP/LCP) → used by batch04, batch06
-- **batch04** → BSseq object (`CACHE$bsseq`), baseline methylation → used by batch05, batch06, batch07, batch10
+- **batch04** → BSseq object (`CACHE$bsseq`), baseline methylation → used by batch05, batch06, batch07, batch10, batch12, batch13
 - **batch05** → TE methylation (reads batch06 DMPs/DMRs conditionally if available)
-- **batch06** → DMP/DMR lists (`dmps_annotated.tsv`, `dmrs_annotated.tsv`) → used by batch05, batch07, batch08, batch09, batch10
+- **batch06** → DMP/DMR lists (`dmps_annotated.tsv`, `dmrs_annotated.tsv`) → used by batch05, batch07, batch08, batch09, batch10, batch13
 - **batch07** → decoupling stats (reads batch08 WGCNA modules if available for module-level correlation)
 - **batch08** → WGCNA module assignments + DMP burden → used by batch07, batch09
 - **batch09** → TF-DMP enrichment + GENIE3 network (reads batch1.5 motif hits)
 - **batch10b** → `batch10/data/perread_nme_windows.tsv` (per-read 4-CpG NME from BAMs) → used by batch11
 - **batch11** → reads batch10b NME windows + batch1.5 motif hits + batch06 DMPs + `CACHE$transcriptome`; outputs directed-mechanism shortlist
+- **batch12** → reads `CACHE$bsseq` + `CACHE$transcriptome` + GFF + batch1.5 motif hits; characterizes promoter spike at single-bp resolution
+- **batch13** → reads `CACHE$bsseq` + `CACHE$transcriptome` + batch06 DMPs + batch1.5 motif hits; entropy metagene profiles + per-gene delta entropy gene lists
 
 ## R package dependencies
 
@@ -247,6 +264,19 @@ Uses **within-tissue centroid distance**: for each tissue group (≥3 samples), 
 - **Critical control**: Compare DMPs to **beta-matched non-DMPs**, not all CpGs (sites near 0/1 have low entropy by definition). Also stratify by CpG density.
 - **Drift vs reprogramming test**: DMPs from low-entropy baseline → directed reprogramming (rejecting null for DNMT3-absent organism). High entropy → stochastic drift.
 - Full scientific rationale: see PROTOCOL.md.
+
+### Batch 12: Promoter spike characterization
+- Single-bp resolution (10bp bins) methylation profiles around TSS, split by expression decile (10 deciles) for 3+ exon genes. Tests whether the mid-promoter spike seen in batch04 metagene (20-bin resolution) is real or a binning artifact.
+- **Finding**: The spike was a metagene segment-boundary artifact. At 10bp resolution the promoter is smooth — no local maximum. The ICP promoter architecture (more upstream meth = more expression, TSS crash scales with expression) is real and constitutive (ctrl ≈ amputated).
+- Additional panels: CpG density, GC%, CpG O/E, core promoter elements (TATA/Inr/DPE/BRE Fisher enrichment), TFBS motif enrichment at spike region, nucleosome prediction (WW dinucleotide).
+- Conditional on batch1.5 motif hits (gracefully skips fig12g/12h if not available).
+
+### Batch 13: Entropy metagene profiles
+- Binary Shannon entropy `H = -p*log2(p) - (1-p)*log2(1-p)` as metagene Y-axis (not meth %). Reveals methylation stochasticity across gene structure.
+- Metagene panels: 2 binnings (quintile, decile) × 3 gene classes (3+ exon, 2-exon, single-exon) × 3 conditions (ctrl, ampu, delta) = 18 panels.
+- Per-gene delta entropy: Wilcoxon paired test on gene body CpGs (min 10 CpGs/gene), BH-adjusted. Result: 173 entropy-down, 8 entropy-up, 21,148 NS — strong asymmetry toward entropy decrease during regeneration.
+- Concordant entropy-DE gene lists (18 genes with both significant entropy change and DE).
+- Motif enrichment at entropy-changed genes (Fisher's exact vs NS background, conditional on batch1.5).
 
 ## Cross-species validation
 

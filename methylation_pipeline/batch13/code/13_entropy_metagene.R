@@ -537,7 +537,7 @@ if (has_motifs) {
 }
 
 # Check batch 1.5 motif data directly
-motif_data_file <- file.path(PIPE_DIR, "batch1.5/data/genome_wide_motif_hits.tsv")
+motif_data_file <- file.path(PIPE_DIR, "batch1.5/data/motif_hits_extended.tsv.gz")
 if (!has_motifs && file.exists(motif_data_file)) {
   cat("  Loading motif hits from batch 1.5 TSV...\n")
   motif_hits <- fread(motif_data_file)

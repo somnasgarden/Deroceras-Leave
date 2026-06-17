@@ -32,7 +32,7 @@ cat("=== Batch 10b: Per-read Methylation Entropy (Level 2 NME) ===\n\n")
 # --- BAM file paths ---
 # C1 is unsorted in source; the slurm wrapper sorts it into bams_sorted/
 bam_dir    <- file.path(dirname(dirname(OG$cpg_C1)), "08_deduplication")
-sorted_dir <- "/mnt/data/alfredvar/rlopezt/bams_sorted"
+sorted_dir <- OG$bams_sorted
 c1_sorted  <- file.path(sorted_dir, "C1_paired_bismark_bt2_pe.deduplicated.sorted.bam")
 bam_files <- c(
   C1 = if (file.exists(c1_sorted)) c1_sorted else

@@ -36,7 +36,8 @@ if (ON_CLUSTER) {
     deeptf     = file.path(BASE_DATA, "rlopezt/DeepFactor1/DeepFactorV1/deeptfactor/result/prediction_result.txt"),
     string     = file.path(BASE_DATA, "rlopezt/Preliminary/STRG0A31YWK.protein.orthology.v12.0.txt"),
     string_enrich = file.path(BASE_DATA, "rlopezt/Metilacion/protein.enrichment.terms.v12.0.txt"),
-    genie3     = file.path(BASE_DATA, "wgutierrez/genie3_2/genie3_all_links.tsv")
+    genie3     = file.path(BASE_DATA, "wgutierrez/genie3_2/genie3_all_links.tsv"),
+    bams_sorted = file.path(BASE_DATA, "rlopezt/bams_sorted")
   )
 } else {
   # ---- LOCAL PATHS (Windows) ----
@@ -58,7 +59,8 @@ if (ON_CLUSTER) {
     deeptf     = file.path(DATA_DIR, "prediction_result.txt"),
     string     = file.path(DATA_DIR, "STRG0A31YWK.protein.orthology.v12.0.txt"),
     string_enrich = file.path(DATA_DIR, "protein.enrichment.terms.v12.0.txt"),
-    genie3     = file.path(DATA_DIR, "genie3_top500k.tsv")
+    genie3     = file.path(DATA_DIR, "genie3_top500k.tsv"),
+    bams_sorted = file.path(DATA_DIR, "bams_sorted")
   )
 }
 

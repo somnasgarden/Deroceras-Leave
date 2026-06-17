@@ -123,6 +123,20 @@ methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers se
             Read coverage diagnostics per TF class (sanity).
             → 5 TSV, 6 figures (a-f) [NOT YET RUN — blocked on batch10b]
 
+  batch12/  "What causes the promoter methylation spike in highly expressed genes?"
+            Promoter Spike Characterization — TSS-centered methylation at 10bp resolution,
+            sequence composition (GC%, CpG O/E), nucleosome positioning (WW dinucleotide),
+            TFBS motif enrichment at spike, core promoter elements (TATA, Inr, DPE, BRE).
+            Uses 3+ exon genes only, 10 expression deciles.
+            → 9 TSV, 10 figures (a-j)
+
+  batch13/  "How does methylation entropy vary across gene structure?"
+            Entropy Metagene Profiles — metagene entropy (ctrl/ampu/delta) for 3 gene classes
+            (3+ exon, 2-exon, single-exon) at 5 and 10 expression bins.
+            Per-gene Wilcoxon test for entropy change, volcano, concordant entropy+DE gene lists,
+            TFBS motif enrichment in entropy-changed genes.
+            → 5 TSV, 18 figures (a-i)
+
 cluster/scripts/            — R + SLURM for HPC jobs
 genome/cache/               — RDS caches (genome, GFF, BSseq, DMLtest, TE, promoters, extended)
 papers/                     — Reference PDFs + paper drafts
@@ -149,7 +163,7 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 
 ## Batch dependencies
 
-`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
+`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
 - **batch0.5** → `CACHE$transcriptome` (filtered expression, apeglm LFC) → used by batch04, batch07, batch08, batch10
 - **batch01** → genome CpG stats, cached genome → used by batch03, batch1.5, batch10
 - **batch1.5** → genome-wide TFBS motif hits (`CACHE$extended`) → used by batch09
@@ -162,6 +176,8 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 - **batch09** → TF-DMP enrichment + GENIE3 network (reads batch1.5 motif hits)
 - **batch10b** → `batch10/data/perread_nme_windows.tsv` (per-read 4-CpG NME from BAMs) → used by batch11
 - **batch11** → reads batch10b NME windows + batch1.5 motif hits + batch06 DMPs + `CACHE$transcriptome`; outputs directed-mechanism shortlist
+- **batch12** → reads `CACHE$bsseq` + `CACHE$transcriptome` + `CACHE$genome` + optionally batch1.5 motif hits; promoter spike characterization
+- **batch13** → reads `CACHE$bsseq` + `CACHE$transcriptome` + optionally batch06 DMPs + batch1.5 motif hits; entropy metagene profiles + differential entropy gene lists
 
 ## R package dependencies
 
@@ -199,6 +215,7 @@ Batch-specific: `DESeq2` (batch02, batch04, batch07, batch08), `WGCNA` (batch08)
 | GENIE3 (full) | `/mnt/data/alfredvar/wgutierrez/genie3_2/genie3_all_links.tsv` |
 | STRING enrichment | `/mnt/data/alfredvar/rlopezt/Metilacion/protein.enrichment.terms.v12.0.txt` |
 | Bismark BAMs | `/mnt/data/alfredvar/jmiranda/50-Genoma/51-Metilacion/08_deduplication/` |
+| Sorted BAMs (C1) | `/mnt/data/alfredvar/rlopezt/bams_sorted/` |
 
 **Repo on HPC**: `/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/`
 **Partition**: `defq` | **RAM**: 1 TB | **HOMER**: installed at `cluster/homer/`
@@ -279,12 +296,12 @@ BSgenome package: `BSgenome.Dlaeve.NCBI.dlgm` (installed on Windows R)
 
 ## Running on cluster (HPC)
 
-### Full pipeline (batch 1.5 through 10)
+### Full pipeline (batch 0.5 through 13)
 ```bash
 cd Deroceras-Leave
 git pull
 dos2unix methylation_pipeline/*.slurm methylation_pipeline/_config.R
-sbatch methylation_pipeline/run_pipeline.slurm   # runs 0.5→1.5→02→03→...→10 sequentially
+sbatch methylation_pipeline/run_pipeline.slurm   # runs 0.5→1.5→02→03→...→11→12→13 sequentially
 ```
 **Note:** Pipeline requests 64 GB (batch 1.5 motif scanning needs it). Batch 01 is NOT in the runner (genome cache must pre-exist). Batch 10b (per-read NME) requires separate submission.
 

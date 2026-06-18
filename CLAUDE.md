@@ -42,7 +42,7 @@ All analysis code in R. The `methylation_pipeline/` folder is supplementary code
 ```
 methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers see this)
   _config.R                 — shared config: paths, colors, helpers (see below)
-  run_pipeline.slurm        — SLURM runner (4 CPUs, 64 GB): 0.5→1.5→02→03→...→10
+  run_pipeline.slurm        — SLURM runner (4 CPUs, 64 GB): 0.5→1.5→02→03→...→13
   generate_report.R         — builds pipeline_report.html from all batch figures (run from repo root)
 
   batch0.5/ "What is the clean, filtered expression dataset?"
@@ -123,6 +123,22 @@ methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers se
             Read coverage diagnostics per TF class (sanity).
             → 5 TSV, 6 figures (a-f) [NOT YET RUN — blocked on batch10b]
 
+  batch12/  "What causes the promoter methylation spike in highly expressed genes?"
+            Promoter Spike Characterization — single-bp methylation vs TSS distance,
+            CpG density, GC%/CpG O/E sequence composition, core promoter elements
+            (TATA/Inr/DPE/BRE), TFBS enrichment at spike, nucleosome positioning
+            (WW dinucleotide), control vs amputated comparison.
+            Requires: CACHE$bsseq, CACHE$transcriptome, CACHE$genome, batch1.5 motif hits
+            → 9 TSV, 10 figures (a-j)
+
+  batch13/  "Does entropy vary across gene structure? Which genes gain/lose entropy?"
+            Entropy Metagene Profiles + Differential Entropy Gene Lists —
+            binary Shannon entropy metagene (3 gene types × 2 binnings × ctrl/ampu/delta),
+            per-gene entropy change (Wilcoxon paired), entropy-up/down gene lists,
+            motif enrichment in differential entropy genes, entropy × DE quadrant analysis.
+            Requires: CACHE$bsseq, CACHE$transcriptome, batch06 DMPs (optional), batch1.5 motif hits (optional)
+            → 5+ TSV, 12+ figures (metagene panels + b-i)
+
 cluster/scripts/            — R + SLURM for HPC jobs
 genome/cache/               — RDS caches (genome, GFF, BSseq, DMLtest, TE, promoters, extended)
 papers/                     — Reference PDFs + paper drafts
@@ -149,19 +165,21 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 
 ## Batch dependencies
 
-`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
-- **batch0.5** → `CACHE$transcriptome` (filtered expression, apeglm LFC) → used by batch04, batch07, batch08, batch10
+`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
+- **batch0.5** → `CACHE$transcriptome` (filtered expression, apeglm LFC) → used by batch04, batch07, batch08, batch10, batch12, batch13
 - **batch01** → genome CpG stats, cached genome → used by batch03, batch1.5, batch10
-- **batch1.5** → genome-wide TFBS motif hits (`CACHE$extended`) → used by batch09
+- **batch1.5** → genome-wide TFBS motif hits (`CACHE$extended`) → used by batch09, batch12, batch13
 - **batch03** → promoter classifications (HCP/ICP/LCP) → used by batch04, batch06
-- **batch04** → BSseq object (`CACHE$bsseq`), baseline methylation → used by batch05, batch06, batch07, batch10
+- **batch04** → BSseq object (`CACHE$bsseq`), baseline methylation → used by batch05, batch06, batch07, batch10, batch12, batch13
 - **batch05** → TE methylation (reads batch06 DMPs/DMRs conditionally if available)
-- **batch06** → DMP/DMR lists (`dmps_annotated.tsv`, `dmrs_annotated.tsv`) → used by batch05, batch07, batch08, batch09, batch10
+- **batch06** → DMP/DMR lists (`dmps_annotated.tsv`, `dmrs_annotated.tsv`) → used by batch05, batch07, batch08, batch09, batch10, batch13
 - **batch07** → decoupling stats (reads batch08 WGCNA modules if available for module-level correlation)
 - **batch08** → WGCNA module assignments + DMP burden → used by batch07, batch09
 - **batch09** → TF-DMP enrichment + GENIE3 network (reads batch1.5 motif hits)
 - **batch10b** → `batch10/data/perread_nme_windows.tsv` (per-read 4-CpG NME from BAMs) → used by batch11
 - **batch11** → reads batch10b NME windows + batch1.5 motif hits + batch06 DMPs + `CACHE$transcriptome`; outputs directed-mechanism shortlist
+- **batch12** → promoter spike characterization (reads CACHE$bsseq, CACHE$transcriptome, CACHE$genome, batch1.5 motif hits)
+- **batch13** → entropy metagene + gene lists (reads CACHE$bsseq, CACHE$transcriptome, batch06 DMPs, batch1.5 motif hits)
 
 ## R package dependencies
 

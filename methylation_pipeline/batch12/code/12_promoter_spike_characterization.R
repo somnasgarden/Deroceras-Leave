@@ -243,8 +243,8 @@ genome <- load_genome()
 # Extract TSS-flanking sequences for 3+ exon genes (strand-aware)
 # Use Views on genome for efficiency
 SEQWIN <- 2000L  # +/- 2kb for sequence analysis
-seq_starts <- ifelse(gi$str == "+", gi$tss - SEQWIN, gi$tss - SEQWIN)
-seq_ends   <- ifelse(gi$str == "+", gi$tss + SEQWIN, gi$tss + SEQWIN)
+seq_starts <- gi$tss - SEQWIN
+seq_ends   <- gi$tss + SEQWIN
 # Trim to chromosome bounds
 chr_lens <- seqlengths(bs_obj)[gi$chr]
 if (is.null(chr_lens) || all(is.na(chr_lens))) {

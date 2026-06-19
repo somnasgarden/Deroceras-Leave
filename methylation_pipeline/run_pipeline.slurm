@@ -8,7 +8,7 @@
 set -euo pipefail
 
 # =============================================================================
-# Run the full methylation pipeline (batches 01-10)
+# Run the full methylation pipeline (batches 0.5-13)
 # From repo root: sbatch methylation_pipeline/run_pipeline.slurm
 # Or: cd methylation_pipeline && sbatch run_pipeline.slurm
 # =============================================================================
@@ -42,7 +42,7 @@ echo "Started:      $(date)"
 echo "========================================"
 
 # Run each batch in order
-for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11; do
+for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11 12 13; do
   script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | head -1)
   if [ -z "$script" ]; then
     echo "SKIP: No script found for batch${batch}"

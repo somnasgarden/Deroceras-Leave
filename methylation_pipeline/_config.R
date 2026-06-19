@@ -257,17 +257,18 @@ build_expanded_regions <- function(gff) {
   cds_dt[, gene_id := mrna_to_gene[mrna_id]]
   cds_bounds <- cds_dt[, .(cds_start = min(start), cds_end = max(end)), by = gene_id]
 
-  # Introns: gaps between exons within each gene
-  intron_list <- vector("list", length(unique(exon_dt$gene_id)))
+  # Introns: gaps between exons within each gene (strand-aware ranking)
   intron_genes <- unique(exon_dt[n_exons >= 2]$gene_id)
   intron_dts <- lapply(intron_genes, function(gid) {
     g <- exon_dt[gene_id == gid][order(start)]
     if (nrow(g) < 2) return(NULL)
     n <- nrow(g)
+    st <- g$strand[1]
     data.table(
-      chr = g$chr[1], strand = g$strand[1], gene_id = gid,
+      chr = g$chr[1], strand = st, gene_id = gid,
       start = g$end[-n] + 1L, end = g$start[-1] - 1L,
-      intron_rank = 1:(n-1), n_introns = n - 1
+      intron_rank = if (st == "+") 1:(n-1) else (n-1):1,
+      n_introns = n - 1
     )
   })
   intron_dt <- rbindlist(intron_dts[!sapply(intron_dts, is.null)])

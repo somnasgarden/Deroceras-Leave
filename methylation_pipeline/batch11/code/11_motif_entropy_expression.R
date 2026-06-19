@@ -43,6 +43,8 @@ t0 <- proc.time()
 library(data.table)
 library(GenomicRanges)
 library(ggplot2)
+library(ComplexHeatmap)
+library(circlize)
 
 BATCH_DIR <- file.path(PIPE_DIR, "batch11")
 dir.create(file.path(BATCH_DIR, "data"),    showWarnings = FALSE, recursive = TRUE)

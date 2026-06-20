@@ -16,6 +16,8 @@ suppressPackageStartupMessages({
   library(data.table)
   library(ggplot2)
   library(Biostrings)
+  library(ggrepel)
+  library(patchwork)
 })
 
 BATCH_DIR <- file.path(PIPE_DIR, "batch12")

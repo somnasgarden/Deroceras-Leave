@@ -43,8 +43,8 @@ for batch in 04 05 08 07; do
   echo "=== Started: $(date) ==="
   echo "========================================"
   Rscript "$script" || {
-    echo "ERROR: Batch ${batch} failed at $(date)"
-    continue
+    echo "ERROR: Batch ${batch} failed at $(date). Stopping — downstream batches depend on this."
+    exit 1
   }
   echo "=== Batch ${batch} completed: $(date) ==="
 done

@@ -461,8 +461,7 @@ save_fig(p13d, BATCH_DIR, "fig13d_entropy_vs_expression", w = 8, h = 7)
 
 # Fig 13e: Entropy vs methylation level — shows the concavity relationship
 # (sites near 0% or 100% have low entropy by definition)
-ctrl_sample_idx <- sample(length(ctrl_beta), min(500000, length(ctrl_beta)))
-sample_dt <- data.table(beta = ctrl_beta[ctrl_sample_idx], entropy = ctrl_entropy[ctrl_sample_idx])
+sample_dt <- data.table(beta = ctrl_beta, entropy = ctrl_entropy)
 p13e <- ggplot(sample_dt, aes(x = beta * 100, y = entropy)) +
   geom_hex(bins = 100) +
   scale_fill_viridis_c(trans = "log10", name = "Count") +

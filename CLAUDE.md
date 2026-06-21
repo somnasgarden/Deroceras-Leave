@@ -123,6 +123,18 @@ methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers se
             Read coverage diagnostics per TF class (sanity).
             → 5 TSV, 6 figures (a-f) [NOT YET RUN — blocked on batch10b]
 
+  batch12/  "What causes the methylation spike in highly expressed gene promoters?"
+            Promoter Spike Characterization — sequence features, nucleosome positioning,
+            TFBS overlap analysis for 3+ exon highly-expressed genes.
+            Requires: CACHE$bsseq, CACHE$transcriptome, CACHE$genome, batch1.5 motif hits
+            → 9 TSV, 18 figures
+
+  batch13/  "Does entropy vary across gene structure by expression level?"
+            Entropy Metagene Profiles — metagene entropy across gene structure by
+            expression decile, differential entropy gene lists, motif overlap.
+            Requires: CACHE$bsseq, CACHE$transcriptome, batch06 DMPs, batch1.5 motif hits
+            → 5 TSV, 48 figures
+
 cluster/scripts/            — R + SLURM for HPC jobs
 genome/cache/               — RDS caches (genome, GFF, BSseq, DMLtest, TE, promoters, extended)
 papers/                     — Reference PDFs + paper drafts
@@ -162,6 +174,8 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 - **batch09** → TF-DMP enrichment + GENIE3 network (reads batch1.5 motif hits)
 - **batch10b** → `batch10/data/perread_nme_windows.tsv` (per-read 4-CpG NME from BAMs) → used by batch11
 - **batch11** → reads batch10b NME windows + batch1.5 motif hits + batch06 DMPs + `CACHE$transcriptome`; outputs directed-mechanism shortlist
+- **batch12** → promoter spike analysis (reads CACHE$bsseq, CACHE$transcriptome, CACHE$genome, batch1.5 motif hits). Not in main runner.
+- **batch13** → entropy metagene profiles (reads CACHE$bsseq, CACHE$transcriptome, batch06 DMPs, batch1.5 motif hits). Not in main runner.
 
 ## R package dependencies
 

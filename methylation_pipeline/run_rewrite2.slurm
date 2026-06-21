@@ -10,7 +10,11 @@ set -euo pipefail
 
 # Batch 04 already done — run 05 → 08 → 07
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+if [ -n "${SLURM_SUBMIT_DIR:-}" ]; then
+  cd "$SLURM_SUBMIT_DIR"
+else
+  cd "$(dirname "$(readlink -f "$0")")/.."
+fi
 mkdir -p cluster/logs
 
 echo "========================================"

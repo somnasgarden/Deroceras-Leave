@@ -36,10 +36,14 @@ echo "Started:      $(date)"
 echo "========================================"
 
 for batch in 04 05 08 07; do
-  script="methylation_pipeline/batch${batch}/code/$(ls methylation_pipeline/batch${batch}/code/*.R | head -1 | xargs basename)"
+  script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | head -1)
+  if [ -z "$script" ]; then
+    echo "SKIP: No script found for batch${batch}"
+    continue
+  fi
   echo ""
   echo "========================================"
-  echo "=== BATCH ${batch}: ${script} ==="
+  echo "=== BATCH ${batch}: $(basename $script) ==="
   echo "=== Started: $(date) ==="
   echo "========================================"
   Rscript "$script" || {

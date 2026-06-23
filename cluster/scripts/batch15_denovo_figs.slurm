@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/denovo_figs_%j.out
 #SBATCH --error=cluster/logs/denovo_figs_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Running batch 1.5 with de novo motif characterization ==="
 echo "Start: $(date)"

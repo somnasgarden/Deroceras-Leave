@@ -7,5 +7,6 @@
 #SBATCH --output=cluster/logs/annotate_wg_%j.out
 #SBATCH --error=cluster/logs/annotate_wg_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 Rscript cluster/scripts/annotate_wg_motifs.R

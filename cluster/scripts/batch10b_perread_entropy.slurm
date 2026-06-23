@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/batch10b_%j.out
 #SBATCH --error=cluster/logs/batch10b_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Batch 10b: Per-read NME (Fang/Xie method) ==="
 echo "Start: $(date)"

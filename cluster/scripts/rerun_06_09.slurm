@@ -8,7 +8,8 @@
 #SBATCH --output=cluster/logs/fix_06_09_%j.out
 #SBATCH --error=cluster/logs/fix_06_09_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Rerunning batch06 (DMR volcano fix) ==="
 Rscript methylation_pipeline/batch06/code/06_differential_methylation.R

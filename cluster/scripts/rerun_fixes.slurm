@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/rerun_fixes_%j.out
 #SBATCH --error=cluster/logs/rerun_fixes_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Rerunning fixed batches ==="
 echo "Start: $(date)"

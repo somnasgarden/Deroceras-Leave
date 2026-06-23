@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
 #SBATCH --time=72:00:00
-#SBATCH --output=/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster/logs/wg_motif_%j.out
-#SBATCH --error=/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave/cluster/logs/wg_motif_%j.err
+#SBATCH --output=cluster/logs/wg_motif_%j.out
+#SBATCH --error=cluster/logs/wg_motif_%j.err
 
 echo "=== Whole-Genome Motif Scan ==="
 echo "Job ID: $SLURM_JOB_ID"
@@ -16,7 +16,8 @@ echo "Start: $(date)"
 echo "RAM: $(free -h | grep Mem | awk '{print $2}')"
 echo ""
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 export PROJECT_DIR=$(pwd)
 

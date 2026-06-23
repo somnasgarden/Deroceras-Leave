@@ -7,7 +7,8 @@
 #SBATCH --partition=defq
 
 set -euo pipefail
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "========================================"
 echo "Rerun modified batches: 02, 03, 04, 05, 08, 13"

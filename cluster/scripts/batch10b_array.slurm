@@ -11,7 +11,8 @@
 # Each array task processes ONE chromosome across all 4 samples
 # After all 31 finish, run batch10b_merge.R to combine + produce figures
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 CHR_NUM=$SLURM_ARRAY_TASK_ID
 echo "Processing chromosome: chr${CHR_NUM}"

@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/batch11_%j.out
 #SBATCH --error=cluster/logs/batch11_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Batch 11: Motif x NME x Expression ==="
 echo "Start: $(date)"

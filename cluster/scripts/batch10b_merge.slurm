@@ -7,5 +7,6 @@
 #SBATCH --output=cluster/logs/nme_merge_%j.out
 #SBATCH --error=cluster/logs/nme_merge_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 Rscript cluster/scripts/batch10b_merge.R

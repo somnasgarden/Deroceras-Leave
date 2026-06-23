@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/fix_05_09_%j.out
 #SBATCH --error=cluster/logs/fix_05_09_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Rerunning batch05 (TE plots fix) ==="
 Rscript methylation_pipeline/batch05/code/05_te_methylation_age.R 2>&1

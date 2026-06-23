@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/fix_bams_%j.out
 #SBATCH --error=cluster/logs/fix_bams_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 # Force temp files to shared storage (not home, which has 5GB quota)
 export TMPDIR="/mnt/data/alfredvar/rlopezt/bams_sorted/tmp"

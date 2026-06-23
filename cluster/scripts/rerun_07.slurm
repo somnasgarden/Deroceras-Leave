@@ -8,7 +8,8 @@
 #SBATCH --output=cluster/logs/fix_07_%j.out
 #SBATCH --error=cluster/logs/fix_07_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Rerunning batch07 ==="
 Rscript methylation_pipeline/batch07/code/07_methylation_expression_decoupling.R

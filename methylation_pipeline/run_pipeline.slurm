@@ -42,6 +42,9 @@ echo "Started:      $(date)"
 echo "========================================"
 
 # Run each batch in order
+# NOTE: batch11 requires batch10b (per-read NME from BAMs), which is NOT in
+# this pipeline — submit batch10b_perread_entropy.slurm separately first.
+# batch11 will skip with a clear error if batch10b output is missing.
 for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11; do
   script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | head -1)
   if [ -z "$script" ]; then

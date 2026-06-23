@@ -7,7 +7,8 @@
 #SBATCH --output=cluster/logs/rerun4567_%j.out
 #SBATCH --error=cluster/logs/rerun4567_%j.err
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+PROJECT_DIR="${PROJECT_DIR:-/mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave}"
+cd "$PROJECT_DIR"
 
 echo "=== Rerun batches 04, 05, 06, 07 + regenerate HTML report ==="
 echo "Start: $(date)"

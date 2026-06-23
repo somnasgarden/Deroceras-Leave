@@ -63,6 +63,7 @@ exons <- gff[gff$type == "exon"]
 exons <- exons[as.character(seqnames(exons)) %in% keep_chr]
 
 # Expression
+if (!file.exists(CACHE$transcriptome)) stop("CACHE$transcriptome not found — run batch 0.5 first")
 trans <- readRDS(CACHE$transcriptome)
 vsd_mat <- trans$vst_clean
 

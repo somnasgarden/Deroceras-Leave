@@ -121,7 +121,21 @@ methylation_pipeline/       ← MAIN: supplementary code for paper (reviewers se
             (C) directed-mechanism shortlist: in_motif & ctrl_nme<0.3 & has_dmp,
                 joined to DESeq2 res_tail → cloning candidates
             Read coverage diagnostics per TF class (sanity).
-            → 5 TSV, 6 figures (a-f) [NOT YET RUN — blocked on batch10b]
+            → 8 TSV, 8 figures (a-h)
+
+  batch12/  "What causes the methylation spike in the promoter of highly expressed genes?"
+            Promoter Methylation Spike Characterization — single-bp resolution methylation
+            around TSS by expression decile, CpG density, GC%/CpG O/E composition,
+            core promoter elements (TATA, Inr, DPE, BRE), TFBS enrichment at spike,
+            nucleosome positioning prediction, control vs amputated at spike.
+            → 7 TSV, 10 figures (a-j)
+
+  batch13/  "Does entropy vary across gene structure? Which genes gain/lose entropy?"
+            Entropy Metagene Profiles — binary Shannon entropy as Y-axis in metagene
+            profiles (quintiles + deciles × 3 gene types × ctrl/ampu/delta),
+            per-gene entropy changes (Wilcoxon paired), entropy-DE concordance quadrants,
+            motif enrichment at entropy-changed genes.
+            → 6 TSV, 18+ figures (a_*, b-i)
 
 cluster/scripts/            — R + SLURM for HPC jobs
 genome/cache/               — RDS caches (genome, GFF, BSseq, DMLtest, TE, promoters, extended)
@@ -149,7 +163,7 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 
 ## Batch dependencies
 
-`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
+`run_pipeline.slurm` runs: **0.5 → 1.5 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13** (batch01 pre-run separately or cached; batch10b BAM-based NME submitted separately). Key data flow:
 - **batch0.5** → `CACHE$transcriptome` (filtered expression, apeglm LFC) → used by batch04, batch07, batch08, batch10
 - **batch01** → genome CpG stats, cached genome → used by batch03, batch1.5, batch10
 - **batch1.5** → genome-wide TFBS motif hits (`CACHE$extended`) → used by batch09
@@ -162,6 +176,8 @@ Every batch script starts with `source("methylation_pipeline/_config.R")`. It pr
 - **batch09** → TF-DMP enrichment + GENIE3 network (reads batch1.5 motif hits)
 - **batch10b** → `batch10/data/perread_nme_windows.tsv` (per-read 4-CpG NME from BAMs) → used by batch11
 - **batch11** → reads batch10b NME windows + batch1.5 motif hits + batch06 DMPs + `CACHE$transcriptome`; outputs directed-mechanism shortlist
+- **batch12** → reads `CACHE$bsseq`, `CACHE$transcriptome`, `CACHE$genome`, batch1.5 motif hits; outputs promoter spike characterization
+- **batch13** → reads `CACHE$bsseq`, `CACHE$transcriptome`, batch06 DMPs (conditional), batch1.5 motif hits; outputs entropy metagene profiles + concordant entropy-DE genes
 
 ## R package dependencies
 

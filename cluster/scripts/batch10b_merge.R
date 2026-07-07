@@ -60,6 +60,34 @@ if (file.exists(dmp_file)) {
 
 valid[, cpg_density := 4 / ((win_end - win_start + 1) / 1000)]
 
+# Mean beta per window (from Level 1 BSseq) — needed by batch11 for beta-matching
+cat("Computing win_beta from BSseq...\n")
+bs_obj <- readRDS(CACHE$bsseq)
+ctrl_beta <- rowMeans(bsseq::getMeth(bs_obj[, c("C1","C2")], type = "raw"), na.rm = TRUE)
+cpg_gr <- granges(bs_obj)
+cpg_beta_dt <- data.table(
+  chr = as.character(seqnames(cpg_gr)),
+  pos = start(cpg_gr),
+  ctrl_beta = ctrl_beta
+)
+rm(bs_obj, cpg_gr, ctrl_beta); gc(verbose = FALSE)
+cpg_beta_dt <- cpg_beta_dt[chr %in% keep_chr]
+setkey(cpg_beta_dt, chr, pos)
+
+win_cpgs <- rbindlist(lapply(seq_len(nrow(valid)), function(i) {
+  data.table(win_idx = i, chr = valid$chr[i],
+             pos = c(valid$cpg1[i], valid$cpg2[i],
+                     valid$cpg3[i], valid$cpg4[i]))
+}))
+setkey(win_cpgs, chr, pos)
+win_cpgs <- cpg_beta_dt[win_cpgs, on = .(chr, pos), nomatch = NA]
+win_betas <- win_cpgs[, .(win_beta = mean(ctrl_beta, na.rm = TRUE)), by = win_idx]
+valid[, win_beta := NA_real_]
+valid[win_betas$win_idx, win_beta := win_betas$win_beta]
+rm(cpg_beta_dt, win_cpgs, win_betas); gc(verbose = FALSE)
+cat(sprintf("  win_beta computed for %d/%d windows\n",
+            sum(!is.na(valid$win_beta)), nrow(valid)))
+
 # --- Save main output ---
 save_data(valid, BATCH_DIR, "perread_nme_windows")
 

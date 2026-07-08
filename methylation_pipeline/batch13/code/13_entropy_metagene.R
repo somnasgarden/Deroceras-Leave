@@ -155,11 +155,19 @@ build_segments <- function(gene_indices, group_lookup, mode = "3seg") {
     g_start <- gene_starts[gi]; g_end <- gene_ends[gi]
 
     if (mode == "3seg") {
-      segs <- list(
-        `Distal upstream\n(5-2 kb)` = c(max(1L, g_tss - FLANK), g_tss - 2001L),
-        `Promoter\n(2 kb)` = c(max(1L, g_tss - 2000L), g_tss - 1L),
-        `Gene body` = c(g_start, g_end),
-        `TTS downstream\n(5 kb)` = c(g_tts + 1L, g_tts + FLANK))
+      if (g_strand == "+") {
+        segs <- list(
+          `Distal upstream\n(5-2 kb)` = c(max(1L, g_tss - FLANK), g_tss - 2001L),
+          `Promoter\n(2 kb)` = c(max(1L, g_tss - 2000L), g_tss - 1L),
+          `Gene body` = c(g_start, g_end),
+          `TTS downstream\n(5 kb)` = c(g_tts + 1L, g_tts + FLANK))
+      } else {
+        segs <- list(
+          `Distal upstream\n(5-2 kb)` = c(g_tss + 2001L, g_tss + FLANK),
+          `Promoter\n(2 kb)` = c(g_tss + 1L, g_tss + 2000L),
+          `Gene body` = c(g_start, g_end),
+          `TTS downstream\n(5 kb)` = c(max(1L, g_tts - FLANK), g_tts - 1L))
+      }
     } else {
       g_exons <- exon_to_gene[gene_idx == gi][order(exon_start)]
       ne <- nrow(g_exons)
@@ -176,11 +184,20 @@ build_segments <- function(gene_indices, group_lookup, mode = "3seg") {
           le <- c(g_exons$exon_start[1], g_exons$exon_end[1])
           intr <- c(g_exons$exon_end[1] + 1L, g_exons$exon_start[2] - 1L)
         }
+        if (g_strand == "+") {
+          up_dist <- c(max(1L, g_tss - FLANK), g_tss - 2001L)
+          up_prom <- c(max(1L, g_tss - 2000L), g_tss - 1L)
+          dn      <- c(g_tts + 1L, g_tts + FLANK)
+        } else {
+          up_dist <- c(g_tss + 2001L, g_tss + FLANK)
+          up_prom <- c(g_tss + 1L, g_tss + 2000L)
+          dn      <- c(max(1L, g_tts - FLANK), g_tts - 1L)
+        }
         segs <- list(
-          `Distal upstream\n(5-2 kb)` = c(max(1L, g_tss - FLANK), g_tss - 2001L),
-          `Promoter\n(2 kb)` = c(max(1L, g_tss - 2000L), g_tss - 1L),
+          `Distal upstream\n(5-2 kb)` = up_dist,
+          `Promoter\n(2 kb)` = up_prom,
           `First exon` = fe, Intron = intr, `Last exon` = le,
-          `TTS downstream\n(5 kb)` = c(g_tts + 1L, g_tts + FLANK))
+          `TTS downstream\n(5 kb)` = dn)
       } else {
         if (g_strand == "+") {
           fe <- c(g_exons$exon_start[1], g_exons$exon_end[1])
@@ -195,12 +212,21 @@ build_segments <- function(gene_indices, group_lookup, mode = "3seg") {
           li <- c(g_exons$exon_end[1] + 1L, g_exons$exon_start[2] - 1L)
           body_c <- c(g_exons$exon_start[2], g_exons$exon_end[ne - 1])
         }
+        if (g_strand == "+") {
+          up_dist <- c(max(1L, g_tss - FLANK), g_tss - 2001L)
+          up_prom <- c(max(1L, g_tss - 2000L), g_tss - 1L)
+          dn      <- c(g_tts + 1L, g_tts + FLANK)
+        } else {
+          up_dist <- c(g_tss + 2001L, g_tss + FLANK)
+          up_prom <- c(g_tss + 1L, g_tss + 2000L)
+          dn      <- c(max(1L, g_tts - FLANK), g_tts - 1L)
+        }
         segs <- list(
-          `Distal upstream\n(5-2 kb)` = c(max(1L, g_tss - FLANK), g_tss - 2001L),
-          `Promoter\n(2 kb)` = c(max(1L, g_tss - 2000L), g_tss - 1L),
+          `Distal upstream\n(5-2 kb)` = up_dist,
+          `Promoter\n(2 kb)` = up_prom,
           `First exon` = fe, `First intron` = fi, Body = body_c,
           `Last intron` = li, `Last exon` = le,
-          `TTS downstream\n(5 kb)` = c(g_tts + 1L, g_tts + FLANK))
+          `TTS downstream\n(5 kb)` = dn)
       }
     }
 
@@ -461,9 +487,8 @@ save_fig(p13d, BATCH_DIR, "fig13d_entropy_vs_expression", w = 8, h = 7)
 
 # Fig 13e: Entropy vs methylation level — shows the concavity relationship
 # (sites near 0% or 100% have low entropy by definition)
-ctrl_sample_idx <- sample(length(ctrl_beta), min(500000, length(ctrl_beta)))
-sample_dt <- data.table(beta = ctrl_beta[ctrl_sample_idx], entropy = ctrl_entropy[ctrl_sample_idx])
-p13e <- ggplot(sample_dt, aes(x = beta * 100, y = entropy)) +
+hex_dt <- data.table(beta = ctrl_beta, entropy = ctrl_entropy)
+p13e <- ggplot(hex_dt, aes(x = beta * 100, y = entropy)) +
   geom_hex(bins = 100) +
   scale_fill_viridis_c(trans = "log10", name = "Count") +
   stat_function(fun = function(x) binary_entropy(x / 100), color = "red",

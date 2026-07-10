@@ -42,8 +42,12 @@ echo "Started:      $(date)"
 echo "========================================"
 
 # Run each batch in order
-for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11; do
-  script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | head -1)
+# batch01 excluded (genome cache must pre-exist or run separately)
+# batch10b excluded (BAM-based NME, requires separate submission with BAM access)
+for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11 12 13; do
+  # batch10 has two scripts: 10 (Level-1 entropy) and 10b (per-read NME from BAMs).
+  # Only run 10_methylation_entropy.R here; 10b needs BAMs + separate submission.
+  script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | grep -v '10b_' | head -1)
   if [ -z "$script" ]; then
     echo "SKIP: No script found for batch${batch}"
     continue

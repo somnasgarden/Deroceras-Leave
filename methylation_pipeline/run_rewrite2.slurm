@@ -10,7 +10,15 @@ set -euo pipefail
 
 # Batch 04 already done — run 05 → 08 → 07
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+if [ -f "${SLURM_SUBMIT_DIR}/methylation_pipeline/_config.R" ]; then
+  PROJECT_DIR="$SLURM_SUBMIT_DIR"
+elif [ -f "${SLURM_SUBMIT_DIR}/_config.R" ]; then
+  PROJECT_DIR="$(dirname "$SLURM_SUBMIT_DIR")"
+else
+  echo "ERROR: Cannot find _config.R. Submit from repo root or methylation_pipeline/"
+  exit 1
+fi
+cd "$PROJECT_DIR"
 mkdir -p cluster/logs
 
 echo "========================================"

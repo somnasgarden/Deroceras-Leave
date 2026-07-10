@@ -43,6 +43,9 @@ t0 <- proc.time()
 library(data.table)
 library(GenomicRanges)
 library(ggplot2)
+library(ComplexHeatmap)
+library(circlize)
+library(grid)
 
 BATCH_DIR <- file.path(PIPE_DIR, "batch11")
 dir.create(file.path(BATCH_DIR, "data"),    showWarnings = FALSE, recursive = TRUE)
@@ -207,6 +210,23 @@ if (file.exists(OG$annot)) {
                     col.names = c("gene_id", "gene_name", "description"))
   annot_dt[gene_name == "", gene_name := gene_id]
   win_pass[annot_dt, gene_name_top := i.gene_name, on = c(gene_id_top = "gene_id")]
+}
+
+# Tag windows that overlap a DMP (batch06)
+dmp_path <- file.path(PIPE_DIR, "batch06/data/dmps_annotated.tsv")
+win_pass[, has_dmp := FALSE]
+if (file.exists(dmp_path)) {
+  dmps <- fread(dmp_path)
+  dmps <- dmps[chr %in% keep_chr]
+  dmp_gr <- GRanges(seqnames = dmps$chr,
+                    ranges = IRanges(start = dmps$pos, width = 1L))
+  dmp_hits <- queryHits(findOverlaps(win_gr, dmp_gr))
+  win_pass[unique(dmp_hits), has_dmp := TRUE]
+  cat(sprintf("  windows overlapping a DMP: %s (%.1f%%)\n",
+              format(sum(win_pass$has_dmp), big.mark = ","),
+              100 * mean(win_pass$has_dmp)))
+} else {
+  cat("  WARNING: dmps_annotated.tsv not found — has_dmp will be all FALSE.\n")
 }
 
 save_data(win_pass, BATCH_DIR, "window_motif_assignments")

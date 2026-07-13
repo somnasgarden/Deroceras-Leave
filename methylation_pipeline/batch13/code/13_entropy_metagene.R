@@ -519,29 +519,12 @@ if (!is.null(trans$res_tail)) {
   cat("  Merged DESeq2 tail results\n")
 }
 
-# Load motif hits from batch 1.5 cache
-motif_file <- CACHE$extended
-has_motifs <- file.exists(motif_file)
+# Load motif hits from batch 1.5
+motif_data_file <- file.path(PIPE_DIR, "batch1.5/data/motif_hits_extended.tsv.gz")
+has_motifs <- file.exists(motif_data_file)
 if (has_motifs) {
-  cat("  Loading genome-wide motif hits...\n")
-  ext_regions <- readRDS(motif_file)
-
-  # Check if this is a motif hits table or extended regions
-  if (is.data.frame(ext_regions) || is.data.table(ext_regions)) {
-    motif_hits <- as.data.table(ext_regions)
-    cat(sprintf("  Motif hits loaded: %s rows\n", format(nrow(motif_hits), big.mark = ",")))
-  } else {
-    has_motifs <- FALSE
-    cat("  Extended regions cache is not motif hits — skipping motif analysis\n")
-  }
-}
-
-# Check batch 1.5 motif data directly
-motif_data_file <- file.path(PIPE_DIR, "batch1.5/data/genome_wide_motif_hits.tsv")
-if (!has_motifs && file.exists(motif_data_file)) {
-  cat("  Loading motif hits from batch 1.5 TSV...\n")
+  cat("  Loading motif hits from batch 1.5...\n")
   motif_hits <- fread(motif_data_file)
-  has_motifs <- TRUE
   cat(sprintf("  Motif hits: %s rows\n", format(nrow(motif_hits), big.mark = ",")))
 }
 

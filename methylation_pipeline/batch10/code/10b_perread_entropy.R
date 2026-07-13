@@ -200,8 +200,8 @@ cat(sprintf("  4-CpG windows: %s (max span %d bp)\n",
 # COMPUTE PER-READ NME FOR EACH SAMPLE (per-chromosome for memory)
 # =============================================================================
 cat("[3/7] Computing per-read NME from BAMs...\n")
-cat("  This is the slowest step — processing 4 BAMs x %s windows.\n",
-    format(nrow(windows), big.mark = ","))
+cat(sprintf("  This is the slowest step — processing 4 BAMs x %s windows.\n",
+    format(nrow(windows), big.mark = ",")))
 
 # Process in chunks per chromosome to manage memory
 # Store results per sample

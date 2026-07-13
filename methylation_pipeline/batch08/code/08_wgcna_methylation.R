@@ -633,9 +633,9 @@ hub_df$has_dmp <- !is.na(hub_df$n_dmp)
 
 # Add gene names if annotation available
 if (file.exists(OG$annot)) {
-  annot <- fread(OG$annot, header = TRUE)
-  name_col <- intersect(c("Name", "name", "gene_name", "display_name"), colnames(annot))
-  id_col   <- intersect(c("ID", "gene_id", "#gene_id"), colnames(annot))
+  annot <- fread(OG$annot, header = FALSE, col.names = c("gene_id", "gene_name", "description"))
+  name_col <- "gene_name"
+  id_col   <- "gene_id"
   if (length(name_col) > 0 && length(id_col) > 0) {
     hub_df <- merge(hub_df, annot[, c(id_col[1], name_col[1]), with = FALSE],
                     by.x = "gene_id", by.y = id_col[1], all.x = TRUE)

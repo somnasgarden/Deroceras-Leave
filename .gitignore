@@ -12,6 +12,7 @@ cluster/results/
 cluster/homer/
 cluster/.cache/
 cluster/logs/
+!cluster/logs/.gitkeep
 
 # Large data files (>100MB, GitHub limit)
 extra/cross_species/bigwig/

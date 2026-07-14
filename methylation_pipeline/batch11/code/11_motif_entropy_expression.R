@@ -43,6 +43,9 @@ t0 <- proc.time()
 library(data.table)
 library(GenomicRanges)
 library(ggplot2)
+library(ComplexHeatmap)
+library(circlize)
+library(grid)
 
 BATCH_DIR <- file.path(PIPE_DIR, "batch11")
 dir.create(file.path(BATCH_DIR, "data"),    showWarnings = FALSE, recursive = TRUE)
@@ -97,10 +100,10 @@ yin_overrides <- data.table(
                rep("MethylMinus", 9),
                rep("MethylMinus", 10),
                rep("MethylMinus", 8),
-               rep("MethylMinus", 16),
+               rep("MethylMinus", 17),
                rep("MethylMinus", 7),
                rep("MethylMinus", 3),
-               rep("MethylPlus", 36),
+               rep("MethylPlus", 37),
                rep("LittleEffect", 3))
 )
 

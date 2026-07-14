@@ -2,8 +2,10 @@
 #SBATCH --job-name=gen_cache
 #SBATCH --output=cluster/logs/slurm_%j.out
 #SBATCH --error=cluster/logs/slurm_%j.err
+#SBATCH --partition=defq
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=8G
+#SBATCH --time=2:00:00
 
 set -euo pipefail
 

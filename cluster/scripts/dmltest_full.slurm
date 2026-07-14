@@ -2,8 +2,10 @@
 #SBATCH --job-name=dmltest
 #SBATCH --output=cluster/logs/slurm_%j.out
 #SBATCH --error=cluster/logs/slurm_%j.err
+#SBATCH --partition=defq
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=32G
+#SBATCH --time=24:00:00
 
 set -euo pipefail
 

@@ -2,8 +2,10 @@
 #SBATCH --job-name=meth_pipe
 #SBATCH --output=cluster/logs/pipeline_%j.out
 #SBATCH --error=cluster/logs/pipeline_%j.err
+#SBATCH --partition=defq
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
+#SBATCH --time=48:00:00
 
 set -euo pipefail
 

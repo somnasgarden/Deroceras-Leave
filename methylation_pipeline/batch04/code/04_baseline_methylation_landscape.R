@@ -230,7 +230,7 @@ save_data(gene_means, BATCH_DIR, "gene_body_meth_vs_expression")
 # Per-region: promoter, exon methylation
 cat("  Computing per-region methylation per gene...\n")
 hits_prom <- findOverlaps(gr_all, promoters)
-prom_dt <- data.table(gene_id = promoters$gene_id[subjectHits(hits_prom)],
+prom_dt <- data.table(gene_id = promoters$ID[subjectHits(hits_prom)],
                        beta = ctrl_beta[queryHits(hits_prom)])
 prom_dt <- prom_dt[!is.na(beta)][, .(prom_beta = mean(beta)), by = gene_id]
 

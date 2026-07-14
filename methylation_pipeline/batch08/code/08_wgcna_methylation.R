@@ -119,7 +119,7 @@ if (match_col == "label") {
     tis <- matched_pre$tissue[i]
     cond <- matched_pre$condition[i]
     key <- paste0(tis, "_", cond)
-    tissue_counts[[key]] <- (tissue_counts[[key]] %||% 0L) + 1L
+    tissue_counts[[key]] <- if (is.null(tissue_counts[[key]])) 0L else tissue_counts[[key]] + 1L
     sample_labels[i] <- sprintf("%s_%s_%d",
       tools::toTitleCase(tis), tools::toTitleCase(cond), tissue_counts[[key]])
   }
@@ -633,13 +633,9 @@ hub_df$has_dmp <- !is.na(hub_df$n_dmp)
 
 # Add gene names if annotation available
 if (file.exists(OG$annot)) {
-  annot <- fread(OG$annot, header = TRUE)
-  name_col <- intersect(c("Name", "name", "gene_name", "display_name"), colnames(annot))
-  id_col   <- intersect(c("ID", "gene_id", "#gene_id"), colnames(annot))
-  if (length(name_col) > 0 && length(id_col) > 0) {
-    hub_df <- merge(hub_df, annot[, c(id_col[1], name_col[1]), with = FALSE],
-                    by.x = "gene_id", by.y = id_col[1], all.x = TRUE)
-  }
+  annot <- fread(OG$annot, header = FALSE, col.names = c("gene_id", "gene_name", "description"))
+  hub_df <- merge(hub_df, annot[, .(gene_id, gene_name)],
+                  by = "gene_id", all.x = TRUE)
 }
 
 hubs_only <- hub_df[hub_df$is_hub == TRUE, ]

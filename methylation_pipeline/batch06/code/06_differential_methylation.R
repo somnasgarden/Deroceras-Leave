@@ -399,7 +399,7 @@ if (n_dmr > 0) {
   n_hypo  <- sum(dmr_df$direction == "Hypo")
 
   # Top 10 DMRs by |areaStat| for labels
-  dmr_df$label <- paste0(dmr_df$seqnames, ":", format(dmr_df$start, big.mark = ","))
+  dmr_df$label <- paste0(dmr_df$chr, ":", format(dmr_df$start, big.mark = ","))
   top_dmrs <- dmr_df[order(-abs(dmr_df$areaStat)), ][1:min(10, nrow(dmr_df)), ]
 
   # Base volcano (no labels)

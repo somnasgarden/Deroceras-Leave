@@ -284,6 +284,11 @@ build_expanded_regions <- function(gff) {
   gene_strand <- as.character(strand(genes))
   tts <- ifelse(gene_strand == "+", end(genes), start(genes))
   chr_lens <- seqlengths(gff)[as.character(seqnames(genes))]
+  if (all(is.na(chr_lens))) {
+    genome <- load_genome()
+    chr_len_map <- setNames(nchar(genome), names(genome))
+    chr_lens <- chr_len_map[as.character(seqnames(genes))]
+  }
   down_start <- ifelse(gene_strand == "+", tts + 1L, pmax(1L, tts - 2000L))
   down_end   <- ifelse(gene_strand == "+", pmin(chr_lens, tts + 2000L), tts - 1L)
   valid_down <- !is.na(down_start) & !is.na(down_end) & down_start <= down_end

@@ -423,8 +423,6 @@ if (file.exists(CACHE$bsseq)) {
 
   seg_list <- vector("list", length(genes) * 4L)
   k <- 0L
-  valid_idx <- which(!is.na(gene_class) & genes$ID %in% keep_chr)
-  # Use all genes with a class assignment
   valid_idx <- which(!is.na(gene_class))
 
   for (gi in valid_idx) {

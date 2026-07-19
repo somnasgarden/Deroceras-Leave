@@ -647,7 +647,7 @@ p10i <- ggplot(win_dt, aes(x = mean_delta)) +
 save_fig(p10i, BATCH_DIR, "fig10i_window_entropy_distribution", w = 9, h = 6)
 
 # Fig 10J: Regional breakdown of entropy-gaining windows
-if (nrow(gain_windows) > 0) {
+if (nrow(gain_windows) > 0 && nrow(loss_windows) > 0) {
   gain_region_counts <- gain_windows[, .N, by = region]
   loss_region_counts <- loss_windows[, .N, by = region]
   gain_region_counts[, direction := "Gaining"]

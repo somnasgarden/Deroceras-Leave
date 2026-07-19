@@ -200,8 +200,8 @@ cat(sprintf("  4-CpG windows: %s (max span %d bp)\n",
 # COMPUTE PER-READ NME FOR EACH SAMPLE (per-chromosome for memory)
 # =============================================================================
 cat("[3/7] Computing per-read NME from BAMs...\n")
-cat("  This is the slowest step — processing 4 BAMs x %s windows.\n",
-    format(nrow(windows), big.mark = ","))
+cat(sprintf("  This is the slowest step — processing 4 BAMs x %s windows.\n",
+    format(nrow(windows), big.mark = ",")))
 
 # Process in chunks per chromosome to manage memory
 # Store results per sample
@@ -323,9 +323,6 @@ cat(sprintf("  Wilcoxon paired: p = %s\n", format(wt$p.value, digits = 3)))
 d <- mean(valid_windows$delta_nme) / sd(valid_windows$delta_nme)
 cat(sprintf("  Cohen's d: %.4f\n", d))
 
-save_data(valid_windows, BATCH_DIR, "perread_nme_windows")
-
-
 # =============================================================================
 # ANNOTATE WINDOWS BY REGION + DMP STATUS
 # =============================================================================
@@ -375,6 +372,27 @@ save_data(region_nme, BATCH_DIR, "perread_nme_by_region")
 # =============================================================================
 cat("\n[6/7] Drift vs reprogramming test...\n")
 
+# Compute win_beta (mean CpG beta per window) — needed by batch11 and drift test
+cpg_beta_dt <- data.table(
+  chr = cpg_dt$chr,
+  pos = cpg_dt$pos,
+  ctrl_beta = ctrl_beta[1:nrow(cpg_dt)],
+  ampu_beta = ampu_beta[1:nrow(cpg_dt)]
+)
+win_cpgs <- data.table(
+  win_idx = rep(seq_len(nrow(valid_windows)), each = 4L),
+  chr     = rep(valid_windows$chr, each = 4L),
+  pos     = as.vector(t(as.matrix(valid_windows[, .(cpg1, cpg2, cpg3, cpg4)])))
+)
+setkey(cpg_beta_dt, chr, pos)
+setkey(win_cpgs, chr, pos)
+win_cpgs <- cpg_beta_dt[win_cpgs, on = .(chr, pos), nomatch = NA]
+win_betas <- win_cpgs[, .(win_beta = mean(ctrl_beta, na.rm = TRUE)), by = win_idx]
+valid_windows[, win_beta := NA_real_]
+valid_windows[win_betas$win_idx, win_beta := win_betas$win_beta]
+
+save_data(valid_windows, BATCH_DIR, "perread_nme_windows")
+
 if (any(valid_windows$has_dmp)) {
   dmp_nme <- valid_windows[has_dmp == TRUE, .(mean_ctrl = mean(ctrl_nme), n = .N)]
   non_dmp_nme <- valid_windows[has_dmp == FALSE, .(mean_ctrl = mean(ctrl_nme), n = .N)]
@@ -383,29 +401,6 @@ if (any(valid_windows$has_dmp)) {
               dmp_nme$mean_ctrl, dmp_nme$n))
   cat(sprintf("  Non-DMP windows — baseline NME: %.4f (n = %d)\n",
               non_dmp_nme$mean_ctrl, non_dmp_nme$n))
-
-  # Matched comparison: compare DMP windows to non-DMP windows with similar beta
-  # Get mean beta for each window from Level 1 data
-  cpg_beta_dt <- data.table(
-    chr = cpg_dt$chr,
-    pos = cpg_dt$pos,
-    ctrl_beta = ctrl_beta[1:nrow(cpg_dt)],
-    ampu_beta = ampu_beta[1:nrow(cpg_dt)]
-  )
-
-  # Mean beta per window (from the 4 CpGs) — vectorized via data.table join
-  # Melt window CpG positions to long format for a single join
-  win_cpgs <- rbindlist(lapply(seq_len(nrow(valid_windows)), function(i) {
-    data.table(win_idx = i, chr = valid_windows$chr[i],
-               pos = c(valid_windows$cpg1[i], valid_windows$cpg2[i],
-                       valid_windows$cpg3[i], valid_windows$cpg4[i]))
-  }))
-  setkey(cpg_beta_dt, chr, pos)
-  setkey(win_cpgs, chr, pos)
-  win_cpgs <- cpg_beta_dt[win_cpgs, on = .(chr, pos), nomatch = NA]
-  win_betas <- win_cpgs[, .(win_beta = mean(ctrl_beta, na.rm = TRUE)), by = win_idx]
-  valid_windows[, win_beta := NA_real_]
-  valid_windows[win_betas$win_idx, win_beta := win_betas$win_beta]
 
   # Beta-matched comparison: for each DMP window, find non-DMP windows within +/-0.05 beta
   cat("  Beta-matched comparison (within +/-0.05)...\n")

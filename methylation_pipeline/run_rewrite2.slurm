@@ -10,7 +10,16 @@ set -euo pipefail
 
 # Batch 04 already done — run 05 → 08 → 07
 
-cd /mnt/data/alfredvar/rlopezt/repos/Deroceras-Leave
+if [ -f "${SLURM_SUBMIT_DIR}/methylation_pipeline/_config.R" ]; then
+  PROJECT_DIR="$SLURM_SUBMIT_DIR"
+elif [ -f "${SLURM_SUBMIT_DIR}/_config.R" ]; then
+  PROJECT_DIR="$(dirname "$SLURM_SUBMIT_DIR")"
+else
+  echo "ERROR: Cannot find _config.R"
+  exit 1
+fi
+
+cd "$PROJECT_DIR"
 mkdir -p cluster/logs
 
 echo "========================================"
@@ -22,7 +31,7 @@ for batch in 05 08 07; do
   script=$(ls methylation_pipeline/batch${batch}/code/*.R | head -1)
   echo ""
   echo "=== BATCH ${batch}: $(date) ==="
-  Rscript "$script" || { echo "ERROR: Batch ${batch} failed at $(date)"; continue; }
+  Rscript "$script" || { echo "ERROR: Batch ${batch} failed at $(date)"; exit 1; }
   echo "=== Batch ${batch} done: $(date) ==="
 done
 

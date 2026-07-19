@@ -2,8 +2,10 @@
 #SBATCH --job-name=meth_pipe
 #SBATCH --output=cluster/logs/pipeline_%j.out
 #SBATCH --error=cluster/logs/pipeline_%j.err
+#SBATCH --partition=defq
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=64G
+#SBATCH --time=48:00:00
 
 set -euo pipefail
 
@@ -42,7 +44,7 @@ echo "Started:      $(date)"
 echo "========================================"
 
 # Run each batch in order
-for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11; do
+for batch in 0.5 1.5 02 03 04 05 06 07 08 09 10 11 12 13; do
   script=$(ls methylation_pipeline/batch${batch}/code/*.R 2>/dev/null | head -1)
   if [ -z "$script" ]; then
     echo "SKIP: No script found for batch${batch}"

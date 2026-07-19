@@ -2,8 +2,10 @@
 #SBATCH --job-name=motif_annot
 #SBATCH --output=cluster/logs/slurm_%j.out
 #SBATCH --error=cluster/logs/slurm_%j.err
+#SBATCH --partition=defq
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
+#SBATCH --time=24:00:00
 
 set -euo pipefail
 
